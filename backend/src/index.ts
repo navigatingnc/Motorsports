@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/health', (req: Request, res: Response) => {
   res.json({ 
     status: 'ok', 
-    message: 'Diamond Apex Collective API is running',
+    message: 'Motorsports Management API is running',
     timestamp: new Date().toISOString()
   });
 });
@@ -24,7 +24,7 @@ app.get('/health', (req: Request, res: Response) => {
 // API routes will be added here
 app.get('/api', (req: Request, res: Response) => {
   res.json({ 
-    message: 'Diamond Apex Collective Motorsports API',
+    message: 'Motorsports Management API',
     version: '1.0.0'
   });
 });
@@ -32,7 +32,7 @@ app.get('/api', (req: Request, res: Response) => {
 // Start server
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
-  console.log(`🏁[motorsports]: Diamond Apex Collective API initialized`);
+  console.log(`🏁[motorsports]: Motorsports Management API initialized`);
 });
 
 export default app;

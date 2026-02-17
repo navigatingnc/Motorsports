@@ -1,4 +1,4 @@
-# Project Plan: Diamond Apex Collective Web App
+# Project Plan: Motorsports Management Web App
 
 ## 1. Technology Stack
 

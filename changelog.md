@@ -1,4 +1,4 @@
-# Changelog: Diamond Apex Collective Web App
+# Changelog: Motorsports Management Web App
 
 This log tracks the development progress of the motorsports management application. Each entry corresponds to a completed phase from the `project_plan.md`.
 
@@ -70,7 +70,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/health', (req: Request, res: Response) => {
   res.json({ 
     status: 'ok', 
-    message: 'Diamond Apex Collective API is running',
+    message: 'Motorsports Management API is running',
     timestamp: new Date().toISOString()
   });
 });
@@ -78,7 +78,7 @@ app.get('/health', (req: Request, res: Response) => {
 // API routes will be added here
 app.get('/api', (req: Request, res: Response) => {
   res.json({ 
-    message: 'Diamond Apex Collective Motorsports API',
+    message: 'Motorsports Management API',
     version: '1.0.0'
   });
 });

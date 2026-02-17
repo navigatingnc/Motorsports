@@ -1,6 +1,6 @@
 # Development Workflow
 
-This document describes the Git workflow for the Diamond Apex Collective web app development.
+This document describes the Git workflow for the motorsports management web app development.
 
 ## Branch Strategy
 

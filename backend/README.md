@@ -1,6 +1,6 @@
-# Diamond Apex Collective - Backend API
+# Motorsports Management - Backend API
 
-This is the backend API for the Diamond Apex Collective motorsports management application.
+This is the backend API for a universal motorsports team management application.
 
 ## Technology Stack
 

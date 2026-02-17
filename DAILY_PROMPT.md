@@ -5,7 +5,7 @@ Use this prompt for your scheduled task to execute the next phase of development
 ## Optimized Prompt
 
 ```
-Project: Diamond Apex Collective Web App
+Project: Motorsports Management Web App
 
 1. **Parse `project_plan.md`**: Identify the first phase with status "Not Started".
 2. **Create Branch**: Create a new branch named `phase-{number}-{short-description}` (e.g., `phase-2-vehicle-model`).
