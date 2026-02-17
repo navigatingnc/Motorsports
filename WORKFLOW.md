@@ -6,16 +6,12 @@ This document describes the Git workflow for the motorsports management web app 
 
 ### Main Branch
 - **Branch:** `main`
-- **Purpose:** Production-ready code
-- **Protection:** All changes must come through pull requests (except initial setup)
+- **Purpose:** Primary branch for all development phases. Automated updates are pushed directly here to maintain continuous progress.
 
-### Feature Branches
-- **Naming:** `phase-{number}-{short-description}`
-- **Examples:**
-  - `phase-2-vehicle-model`
-  - `phase-3-frontend-setup`
-  - `phase-4-event-model`
-- **Lifecycle:** Created for each phase, merged via PR, then deleted after merge
+### Feature Branches (Optional)
+- **Purpose:** May be used for complex manual features or experimental work.
+- **Naming:** `feature/{description}`
+- **Lifecycle:** Created as needed, merged via PR to `main`.
 
 ## Development Process
 
@@ -27,37 +23,25 @@ This document describes the Git workflow for the motorsports management web app 
    git pull origin main
    ```
 
-2. **Create Feature Branch**
-   ```bash
-   git checkout -b phase-{number}-{description}
-   ```
-
-3. **Develop & Commit**
+2. **Develop & Commit**
    ```bash
    git add .
-   git commit -m "Descriptive message"
+   git commit -m "Phase {number}: {Description}"
    ```
    - Make atomic commits with clear messages
    - Commit frequently as you complete sub-tasks
 
-4. **Update Documentation**
+3. **Update Documentation**
    - Update `changelog.md` with phase summary and code
    - Update `project_plan.md` to mark phase as "Done"
    - Commit documentation changes
 
-5. **Push & Create PR**
+4. **Push to Main**
    ```bash
-   git push origin phase-{number}-{description}
-   gh pr create --title "Phase {number}: {Title}" --body "{Summary}"
+   git push origin main
    ```
-
-6. **Auto-Merge**
-   ```bash
-   gh pr merge --merge --delete-branch
-   ```
-   - PR is automatically merged to main
-   - Feature branch is automatically deleted
-   - Process is fully automated
+   - Changes are pushed directly to the main branch
+   - Process is fully automated and streamlined
 
 ## Pull Request Template
 
@@ -104,16 +88,13 @@ Phase 3 will set up the React frontend with Vite and TypeScript.
 
 The scheduled task automatically:
 1. Identifies the next "Not Started" phase
-2. Creates a feature branch
-3. Executes all development tasks
-4. Commits changes with proper messages
-5. Updates documentation
-6. Pushes branch and opens PR
-7. Merges the PR immediately
-8. Deletes the feature branch
-9. Reports completion
+2. Executes all development tasks on the `main` branch
+3. Commits changes with proper messages
+4. Updates documentation (changelog, project plan)
+5. Pushes changes directly to `main`
+6. Reports completion
 
-**Fully automated** - No manual intervention required. Each morning, a new phase is completed and merged to main.
+**Fully automated** - No manual intervention required. Each morning, a new phase is completed and pushed to main.
 
 ## Best Practices
 
@@ -135,24 +116,23 @@ The scheduled task automatically:
 
 ## Emergency Procedures
 
-### If PR Has Conflicts
+### If Commit Has Conflicts
 ```bash
-git checkout phase-{number}-{description}
+git checkout main
 git fetch origin
 git rebase origin/main
 # Resolve conflicts
-git push --force-with-lease
+git push
 ```
 
-### If Need to Abandon Phase
+### If Need to Revert Phase
 ```bash
 git checkout main
-gh pr close {pr-number}
-git branch -D phase-{number}-{description}
+git revert HEAD # Or specific commit hash
+git push origin main
 ```
 
 ### If Need to Redo Phase
-1. Close the PR
-2. Delete the branch locally and remotely
-3. Mark phase as "Not Started" in `project_plan.md`
-4. Re-run the scheduled task
+1. Revert the changes in `main` if already pushed
+2. Mark phase as "Not Started" in `project_plan.md`
+3. Re-run the scheduled task
