@@ -17,7 +17,7 @@
 
 | Phase | Task Description | Status |
 | :--- | :--- | :--- |
-| **1** | **Backend: Project & DB Setup**<br>1. Init Node.js/TypeScript project.<br>2. Install Express, Prisma.<br>3. Docker Compose for PostgreSQL.<br>4. Init Prisma & connect to DB. | Not Started |
+| **1** | **Backend: Project & DB Setup**<br>1. Init Node.js/TypeScript project.<br>2. Install Express, Prisma.<br>3. Docker Compose for PostgreSQL.<br>4. Init Prisma & connect to DB. | Done |
 | **2** | **Backend: `Vehicle` Model & API**<br>1. Define `Vehicle` model in `schema.prisma`.<br>2. Run `prisma migrate` to create table.<br>3. Create controller & router for `/api/vehicles` CRUD. | Not Started |
 | **3** | **Frontend: Project Setup & Vehicle List**<br>1. Init React project (Vite/TypeScript).<br>2. Install Axios, React Router.<br>3. Create `VehicleListPage.tsx` to fetch & display vehicles. | Not Started |
 | **4** | **Backend: `Event` Model & API**<br>1. Define `Event` model in `schema.prisma`.<br>2. Run migration.<br>3. Create controller & router for `/api/events` CRUD. | Not Started |
