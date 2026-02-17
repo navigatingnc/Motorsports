@@ -1,6 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import vehicleRoutes from './routes/vehicle.routes';
 
 dotenv.config();
 
@@ -21,13 +22,16 @@ app.get('/health', (req: Request, res: Response) => {
   });
 });
 
-// API routes will be added here
+// API routes
 app.get('/api', (req: Request, res: Response) => {
   res.json({ 
     message: 'Motorsports Management API',
     version: '1.0.0'
   });
 });
+
+// Vehicle routes
+app.use('/api/vehicles', vehicleRoutes);
 
 // Start server
 app.listen(port, () => {
