@@ -19,8 +19,8 @@ Project: Diamond Apex Collective Web App
 7. **Push & PR**: Push the branch to GitHub and create a pull request with:
    - Title: "Phase {number}: {Phase Title}"
    - Description: Summary of changes from changelog
-   - Link to the PR in your response
-8. **Report**: State the goal of the next phase from `project_plan.md`.
+8. **Auto-Merge**: Immediately merge the PR using `gh pr merge --merge --delete-branch`.
+9. **Report**: State the goal of the next phase from `project_plan.md`.
 ```
 
 ## Schedule Configuration
@@ -38,11 +38,11 @@ Each phase follows this Git workflow:
 3. Develop and commit changes
 4. Update documentation (changelog, project plan)
 5. Push branch and open PR
-6. PR remains open for review
-7. You manually merge when ready
+6. Auto-merge PR immediately
+7. Feature branch is deleted automatically
 
 ## Notes
 
 - Phase 1 was committed directly to `main` (initial setup)
 - All subsequent phases (2+) will use the PR workflow
-- PRs should not be auto-merged - you review and merge manually
+- PRs are automatically merged after creation for continuous progress

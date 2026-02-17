@@ -51,11 +51,13 @@ This document describes the Git workflow for the Diamond Apex Collective web app
    gh pr create --title "Phase {number}: {Title}" --body "{Summary}"
    ```
 
-6. **Review & Merge**
-   - Review the PR on GitHub
-   - Check all changes are correct
-   - Merge when ready (manual step)
-   - Delete the feature branch after merge
+6. **Auto-Merge**
+   ```bash
+   gh pr merge --merge --delete-branch
+   ```
+   - PR is automatically merged to main
+   - Feature branch is automatically deleted
+   - Process is fully automated
 
 ## Pull Request Template
 
@@ -107,13 +109,11 @@ The scheduled task automatically:
 4. Commits changes with proper messages
 5. Updates documentation
 6. Pushes branch and opens PR
-7. Reports completion
+7. Merges the PR immediately
+8. Deletes the feature branch
+9. Reports completion
 
-**You manually:**
-- Review the PR
-- Test if needed
-- Merge the PR
-- Delete the branch
+**Fully automated** - No manual intervention required. Each morning, a new phase is completed and merged to main.
 
 ## Best Practices
 
