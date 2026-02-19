@@ -1,7 +1,10 @@
 import { PrismaClient } from './generated/prisma';
+import { PrismaPg } from '@prisma/adapter-pg';
 
-const prisma = new PrismaClient({
-  log: ['query', 'info', 'warn', 'error'],
-});
+const connectionString = process.env['DATABASE_URL'] ?? '';
+
+const adapter = new PrismaPg({ connectionString });
+
+const prisma = new PrismaClient({ adapter });
 
 export default prisma;
