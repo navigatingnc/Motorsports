@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import vehicleRoutes from './routes/vehicle.routes';
+import eventRoutes from './routes/event.routes';
 
 dotenv.config();
 
@@ -32,6 +33,9 @@ app.get('/api', (req: Request, res: Response) => {
 
 // Vehicle routes
 app.use('/api/vehicles', vehicleRoutes);
+
+// Event routes
+app.use('/api/events', eventRoutes);
 
 // Start server
 app.listen(port, () => {
