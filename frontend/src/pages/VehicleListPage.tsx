@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { vehicleService } from '../services/vehicleService';
-import { Vehicle } from '../types/vehicle';
+import type { Vehicle } from '../types/vehicle';
 
 const VehicleListPage = () => {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
