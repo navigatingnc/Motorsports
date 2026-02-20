@@ -1,5 +1,5 @@
 import api from './api';
-import { Vehicle, CreateVehicleDto } from '../types/vehicle';
+import type { Vehicle, CreateVehicleDto } from '../types/vehicle';
 
 export const vehicleService = {
   // Get all vehicles
