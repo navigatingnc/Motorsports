@@ -9,7 +9,10 @@ const api = axios.create({
   },
 });
 
-// Request interceptor for adding auth token
+/**
+ * Request interceptor: attach the JWT Bearer token from localStorage
+ * to every outgoing request if one is present.
+ */
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -18,19 +21,24 @@ api.interceptors.request.use(
     }
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
-// Response interceptor for handling errors
+/**
+ * Response interceptor: on a 401 Unauthorized response, clear stored
+ * credentials and redirect the user to the login page so they can
+ * re-authenticate.
+ */
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // Handle unauthorized access
       localStorage.removeItem('token');
-      window.location.href = '/login';
+      localStorage.removeItem('user');
+      // Only redirect if we are not already on an auth page to avoid loops
+      if (!window.location.pathname.startsWith('/login') && !window.location.pathname.startsWith('/register')) {
+        window.location.href = '/login';
+      }
     }
     return Promise.reject(error);
   }
