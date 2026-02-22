@@ -25,6 +25,8 @@ model Vehicle {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
+  setupSheets SetupSheet[]
+
   @@map("vehicles")
 }
 
@@ -42,6 +44,8 @@ model Event {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
+  setupSheets SetupSheet[]
+
   @@map("events")
 }
 
@@ -57,6 +61,7 @@ model User {
   updatedAt    DateTime @updatedAt
 
   driver       Driver?
+  setupSheets  SetupSheet[]
 
   @@map("users")
 }
@@ -76,4 +81,70 @@ model Driver {
   user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("drivers")
+}
+
+model SetupSheet {
+  id          String   @id @default(uuid())
+
+  // Relations
+  vehicleId   String
+  eventId     String
+  createdById String
+
+  vehicle     Vehicle  @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+  event       Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  createdBy   User     @relation(fields: [createdById], references: [id])
+
+  // Session context
+  sessionType String   // e.g., "Practice", "Qualifying", "Race", "Test"
+  sessionNumber Int?   // e.g., 1, 2, 3 for multiple practice sessions
+
+  // Tyre setup
+  tyreFrontLeft   String?
+  tyreFrontRight  String?
+  tyreRearLeft    String?
+  tyreRearRight   String?
+  tyrePressureFrontLeft  Float?  // PSI
+  tyrePressureFrontRight Float?  // PSI
+  tyrePressureRearLeft   Float?  // PSI
+  tyrePressureRearRight  Float?  // PSI
+
+  // Suspension setup
+  rideHeightFront Float?  // mm
+  rideHeightRear  Float?  // mm
+  springRateFront Float?  // N/mm
+  springRateRear  Float?  // N/mm
+  damperFront     String?
+  damperRear      String?
+  camberFront     Float?  // degrees
+  camberRear      Float?  // degrees
+  toeInFront      Float?  // mm or degrees
+  toeInRear       Float?  // mm or degrees
+
+  // Aerodynamics
+  frontWingAngle  Float?  // degrees
+  rearWingAngle   Float?  // degrees
+  downforceLevel  String? // e.g., "Low", "Medium", "High"
+
+  // Brakes
+  brakeBias       Float?  // percentage front
+  brakeCompound   String?
+
+  // Engine / Drivetrain
+  engineMap       String?
+  differentialEntry Float? // percentage
+  differentialMid   Float? // percentage
+  differentialExit  Float? // percentage
+
+  // Fuel
+  fuelLoad        Float?  // litres or kg
+
+  // Notes & observations
+  notes           String? @db.Text
+  driverFeedback  String? @db.Text
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("setup_sheets")
 }
