@@ -5,6 +5,7 @@ import vehicleRoutes from './routes/vehicle.routes';
 import eventRoutes from './routes/event.routes';
 import authRoutes from './routes/auth.routes';
 import driverRoutes from './routes/driver.routes';
+import setupRoutes from './routes/setup.routes';
 
 dotenv.config();
 
@@ -35,6 +36,7 @@ app.get('/api', (req: Request, res: Response) => {
       vehicles: '/api/vehicles',
       events: '/api/events',
       drivers: '/api/drivers',
+      setups: '/api/setups',
     }
   });
 });
@@ -50,6 +52,9 @@ app.use('/api/events', eventRoutes);
 
 // Driver routes (protected)
 app.use('/api/drivers', driverRoutes);
+
+// Setup sheet routes (protected)
+app.use('/api/setups', setupRoutes);
 
 // Start server
 app.listen(port, () => {
