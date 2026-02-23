@@ -1,7 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
+import '../setup.css';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { eventService } from '../services/eventService';
+import { vehicleService } from '../services/vehicleService';
+import { setupService } from '../services/setupService';
 import type { Event } from '../types/event';
+import type { Vehicle } from '../types/vehicle';
+import type { SetupSheet } from '../types/setup';
+import SetupSheetForm from '../components/SetupSheetForm';
+import SetupSheetCard from '../components/SetupSheetCard';
 
 const STATUS_CLASS_MAP: Record<string, string> = {
   Upcoming: 'status-upcoming',
@@ -32,13 +39,22 @@ const formatDateTime = (dateStr: string): string => {
 const EventDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+
   const [event, setEvent] = useState<Event | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Setup sheet state
+  const [setups, setSetups] = useState<SetupSheet[]>([]);
+  const [setupsLoading, setSetupsLoading] = useState<boolean>(false);
+  const [vehicles, setVehicles] = useState<Vehicle[]>([]);
+  const [showSetupForm, setShowSetupForm] = useState<boolean>(false);
+
   useEffect(() => {
     if (id) {
-      fetchEvent(id);
+      void fetchEvent(id);
+      void fetchSetups(id);
+      void fetchVehicles();
     }
   }, [id]);
 
@@ -56,9 +72,34 @@ const EventDetailPage = () => {
     }
   };
 
+  const fetchSetups = useCallback(async (eventId: string) => {
+    try {
+      setSetupsLoading(true);
+      const data = await setupService.getAllSetups({ eventId });
+      setSetups(data);
+    } catch (err) {
+      console.error('Error fetching setup sheets:', err);
+    } finally {
+      setSetupsLoading(false);
+    }
+  }, []);
+
+  const fetchVehicles = async () => {
+    try {
+      const data = await vehicleService.getAllVehicles();
+      setVehicles(data);
+    } catch (err) {
+      console.error('Error fetching vehicles:', err);
+    }
+  };
+
   const handleDelete = async () => {
     if (!event) return;
-    if (!window.confirm(`Are you sure you want to delete "${event.name}"? This action cannot be undone.`)) {
+    if (
+      !window.confirm(
+        `Are you sure you want to delete "${event.name}"? This action cannot be undone.`
+      )
+    ) {
       return;
     }
     try {
@@ -69,6 +110,16 @@ const EventDetailPage = () => {
       console.error('Error deleting event:', err);
     }
   };
+
+  const handleSetupFormSuccess = () => {
+    setShowSetupForm(false);
+    if (id) void fetchSetups(id);
+  };
+
+  const vehicleOptions = vehicles.map((v) => ({
+    id: v.id,
+    label: `${v.year} ${v.make} ${v.model}${v.number ? ` #${v.number}` : ''}`,
+  }));
 
   if (loading) {
     return (
@@ -82,7 +133,11 @@ const EventDetailPage = () => {
     return (
       <div className="container">
         <div className="error">{error ?? 'Event not found.'}</div>
-        <Link to="/events" className="btn-secondary" style={{ marginTop: '1rem', display: 'inline-block' }}>
+        <Link
+          to="/events"
+          className="btn-secondary"
+          style={{ marginTop: '1rem', display: 'inline-block' }}
+        >
           Back to Events
         </Link>
       </div>
@@ -162,7 +217,6 @@ const EventDetailPage = () => {
             ) : (
               <p className="detail-empty-text">No description provided.</p>
             )}
-
             {event.notes && (
               <div className="detail-field detail-field--full">
                 <span className="detail-field-label">Notes</span>
@@ -191,6 +245,56 @@ const EventDetailPage = () => {
           </div>
         </div>
       </div>
+
+      {/* ── Setup Sheets Section ──────────────────────────────────── */}
+      <section className="setup-sheets-section">
+        <div className="setup-sheets-header">
+          <h2 className="setup-sheets-title">
+            Setup Sheets
+            <span className="setup-sheets-count">{setups.length}</span>
+          </h2>
+          <button className="btn-primary" onClick={() => setShowSetupForm(true)}>
+            + New Setup Sheet
+          </button>
+        </div>
+
+        {setupsLoading ? (
+          <div className="loading">Loading setup sheets...</div>
+        ) : setups.length === 0 ? (
+          <div className="setup-sheets-empty">
+            <p>No setup sheets recorded for this event yet.</p>
+            <button
+              className="btn-primary"
+              style={{ marginTop: '0.75rem' }}
+              onClick={() => setShowSetupForm(true)}
+            >
+              Create First Setup Sheet
+            </button>
+          </div>
+        ) : (
+          <div className="setup-sheets-list">
+            {setups.map((setup) => (
+              <SetupSheetCard
+                key={setup.id}
+                setup={setup}
+                onDeleted={() => {
+                  if (id) void fetchSetups(id);
+                }}
+              />
+            ))}
+          </div>
+        )}
+      </section>
+
+      {/* Setup Sheet Form Modal */}
+      {showSetupForm && (
+        <SetupSheetForm
+          eventId={event.id}
+          vehicleOptions={vehicleOptions}
+          onSuccess={handleSetupFormSuccess}
+          onCancel={() => setShowSetupForm(false)}
+        />
+      )}
     </div>
   );
 };

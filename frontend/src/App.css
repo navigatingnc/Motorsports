@@ -743,3 +743,6 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* === Setup Sheets === */
+.setup-sheets-section { margin-top: 2.5rem; }

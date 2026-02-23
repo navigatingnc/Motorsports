@@ -25,4 +25,4 @@
 | **6** | **Backend: `User` & `Driver` Models & Auth**<br>1. Define `User`/`Driver` models in Prisma.<br>2. Implement `/api/auth/register` & `/api/auth/login` endpoints.<br>3. Use bcrypt for hashing & JWT for tokens. | Done |
 | **7** | **Frontend: Authentication Flow**<br>1. Create `LoginPage.tsx` & `RegisterPage.tsx`.<br>2. Store JWT securely on login.<br>3. Set up Axios interceptor to add auth token to requests. | Done |
 | **8** | **Backend: `SetupSheet` Model & Relations**<br>1. Define `SetupSheet` model in Prisma.<br>2. Create relations to `Vehicle` and `Event`.<br>3. Build protected `/api/setups` endpoints. | Done |
-| **9** | **Frontend: Digital Setup Sheet Form**<br>1. Create `SetupSheetForm.tsx` component.<br>2. Form POSTs data to `/api/setups`.<br>3. Display setups on `EventDetailPage`. | Not Started |
+| **9** | **Frontend: Digital Setup Sheet Form**<br>1. Create `SetupSheetForm.tsx` component.<br>2. Form POSTs data to `/api/setups`.<br>3. Display setups on `EventDetailPage`. | Done |
