@@ -1,13 +1,13 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import vehicleRoutes from './routes/vehicle.routes';
 import eventRoutes from './routes/event.routes';
 import authRoutes from './routes/auth.routes';
 import driverRoutes from './routes/driver.routes';
 import setupRoutes from './routes/setup.routes';
-
-dotenv.config();
 
 const app: Express = express();
 const port = process.env['PORT'] || 3000;
