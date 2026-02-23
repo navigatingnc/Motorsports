@@ -98,6 +98,7 @@ cd Motorsports
 cd backend
 
 # Install dependencies
+npx prisma generate
 npm install
 
 # Start the development server
