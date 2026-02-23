@@ -94,16 +94,18 @@ Motorsports/
 git clone https://github.com/navigatingnc/Motorsports.git
 cd Motorsports
 
-# Navigate to the backend
-cd backend
+# Install dependencies (backend + frontend)
+pnpm --dir backend install
+pnpm --dir frontend install
 
-# Install dependencies
-npx prisma generate
-npm install
+# Generate Prisma client for backend
+pnpm --dir backend prisma:generate
 
-# Start the development server
-npm run dev
+# Start backend + frontend with one command
+./dev-start.sh
 ```
+
+> `dev-start.sh` will use `pnpm` when available and fall back to `npm`.
 
 ---
 
