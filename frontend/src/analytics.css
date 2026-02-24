@@ -1,0 +1,247 @@
+/* ─── Analytics Dashboard Styles ─────────────────────────────────────────── */
+
+.analytics-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.analytics-title {
+  font-size: 2rem;
+  color: var(--text-primary);
+  margin: 0 0 0.25rem 0;
+}
+
+.analytics-subtitle {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* Event filter */
+.analytics-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 260px;
+}
+
+.analytics-filter-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.analytics-select {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 0.95rem;
+  background-color: var(--card-background);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.analytics-select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+/* ─── Summary Stat Cards ──────────────────────────────────────────────────── */
+
+.analytics-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.analytics-stat-card {
+  background-color: var(--card-background);
+  border-radius: 8px;
+  padding: 1.5rem 1.25rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  border-left: 4px solid var(--primary-color);
+}
+
+.analytics-stat-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.analytics-stat-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+/* ─── Empty State ─────────────────────────────────────────────────────────── */
+
+.analytics-empty {
+  text-align: center;
+  padding: 4rem 2rem;
+  background-color: var(--card-background);
+  border-radius: 8px;
+  border: 2px dashed var(--border-color);
+}
+
+.analytics-empty-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.analytics-empty h2 {
+  font-size: 1.4rem;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.analytics-empty p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.analytics-empty code {
+  background-color: #f0f0f0;
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+/* ─── Chart Sections ──────────────────────────────────────────────────────── */
+
+.analytics-chart-section {
+  background-color: var(--card-background);
+  border-radius: 8px;
+  padding: 1.75rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  margin-bottom: 1.75rem;
+}
+
+.analytics-chart-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 0.4rem 0;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.analytics-chart-desc {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin: 0.5rem 0 1.25rem 0;
+}
+
+.analytics-chart-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* ─── Custom Recharts Tooltip ─────────────────────────────────────────────── */
+
+.chart-tooltip {
+  background-color: rgba(26, 26, 26, 0.92);
+  border-radius: 6px;
+  padding: 0.65rem 0.9rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.chart-tooltip-label {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.35rem;
+}
+
+.chart-tooltip-entry {
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+  margin: 0.2rem 0;
+}
+
+/* ─── Leaderboard Table ───────────────────────────────────────────────────── */
+
+.analytics-table-wrapper {
+  overflow-x: auto;
+}
+
+.analytics-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.analytics-table th {
+  text-align: left;
+  padding: 0.65rem 1rem;
+  background-color: var(--secondary-color);
+  color: white;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.analytics-table th:first-child {
+  border-radius: 4px 0 0 0;
+}
+
+.analytics-table th:last-child {
+  border-radius: 0 4px 0 0;
+}
+
+.analytics-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.analytics-table tr:last-child td {
+  border-bottom: none;
+}
+
+.analytics-table tr:hover td {
+  background-color: #f9f9f9;
+}
+
+.analytics-table-row--first td {
+  background-color: #fff8e1;
+  font-weight: 600;
+}
+
+.analytics-table-row--first:hover td {
+  background-color: #fff3cd;
+}
+
+.analytics-table-rank {
+  font-size: 1.1rem;
+  text-align: center;
+  width: 60px;
+}
+
+.analytics-table-time {
+  font-variant-numeric: tabular-nums;
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  color: var(--primary-color);
+}

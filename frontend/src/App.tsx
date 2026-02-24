@@ -6,6 +6,7 @@ import EventListPage from './pages/EventListPage';
 import EventDetailPage from './pages/EventDetailPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import AnalyticsDashboardPage from './pages/AnalyticsDashboardPage';
 import './App.css';
 
 // Inner component that has access to the Router context
@@ -40,6 +41,14 @@ const AppLayout = () => {
                     className={({ isActive }) => isActive ? 'nav-link nav-link--active' : 'nav-link'}
                   >
                     Events
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/analytics"
+                    className={({ isActive }) => isActive ? 'nav-link nav-link--active' : 'nav-link'}
+                  >
+                    Analytics
                   </NavLink>
                 </li>
                 <li className="nav-user-info">
@@ -153,6 +162,16 @@ const AppLayout = () => {
             element={
               <ProtectedRoute>
                 <div className="container"><p>Edit Event (Coming Soon)</p></div>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Analytics Dashboard */}
+          <Route
+            path="/analytics"
+            element={
+              <ProtectedRoute>
+                <AnalyticsDashboardPage />
               </ProtectedRoute>
             }
           />
