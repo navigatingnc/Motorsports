@@ -746,3 +746,239 @@ body {
 
 /* === Setup Sheets === */
 .setup-sheets-section { margin-top: 2.5rem; }
+
+
+/* ============================================================
+   Phase 11: Vehicle Detail, Vehicle Form and Drivers Page
+   ============================================================ */
+
+.vehicle-number-badge {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  margin-left: 0.75rem;
+  vertical-align: middle;
+}
+
+.vehicle-category-tag {
+  display: inline-block;
+  background-color: rgba(225, 6, 0, 0.08);
+  color: var(--primary-color);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.2rem 0.65rem;
+  border-radius: 20px;
+  margin-top: 0.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.vehicle-best-lap {
+  font-family: "Courier New", monospace;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.vehicle-laptimes-section { margin-top: 2.5rem; }
+
+.vehicle-laptimes-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.vehicle-laptimes-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.vehicle-laptimes-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  padding: 0 0.4rem;
+  border-radius: 10px;
+}
+
+.vehicle-laptimes-empty {
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.vehicle-laptimes-table-wrapper {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.vehicle-laptimes-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.vehicle-laptimes-table thead { background-color: #f5f5f5; }
+
+.vehicle-laptimes-table th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  border-bottom: 2px solid var(--border-color);
+  white-space: nowrap;
+}
+
+.vehicle-laptimes-table td {
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+  vertical-align: middle;
+}
+
+.vehicle-laptimes-table tbody tr:last-child td { border-bottom: none; }
+.vehicle-laptimes-table tbody tr:hover { background-color: rgba(0,0,0,0.02); }
+.laptime-row--best td { background-color: rgba(225, 6, 0, 0.04); }
+
+.laptime-event-link { color: var(--primary-color); text-decoration: none; font-weight: 500; }
+.laptime-event-link:hover { text-decoration: underline; }
+.laptime-number { font-weight: 600; text-align: center; }
+.laptime-time { font-family: "Courier New", monospace; font-weight: 600; white-space: nowrap; }
+.laptime-sector { font-family: "Courier New", monospace; font-size: 0.85rem; color: var(--text-secondary); }
+.laptime-best-badge { color: #f59e0b; margin-left: 0.4rem; font-size: 0.85rem; }
+
+.laptime-valid-badge { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+.laptime-valid-badge--valid { background-color: #d1fae5; color: #065f46; }
+.laptime-valid-badge--invalid { background-color: #fee2e2; color: #991b1b; }
+
+.vehicle-form-card {
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 2rem;
+  max-width: 720px;
+}
+
+.form-error-banner {
+  background-color: #fce4ec;
+  color: #c62828;
+  border: 1px solid #ef9a9a;
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.vehicle-form-fieldset { border: none; padding: 0; margin: 0 0 1.75rem 0; }
+
+.vehicle-form-legend {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1.1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--primary-color);
+  width: 100%;
+  display: block;
+}
+
+.form-textarea { resize: vertical; min-height: 90px; font-family: inherit; }
+.form-input--error { border-color: #e53e3e !important; box-shadow: 0 0 0 3px rgba(229,62,62,0.12) !important; }
+.form-field-error { font-size: 0.8rem; color: #c62828; margin-top: 0.2rem; }
+.form-required { color: var(--primary-color); }
+
+.vehicle-form-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  margin-top: 0.5rem;
+}
+
+.driver-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.driver-card {
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: box-shadow 0.2s ease;
+}
+
+.driver-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+
+.driver-card-avatar {
+  width: 56px; height: 56px; border-radius: 50%;
+  background-color: var(--primary-color);
+  display: flex; align-items: center; justify-content: center;
+}
+
+.driver-card-initials { color: #fff; font-size: 1.2rem; font-weight: 700; letter-spacing: 0.05em; }
+.driver-card-identity { display: flex; flex-direction: column; gap: 0.2rem; }
+.driver-card-name { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin: 0; }
+.driver-card-email { font-size: 0.85rem; color: var(--text-secondary); margin: 0; }
+
+.driver-card-role {
+  display: inline-block; font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  padding: 0.15rem 0.5rem; border-radius: 4px; margin-top: 0.25rem; width: fit-content;
+}
+
+.driver-card-role--admin { background-color: rgba(225,6,0,0.1); color: var(--primary-color); }
+.driver-card-role--user { background-color: rgba(26,115,232,0.1); color: #1a73e8; }
+.driver-card-role--viewer { background-color: rgba(0,0,0,0.06); color: var(--text-secondary); }
+
+.driver-card-details { display: flex; flex-direction: column; gap: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--border-color); }
+.driver-detail-item { display: flex; flex-direction: column; gap: 0.1rem; }
+.driver-detail-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary); font-weight: 600; }
+.driver-detail-value { font-size: 0.9rem; color: var(--text-primary); }
+.driver-detail-value--mono { font-family: "Courier New", monospace; font-size: 0.82rem; }
+
+.driver-card-bio { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5; font-style: italic; border-top: 1px solid var(--border-color); padding-top: 0.75rem; }
+.driver-card-bio p { margin: 0; }
+
+.driver-card-footer { margin-top: auto; padding-top: 0.75rem; border-top: 1px solid var(--border-color); display: flex; justify-content: flex-end; }
+.btn-sm { padding: 0.35rem 0.75rem; font-size: 0.85rem; }
+
+.detail-page-header-left { display: flex; flex-direction: column; gap: 0.3rem; }
+.detail-back-link { font-size: 0.85rem; color: var(--text-secondary); text-decoration: none; transition: color 0.2s ease; }
+.detail-back-link:hover { color: var(--primary-color); }
+.detail-page-header-actions { display: flex; gap: 0.75rem; align-items: center; flex-shrink: 0; }
+
+@media (max-width: 768px) {
+  .driver-grid { grid-template-columns: 1fr; }
+  .vehicle-form-card { padding: 1.25rem; }
+  .vehicle-laptimes-table th, .vehicle-laptimes-table td { padding: 0.5rem 0.6rem; font-size: 0.8rem; }
+  .detail-page-header-actions { width: 100%; justify-content: flex-start; }
+}

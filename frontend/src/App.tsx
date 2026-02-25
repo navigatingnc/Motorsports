@@ -2,11 +2,14 @@ import { BrowserRouter as Router, Routes, Route, Navigate, NavLink, useNavigate 
 import { AuthProvider, useAuth } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import VehicleListPage from './pages/VehicleListPage';
+import VehicleDetailPage from './pages/VehicleDetailPage';
+import VehicleFormPage from './pages/VehicleFormPage';
 import EventListPage from './pages/EventListPage';
 import EventDetailPage from './pages/EventDetailPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import AnalyticsDashboardPage from './pages/AnalyticsDashboardPage';
+import DriversPage from './pages/DriversPage';
 import './App.css';
 
 // Inner component that has access to the Router context
@@ -41,6 +44,14 @@ const AppLayout = () => {
                     className={({ isActive }) => isActive ? 'nav-link nav-link--active' : 'nav-link'}
                   >
                     Events
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/drivers"
+                    className={({ isActive }) => isActive ? 'nav-link nav-link--active' : 'nav-link'}
+                  >
+                    Drivers
                   </NavLink>
                 </li>
                 <li>
@@ -101,6 +112,16 @@ const AppLayout = () => {
               </ProtectedRoute>
             }
           />
+
+          {/* Vehicle routes — /vehicles/new MUST come before /vehicles/:id */}
+          <Route
+            path="/vehicles/new"
+            element={
+              <ProtectedRoute>
+                <VehicleFormPage />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/vehicles"
             element={
@@ -110,29 +131,23 @@ const AppLayout = () => {
             }
           />
           <Route
-            path="/vehicles/:id"
-            element={
-              <ProtectedRoute>
-                <div className="container"><p>Vehicle Detail (Coming Soon)</p></div>
-              </ProtectedRoute>
-            }
-          />
-          <Route
             path="/vehicles/:id/edit"
             element={
               <ProtectedRoute>
-                <div className="container"><p>Edit Vehicle (Coming Soon)</p></div>
+                <VehicleFormPage />
               </ProtectedRoute>
             }
           />
           <Route
-            path="/vehicles/new"
+            path="/vehicles/:id"
             element={
               <ProtectedRoute>
-                <div className="container"><p>New Vehicle (Coming Soon)</p></div>
+                <VehicleDetailPage />
               </ProtectedRoute>
             }
           />
+
+          {/* Event routes */}
           <Route
             path="/events"
             element={
@@ -162,6 +177,16 @@ const AppLayout = () => {
             element={
               <ProtectedRoute>
                 <div className="container"><p>Edit Event (Coming Soon)</p></div>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Drivers */}
+          <Route
+            path="/drivers"
+            element={
+              <ProtectedRoute>
+                <DriversPage />
               </ProtectedRoute>
             }
           />
