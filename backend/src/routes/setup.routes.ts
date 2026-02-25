@@ -6,26 +6,20 @@ import {
   updateSetupSheet,
   deleteSetupSheet,
 } from '../controllers/setup.controller';
-import { authenticate } from '../middleware/auth.middleware';
+import { authenticate, requireRole } from '../middleware/auth.middleware';
 
 const router: Router = Router();
 
 // All setup routes require authentication
 router.use(authenticate);
 
-// GET /api/setups - Get all setup sheets (supports ?eventId= and ?vehicleId= query params)
+// GET routes — all authenticated roles (admin, user, viewer)
 router.get('/', getAllSetupSheets);
-
-// GET /api/setups/:id - Get a single setup sheet by ID
 router.get('/:id', getSetupSheetById);
 
-// POST /api/setups - Create a new setup sheet
-router.post('/', createSetupSheet);
-
-// PUT /api/setups/:id - Update a setup sheet
-router.put('/:id', updateSetupSheet);
-
-// DELETE /api/setups/:id - Delete a setup sheet
-router.delete('/:id', deleteSetupSheet);
+// Write routes — admin and user only (viewers excluded)
+router.post('/', requireRole('admin', 'user'), createSetupSheet);
+router.put('/:id', requireRole('admin', 'user'), updateSetupSheet);
+router.delete('/:id', requireRole('admin', 'user'), deleteSetupSheet);
 
 export default router;

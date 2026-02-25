@@ -6,22 +6,20 @@ import {
   updateEvent,
   deleteEvent,
 } from '../controllers/event.controller';
+import { authenticate, requireRole } from '../middleware/auth.middleware';
 
 const router: Router = Router();
 
-// GET /api/events - Get all events
-router.get('/', getAllEvents);
+// All event routes require authentication
+router.use(authenticate);
 
-// GET /api/events/:id - Get a single event by ID
+// GET routes — all authenticated roles (admin, user, viewer)
+router.get('/', getAllEvents);
 router.get('/:id', getEventById);
 
-// POST /api/events - Create a new event
-router.post('/', createEvent);
-
-// PUT /api/events/:id - Update an event
-router.put('/:id', updateEvent);
-
-// DELETE /api/events/:id - Delete an event
-router.delete('/:id', deleteEvent);
+// Write routes — admin and user only (viewers excluded)
+router.post('/', requireRole('admin', 'user'), createEvent);
+router.put('/:id', requireRole('admin', 'user'), updateEvent);
+router.delete('/:id', requireRole('admin', 'user'), deleteEvent);
 
 export default router;

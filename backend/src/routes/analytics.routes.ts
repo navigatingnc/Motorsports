@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { authenticate } from '../middleware/auth.middleware';
+import { authenticate, requireRole } from '../middleware/auth.middleware';
 import {
   recordLapTime,
   getLapTimes,
@@ -14,14 +14,14 @@ const router: Router = Router();
 // All analytics routes require authentication
 router.use(authenticate);
 
-// Summary / aggregated analytics
+// GET routes — all authenticated roles (admin, user, viewer)
 router.get('/summary', getAnalyticsSummary);
-
-// Lap time CRUD
 router.get('/laptimes', getLapTimes);
-router.post('/laptimes', recordLapTime);
 router.get('/laptimes/:id', getLapTimeById);
-router.put('/laptimes/:id', updateLapTime);
-router.delete('/laptimes/:id', deleteLapTime);
+
+// Write routes — admin and user only (viewers excluded)
+router.post('/laptimes', requireRole('admin', 'user'), recordLapTime);
+router.put('/laptimes/:id', requireRole('admin', 'user'), updateLapTime);
+router.delete('/laptimes/:id', requireRole('admin', 'user'), deleteLapTime);
 
 export default router;
