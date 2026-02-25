@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, NavLink, useNavigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
+import RoleGuard from './components/RoleGuard';
 import VehicleListPage from './pages/VehicleListPage';
 import VehicleDetailPage from './pages/VehicleDetailPage';
 import VehicleFormPage from './pages/VehicleFormPage';
@@ -10,6 +11,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import AnalyticsDashboardPage from './pages/AnalyticsDashboardPage';
 import DriversPage from './pages/DriversPage';
+import AdminPanelPage from './pages/AdminPanelPage';
 import './App.css';
 
 // Inner component that has access to the Router context
@@ -22,6 +24,7 @@ const AppLayout = () => {
     navigate('/login', { replace: true });
   };
 
+  const isAdmin = user?.role === 'admin';
   return (
     <div className="app">
       <nav className="navbar">
@@ -62,11 +65,21 @@ const AppLayout = () => {
                     Analytics
                   </NavLink>
                 </li>
+                {isAdmin && (
+                  <li>
+                    <NavLink
+                      to="/admin"
+                      className={({ isActive }) => isActive ? 'nav-link nav-link--active nav-link--admin' : 'nav-link nav-link--admin'}
+                    >
+                      Admin
+                    </NavLink>
+                  </li>
+                )}
                 <li className="nav-user-info">
                   <span className="nav-user-name">
                     {user?.firstName} {user?.lastName}
                   </span>
-                  <span className="nav-user-role">{user?.role}</span>
+                  <span className={`nav-user-role nav-user-role--${user?.role}`}>{user?.role}</span>
                 </li>
                 <li>
                   <button onClick={handleLogout} className="btn-logout">
@@ -118,7 +131,9 @@ const AppLayout = () => {
             path="/vehicles/new"
             element={
               <ProtectedRoute>
-                <VehicleFormPage />
+                <RoleGuard allowedRoles={['admin', 'user']}>
+                  <VehicleFormPage />
+                </RoleGuard>
               </ProtectedRoute>
             }
           />
@@ -134,7 +149,9 @@ const AppLayout = () => {
             path="/vehicles/:id/edit"
             element={
               <ProtectedRoute>
-                <VehicleFormPage />
+                <RoleGuard allowedRoles={['admin', 'user']}>
+                  <VehicleFormPage />
+                </RoleGuard>
               </ProtectedRoute>
             }
           />
@@ -168,7 +185,9 @@ const AppLayout = () => {
             path="/events/new"
             element={
               <ProtectedRoute>
-                <div className="container"><p>New Event (Coming Soon)</p></div>
+                <RoleGuard allowedRoles={['admin', 'user']}>
+                  <div className="container"><p>New Event (Coming Soon)</p></div>
+                </RoleGuard>
               </ProtectedRoute>
             }
           />
@@ -176,7 +195,9 @@ const AppLayout = () => {
             path="/events/:id/edit"
             element={
               <ProtectedRoute>
-                <div className="container"><p>Edit Event (Coming Soon)</p></div>
+                <RoleGuard allowedRoles={['admin', 'user']}>
+                  <div className="container"><p>Edit Event (Coming Soon)</p></div>
+                </RoleGuard>
               </ProtectedRoute>
             }
           />
@@ -197,6 +218,18 @@ const AppLayout = () => {
             element={
               <ProtectedRoute>
                 <AnalyticsDashboardPage />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Admin Panel — admin role only */}
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute>
+                <RoleGuard allowedRoles={['admin']}>
+                  <AdminPanelPage />
+                </RoleGuard>
               </ProtectedRoute>
             }
           />

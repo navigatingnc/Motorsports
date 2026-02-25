@@ -70,3 +70,33 @@ export const requireAdmin = (req: Request, res: Response, next: NextFunction): v
 
   next();
 };
+
+/**
+ * Flexible role-based authorization middleware.
+ * Accepts one or more roles that are allowed to access the route.
+ *
+ * Usage:
+ *   router.get('/secret', authenticate, requireRole('admin'), handler);
+ *   router.post('/data', authenticate, requireRole('admin', 'user'), handler);
+ */
+export const requireRole = (...allowedRoles: string[]) => {
+  return (req: Request, res: Response, next: NextFunction): void => {
+    if (!req.user) {
+      res.status(401).json({
+        success: false,
+        error: 'Authentication required.',
+      });
+      return;
+    }
+
+    if (!allowedRoles.includes(req.user.role)) {
+      res.status(403).json({
+        success: false,
+        error: `Access denied. Required role(s): ${allowedRoles.join(', ')}. Your role: ${req.user.role}.`,
+      });
+      return;
+    }
+
+    next();
+  };
+};
