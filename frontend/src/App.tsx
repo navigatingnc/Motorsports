@@ -12,6 +12,7 @@ import RegisterPage from './pages/RegisterPage';
 import AnalyticsDashboardPage from './pages/AnalyticsDashboardPage';
 import DriversPage from './pages/DriversPage';
 import AdminPanelPage from './pages/AdminPanelPage';
+import PartsPage from './pages/PartsPage';
 import './App.css';
 
 // Inner component that has access to the Router context
@@ -63,6 +64,14 @@ const AppLayout = () => {
                     className={({ isActive }) => isActive ? 'nav-link nav-link--active' : 'nav-link'}
                   >
                     Analytics
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/parts"
+                    className={({ isActive }) => isActive ? 'nav-link nav-link--active' : 'nav-link'}
+                  >
+                    Parts
                   </NavLink>
                 </li>
                 {isAdmin && (
@@ -218,6 +227,16 @@ const AppLayout = () => {
             element={
               <ProtectedRoute>
                 <AnalyticsDashboardPage />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Parts & Inventory */}
+          <Route
+            path="/parts"
+            element={
+              <ProtectedRoute>
+                <PartsPage />
               </ProtectedRoute>
             }
           />
