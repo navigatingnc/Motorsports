@@ -59,10 +59,10 @@ export const getAllParts = async (req: Request, res: Response): Promise<void> =>
     // Apply lowStock filter in-memory (quantity <= threshold)
     const filtered =
       lowStock === 'true'
-        ? parts.filter((p) => p.quantity <= p.lowStockThreshold)
+        ? parts.filter((p: any) => p.quantity <= p.lowStockThreshold)
         : parts;
 
-    const enriched = filtered.map((p) => ({
+    const enriched = filtered.map((p: any) => ({
       ...p,
       isLowStock: p.quantity <= p.lowStockThreshold,
     }));
@@ -71,7 +71,7 @@ export const getAllParts = async (req: Request, res: Response): Promise<void> =>
       success: true,
       data: enriched,
       count: enriched.length,
-      lowStockCount: enriched.filter((p) => p.isLowStock).length,
+      lowStockCount: enriched.filter((p: any) => p.isLowStock).length,
     });
   } catch (error) {
     console.error('Error fetching parts:', error);
@@ -340,9 +340,9 @@ export const getInventorySummary = async (req: Request, res: Response): Promise<
     const parts = await prisma.part.findMany({ include: partInclude });
 
     const totalParts = parts.length;
-    const totalItems = parts.reduce((sum, p) => sum + p.quantity, 0);
-    const totalValue = parts.reduce((sum, p) => sum + (p.cost ?? 0) * p.quantity, 0);
-    const lowStockParts = parts.filter((p) => p.quantity <= p.lowStockThreshold);
+    const totalItems = parts.reduce((sum: number, p: any) => sum + p.quantity, 0);
+    const totalValue = parts.reduce((sum: number, p: any) => sum + (p.cost ?? 0) * p.quantity, 0);
+    const lowStockParts = parts.filter((p: any) => p.quantity <= p.lowStockThreshold);
 
     // By-category breakdown
     const byCategory: Record<string, { count: number; totalItems: number; totalValue: number }> = {};
@@ -362,7 +362,7 @@ export const getInventorySummary = async (req: Request, res: Response): Promise<
         totalItems,
         totalValue: Math.round(totalValue * 100) / 100,
         lowStockCount: lowStockParts.length,
-        lowStockParts: lowStockParts.map((p) => ({
+        lowStockParts: lowStockParts.map((p: any) => ({
           id: p.id,
           name: p.name,
           category: p.category,

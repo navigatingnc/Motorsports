@@ -40,7 +40,7 @@ export interface CreatePartDto {
   location?: string;
   lowStockThreshold?: number;
   notes?: string;
-  vehicleId?: string;
+  vehicleId?: string | null;
 }
 
 export interface UpdatePartDto extends Partial<CreatePartDto> {
