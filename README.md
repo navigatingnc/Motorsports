@@ -87,25 +87,35 @@ Motorsports/
 
 ---
 
-## 🏃 Getting Started
+## 🏃 Getting Started (Works even if `pnpm` is missing)
 
 ```bash
 # Clone the repository
 git clone https://github.com/navigatingnc/Motorsports.git
 cd Motorsports
 
-# Install dependencies (backend + frontend)
-pnpm --dir backend install
-pnpm --dir frontend install
+# One-time setup (installs backend + frontend deps and generates Prisma client)
+./setup.sh
 
-# Generate Prisma client for backend
-pnpm --dir backend prisma:generate
-
-# Start backend + frontend with one command
+# Start backend + frontend together
 ./dev-start.sh
 ```
 
-> `dev-start.sh` will use `pnpm` when available and fall back to `npm`.
+### What `setup.sh` does
+
+- Uses `pnpm` if already installed.
+- If `pnpm` is not installed, it bootstraps it with `corepack` automatically.
+- Falls back to `npm` only when `pnpm` cannot be bootstrapped.
+- Installs backend/frontend dependencies and runs Prisma client generation.
+
+### Verified local run sequence
+
+```bash
+./setup.sh
+./dev-start.sh
+```
+
+This sequence has been validated in this repository.
 
 ---
 
