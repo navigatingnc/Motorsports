@@ -21,6 +21,20 @@ echo "Starting backend and frontend in parallel..."
 
 declare -a PIDS=()
 
+ensure_prisma_client() {
+  local prisma_client_path="$ROOT_DIR/backend/node_modules/.prisma/client/default"
+
+  if [[ ! -f "$prisma_client_path" ]]; then
+    echo "Prisma client not found. Generating it now..."
+    if [[ "$PKG_MANAGER" == "pnpm" ]]; then
+      pnpm --dir "$ROOT_DIR/backend" prisma:generate
+    else
+      npm --prefix "$ROOT_DIR/backend" run prisma:generate
+    fi
+  fi
+}
+
+
 cleanup() {
   echo
   echo "Stopping development servers..."
@@ -33,6 +47,8 @@ cleanup() {
 }
 
 trap cleanup EXIT INT TERM
+
+ensure_prisma_client
 
 "${BACKEND_CMD[@]}" &
 PIDS+=("$!")
