@@ -27,8 +27,31 @@ model Vehicle {
 
   setupSheets SetupSheet[]
   lapTimes    LapTime[]
+  parts       Part[]
 
   @@map("vehicles")
+}
+
+model Part {
+  id          String   @id @default(uuid())
+  name        String
+  partNumber  String?  // Manufacturer or internal part number
+  category    String   // e.g., "Engine", "Suspension", "Brakes", "Tyres", "Bodywork", "Electronics", "Other"
+  quantity    Int      @default(0)
+  unit        String   @default("pcs") // e.g., "pcs", "sets", "liters", "kg"
+  cost        Float?   // Cost per unit in USD
+  supplier    String?
+  location    String?  // Storage location / bin number
+  lowStockThreshold Int @default(2) // Alert when quantity falls at or below this
+  notes       String?  @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Optional relation to a specific vehicle
+  vehicleId   String?
+  vehicle     Vehicle? @relation(fields: [vehicleId], references: [id], onDelete: SetNull)
+
+  @@map("parts")
 }
 
 model Event {
