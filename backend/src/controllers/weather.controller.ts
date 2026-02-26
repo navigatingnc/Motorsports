@@ -41,6 +41,9 @@ async function geocodeLocation(location: string): Promise<{ latitude: number; lo
   }
 
   const result = data.results[0];
+  if (!result) {
+    return null;
+  }
   return { latitude: result.latitude, longitude: result.longitude };
 }
 

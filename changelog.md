@@ -4987,3 +4987,27 @@ export const partService = {
 **Phase 15** will implement **Photo & Document Uploads (S3)** — configuring S3-compatible storage with presigned upload URLs, building `/api/uploads` endpoints for file management, and adding photo galleries to Vehicle and Event detail pages with drag-and-drop upload UI.
 
 ---
+
+## Maintenance: Bug Fixes & Environment Setup
+**Status:** ✅ Completed
+**Date:** February 26, 2026
+
+### Summary
+Resolved critical compilation errors and environment configuration issues that were preventing the application from starting and building.
+
+### Work Performed
+
+1. **Environment Configuration**
+   - Created `.env` file for backend by copying `.env.example`, resolving the `DATABASE_URL is not set` warning.
+
+2. **Backend Fixes**
+   - Generated Prisma Client to resolve `Property 'lapTime' does not exist on type 'PrismaClient'` error.
+   - Fixed `src/controllers/weather.controller.ts` where a geocoding result was possibly undefined due to `noUncheckedIndexedAccess`.
+
+3. **Frontend Fixes**
+   - Fixed `src/types/part.ts` where `UpdatePartDto` had an incompatible `vehicleId` type override when extending `Partial<CreatePartDto>`.
+
+4. **Verification**
+   - Successfully ran `pnpm build` in both `backend/` and `frontend/` directories.
+
+---

@@ -43,7 +43,7 @@ export interface CreatePartDto {
   vehicleId?: string;
 }
 
-export interface UpdatePartDto extends Partial<CreatePartDto> {
+export interface UpdatePartDto extends Omit<Partial<CreatePartDto>, 'vehicleId'> {
   vehicleId?: string | null;
 }
 
