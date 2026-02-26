@@ -9,6 +9,7 @@ import type { Vehicle } from '../types/vehicle';
 import type { SetupSheet } from '../types/setup';
 import SetupSheetForm from '../components/SetupSheetForm';
 import SetupSheetCard from '../components/SetupSheetCard';
+import WeatherWidget from '../components/WeatherWidget';
 
 const STATUS_CLASS_MAP: Record<string, string> = {
   Upcoming: 'status-upcoming',
@@ -245,6 +246,19 @@ const EventDetailPage = () => {
           </div>
         </div>
       </div>
+
+      {/* ── Weather Forecast Section ──────────────────────────────── */}
+      <section className="weather-section" style={{ marginBottom: '2rem' }}>
+        <h2 style={{
+          fontSize: '1.35rem',
+          fontWeight: 700,
+          color: 'var(--text-primary)',
+          marginBottom: '1rem',
+        }}>
+          Weather Forecast
+        </h2>
+        <WeatherWidget eventId={event.id} />
+      </section>
 
       {/* ── Setup Sheets Section ──────────────────────────────────── */}
       <section className="setup-sheets-section">

@@ -10,6 +10,7 @@ import driverRoutes from './routes/driver.routes';
 import setupRoutes from './routes/setup.routes';
 import analyticsRoutes from './routes/analytics.routes';
 import adminRoutes from './routes/admin.routes';
+import weatherRoutes from './routes/weather.routes';
 
 const app: Express = express();
 const port = process.env['PORT'] || 3000;
@@ -41,6 +42,7 @@ app.get('/api', (req: Request, res: Response) => {
       setups: '/api/setups',
       analytics: '/api/analytics',
       admin: '/api/admin',
+      weather: '/api/events/:id/weather',
     }
   });
 });
@@ -65,6 +67,9 @@ app.use('/api/analytics', analyticsRoutes);
 
 // Admin routes (admin only)
 app.use('/api/admin', adminRoutes);
+
+// Weather routes — nested under events (protected)
+app.use('/api/events/:id/weather', weatherRoutes);
 
 // Start server
 app.listen(port, () => {

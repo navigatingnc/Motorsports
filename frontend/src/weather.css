@@ -1,0 +1,284 @@
+/* ============================================================
+   WeatherWidget — Phase 13: Weather Integration for Events
+   ============================================================ */
+
+/* ── Wrapper ──────────────────────────────────────────────── */
+.weather-widget {
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: var(--card-background);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  margin-bottom: 2rem;
+}
+
+.weather-widget--loading,
+.weather-widget--error {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.5rem 1.25rem;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.weather-widget--error {
+  background-color: #fff8f8;
+  border-color: #f5c6cb;
+  color: #721c24;
+}
+
+.weather-error-icon {
+  font-size: 1.2rem;
+}
+
+/* ── Loading spinner ──────────────────────────────────────── */
+.weather-loading-spinner {
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 3px solid var(--border-color);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: weather-spin 0.8s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes weather-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Hero / Current Conditions ────────────────────────────── */
+.weather-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1.75rem 1.5rem;
+  color: #fff;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.weather-hero-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.weather-icon-large {
+  font-size: 3rem;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.weather-temp-main {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+.weather-condition {
+  font-size: 1.15rem;
+  font-weight: 600;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.weather-feels-like {
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+/* ── Stats grid (right side of hero) ─────────────────────── */
+.weather-hero-right {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6rem 1.5rem;
+  align-self: center;
+}
+
+.weather-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.weather-stat-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.8;
+  font-weight: 600;
+}
+
+.weather-stat-value {
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+/* ── Location bar ─────────────────────────────────────────── */
+.weather-location-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  background-color: rgba(0, 0, 0, 0.04);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.83rem;
+  color: var(--text-secondary);
+  flex-wrap: wrap;
+}
+
+.weather-location-pin {
+  font-size: 0.9rem;
+}
+
+.weather-location-text {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.weather-coords {
+  margin-left: auto;
+  font-size: 0.75rem;
+  font-family: monospace;
+}
+
+.weather-fetched {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-left: 0.5rem;
+}
+
+/* ── Daily forecast section ───────────────────────────────── */
+.weather-daily-section {
+  padding: 1.25rem 1.25rem 0.5rem;
+}
+
+.weather-section-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  margin-bottom: 0.85rem;
+}
+
+.weather-daily-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+/* ── Daily card ───────────────────────────────────────────── */
+.weather-daily-card {
+  border-radius: 8px;
+  padding: 0.85rem 0.9rem;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.weather-daily-date {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.9;
+}
+
+.weather-daily-temps {
+  display: flex;
+  align-items: baseline;
+  gap: 0.2rem;
+}
+
+.weather-daily-high {
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+.weather-daily-sep {
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+.weather-daily-low {
+  font-size: 0.95rem;
+  opacity: 0.8;
+}
+
+.weather-daily-wind,
+.weather-daily-precip,
+.weather-daily-sun {
+  font-size: 0.78rem;
+  opacity: 0.9;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.weather-daily-sun {
+  justify-content: space-between;
+  margin-top: 0.15rem;
+}
+
+.weather-daily-wind-icon {
+  font-size: 0.85rem;
+}
+
+/* ── Attribution ──────────────────────────────────────────── */
+.weather-attribution {
+  padding: 0.6rem 1.25rem;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border-color);
+  text-align: right;
+}
+
+.weather-attribution a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.weather-attribution a:hover {
+  text-decoration: underline;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .weather-hero {
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .weather-hero-right {
+    width: 100%;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .weather-temp-main {
+    font-size: 2.75rem;
+  }
+
+  .weather-coords,
+  .weather-fetched {
+    display: none;
+  }
+
+  .weather-daily-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+}
+
+@media (max-width: 400px) {
+  .weather-hero-right {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
