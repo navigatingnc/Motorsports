@@ -155,7 +155,7 @@ export const getLapTimes = async (req: Request, res: Response): Promise<void> =>
       orderBy: [{ eventId: 'asc' }, { lapNumber: 'asc' }],
     });
 
-    const enriched = lapTimes.map((lt) => ({
+    const enriched = lapTimes.map((lt: any) => ({
       ...lt,
       lapTimeFormatted: msToLapTimeString(lt.lapTimeMs),
       sector1Formatted: lt.sector1Ms ? msToLapTimeString(lt.sector1Ms) : null,
