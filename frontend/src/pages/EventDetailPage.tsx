@@ -1,15 +1,19 @@
 import { useEffect, useState, useCallback } from 'react';
 import '../setup.css';
+import '../gallery.css';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { eventService } from '../services/eventService';
 import { vehicleService } from '../services/vehicleService';
 import { setupService } from '../services/setupService';
+import { uploadService } from '../services/uploadService';
 import type { Event } from '../types/event';
 import type { Vehicle } from '../types/vehicle';
 import type { SetupSheet } from '../types/setup';
+import type { Upload } from '../types/upload';
 import SetupSheetForm from '../components/SetupSheetForm';
 import SetupSheetCard from '../components/SetupSheetCard';
 import WeatherWidget from '../components/WeatherWidget';
+import PhotoGallery from '../components/PhotoGallery';
 
 const STATUS_CLASS_MAP: Record<string, string> = {
   Upcoming: 'status-upcoming',
@@ -50,14 +54,25 @@ const EventDetailPage = () => {
   const [setupsLoading, setSetupsLoading] = useState<boolean>(false);
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [showSetupForm, setShowSetupForm] = useState<boolean>(false);
+  const [uploads, setUploads] = useState<Upload[]>([]);
+
+  const fetchUploads = useCallback(async (eventId: string) => {
+    try {
+      const data = await uploadService.listUploads({ entityType: 'event', entityId: eventId });
+      setUploads(data);
+    } catch {
+      // Non-critical — silently fail
+    }
+  }, []);
 
   useEffect(() => {
     if (id) {
       void fetchEvent(id);
       void fetchSetups(id);
       void fetchVehicles();
+      void fetchUploads(id);
     }
-  }, [id]);
+  }, [id, fetchUploads]);
 
   const fetchEvent = async (eventId: string) => {
     try {
@@ -246,8 +261,26 @@ const EventDetailPage = () => {
           </div>
         </div>
       </div>
+      {/* ── Photos & Documents Section ────────────────────────── */}
+      <section className="weather-section" style={{ marginBottom: '2rem' }}>
+        <h2 style={{
+          fontSize: '1.35rem',
+          fontWeight: 700,
+          color: 'var(--text-primary)',
+          marginBottom: '1rem',
+        }}>
+          Photos &amp; Documents
+        </h2>
+        <PhotoGallery
+          entityType="event"
+          entityId={event.id}
+          uploads={uploads}
+          onUploaded={(upload) => setUploads(prev => [upload, ...prev])}
+          onDeleted={(uploadId) => setUploads(prev => prev.filter(u => u.id !== uploadId))}
+        />
+      </section>
 
-      {/* ── Weather Forecast Section ──────────────────────────────── */}
+      {/* ── Weather Forecast Section ──────────────────────────── */}
       <section className="weather-section" style={{ marginBottom: '2rem' }}>
         <h2 style={{
           fontSize: '1.35rem',

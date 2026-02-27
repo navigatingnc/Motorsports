@@ -27,6 +27,7 @@ model Vehicle {
   setupSheets SetupSheet[]
   lapTimes    LapTime[]
   parts       Part[]
+  uploads     Upload[]
 
   @@map("vehicles")
 }
@@ -69,6 +70,7 @@ model Event {
 
   setupSheets SetupSheet[]
   lapTimes    LapTime[]
+  uploads     Upload[]
 
   @@map("events")
 }
@@ -86,6 +88,7 @@ model User {
 
   driver       Driver?
   setupSheets  SetupSheet[]
+  uploads      Upload[]
 
   @@map("users")
 }
@@ -200,4 +203,43 @@ model LapTime {
   updatedAt   DateTime @updatedAt
 
   @@map("lap_times")
+}
+
+/// File attachment record — photos and documents linked to vehicles or events.
+model Upload {
+  id           String   @id @default(uuid())
+
+  /// The type of entity this file belongs to: "vehicle" or "event"
+  entityType   String
+  /// The UUID of the related vehicle or event
+  entityId     String
+
+  /// Original file name provided by the uploader
+  fileName     String
+  /// S3 object key (path within the bucket)
+  fileKey      String   @unique
+  /// Public or presigned URL to access the file
+  fileUrl      String
+  /// MIME type, e.g. "image/jpeg"
+  mimeType     String
+  /// "photo" or "document"
+  category     String
+  /// File size in bytes (populated on confirm)
+  sizeBytes    Int?
+
+  // Uploader relation
+  uploadedById String
+  uploadedBy   User     @relation(fields: [uploadedById], references: [id])
+
+  // Optional typed relations for convenience queries
+  vehicleId    String?
+  vehicle      Vehicle? @relation(fields: [vehicleId], references: [id], onDelete: SetNull)
+  eventId      String?
+  event        Event?   @relation(fields: [eventId], references: [id], onDelete: SetNull)
+
+  createdAt    DateTime @default(now())
+
+  @@index([entityType, entityId])
+  @@index([uploadedById])
+  @@map("uploads")
 }
