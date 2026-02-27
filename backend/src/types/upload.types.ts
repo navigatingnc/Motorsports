@@ -42,7 +42,12 @@ export interface UploadRecord {
 
 /** Request body for confirming a completed upload */
 export interface ConfirmUploadRequest {
-  fileKey:   string;
+  fileKey:    string;
+  entityType: UploadEntityType;
+  entityId:   string;
+  fileName:   string;
+  mimeType:   string;   // MIME type, e.g. "image/jpeg"
+  category:   FileCategory;
   sizeBytes?: number;
 }
 

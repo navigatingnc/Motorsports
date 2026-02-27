@@ -166,21 +166,8 @@ export const getPresignedUploadUrl = async (req: Request, res: Response): Promis
  * the upload metadata in the database.
  */
 export const confirmUpload = async (req: Request, res: Response): Promise<void> => {
-  const { fileKey, sizeBytes } = req.body as ConfirmUploadRequest & {
-    entityType: UploadEntityType;
-    entityId:   string;
-    fileName:   string;
-    mimeType:   string;
-    category:   FileCategory;
-  };
-
-  const { entityType, entityId, fileName, mimeType, category } = req.body as {
-    entityType: UploadEntityType;
-    entityId:   string;
-    fileName:   string;
-    mimeType:   string;
-    category:   FileCategory;
-  };
+  const { fileKey, entityType, entityId, fileName, mimeType, category, sizeBytes } =
+    req.body as ConfirmUploadRequest;
 
   if (!fileKey || !entityType || !entityId || !fileName || !mimeType || !category) {
     res.status(400).json({

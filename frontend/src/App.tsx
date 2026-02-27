@@ -173,20 +173,12 @@ const AppLayout = () => {
             }
           />
 
-          {/* Event routes */}
+          {/* Event routes — /events/new MUST come before /events/:id */}
           <Route
             path="/events"
             element={
               <ProtectedRoute>
                 <EventListPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/events/:id"
-            element={
-              <ProtectedRoute>
-                <EventDetailPage />
               </ProtectedRoute>
             }
           />
@@ -197,6 +189,14 @@ const AppLayout = () => {
                 <RoleGuard allowedRoles={['admin', 'user']}>
                   <div className="container"><p>New Event (Coming Soon)</p></div>
                 </RoleGuard>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/events/:id"
+            element={
+              <ProtectedRoute>
+                <EventDetailPage />
               </ProtectedRoute>
             }
           />
