@@ -18,7 +18,12 @@ const app: Express = express();
 const port = process.env['PORT'] || 3000;
 
 // Middleware
-app.use(cors());
+// Restrict CORS to the configured origin; fall back to localhost:5173 (Vite dev server) in development.
+const allowedOrigin = process.env['CORS_ORIGIN'] || 'http://localhost:5173';
+app.use(cors({
+  origin: allowedOrigin,
+  credentials: true,
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

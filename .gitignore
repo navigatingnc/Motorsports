@@ -1,0 +1,25 @@
+# Root-level gitignore — catches files that sub-directory gitignores may miss
+
+# Environment variable files (never commit secrets)
+.env
+.env.local
+.env.*.local
+
+# Node modules
+node_modules/
+
+# Build artifacts
+dist/
+dist-ssr/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
