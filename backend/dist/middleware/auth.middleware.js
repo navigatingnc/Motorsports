@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.requireAdmin = exports.authenticate = void 0;
+exports.requireRole = exports.requireAdmin = exports.authenticate = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 /**
  * Middleware to verify JWT token and attach user to request
@@ -60,4 +60,32 @@ const requireAdmin = (req, res, next) => {
     next();
 };
 exports.requireAdmin = requireAdmin;
+/**
+ * Flexible role-based authorization middleware.
+ * Accepts one or more roles that are allowed to access the route.
+ *
+ * Usage:
+ *   router.get('/secret', authenticate, requireRole('admin'), handler);
+ *   router.post('/data', authenticate, requireRole('admin', 'user'), handler);
+ */
+const requireRole = (...allowedRoles) => {
+    return (req, res, next) => {
+        if (!req.user) {
+            res.status(401).json({
+                success: false,
+                error: 'Authentication required.',
+            });
+            return;
+        }
+        if (!allowedRoles.includes(req.user.role)) {
+            res.status(403).json({
+                success: false,
+                error: `Access denied. Required role(s): ${allowedRoles.join(', ')}. Your role: ${req.user.role}.`,
+            });
+            return;
+        }
+        next();
+    };
+};
+exports.requireRole = requireRole;
 //# sourceMappingURL=auth.middleware.js.map

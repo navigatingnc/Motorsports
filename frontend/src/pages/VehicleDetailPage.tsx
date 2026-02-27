@@ -2,8 +2,12 @@ import { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { vehicleService } from '../services/vehicleService';
 import { analyticsService } from '../services/analyticsService';
+import { uploadService } from '../services/uploadService';
+import PhotoGallery from '../components/PhotoGallery';
 import type { Vehicle } from '../types/vehicle';
 import type { LapTime } from '../types/laptime';
+import type { Upload } from '../types/upload';
+import '../gallery.css';
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -34,6 +38,7 @@ const VehicleDetailPage = () => {
   const [loading, setLoading] = useState(true);
   const [lapTimesLoading, setLapTimesLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [uploads, setUploads] = useState<Upload[]>([]);
 
   // ── Data fetching ──────────────────────────────────────────────────────────
 
@@ -71,10 +76,21 @@ const VehicleDetailPage = () => {
     }
   }, [id]);
 
+  const fetchUploads = useCallback(async () => {
+    if (!id) return;
+    try {
+      const data = await uploadService.listUploads({ entityType: 'vehicle', entityId: id });
+      setUploads(data);
+    } catch {
+      // Non-critical — silently fail
+    }
+  }, [id]);
+
   useEffect(() => {
     void fetchVehicle();
     void fetchLapTimes();
-  }, [fetchVehicle, fetchLapTimes]);
+    void fetchUploads();
+  }, [fetchVehicle, fetchLapTimes, fetchUploads]);
 
   // ── Delete ─────────────────────────────────────────────────────────────────
 
@@ -252,6 +268,20 @@ const VehicleDetailPage = () => {
           </div>
         </div>
       </div>
+
+      {/* ── Photos & Documents ────────────────────────────────────────── */}
+      <section className="vehicle-laptimes-section">
+        <div className="vehicle-laptimes-header">
+          <h2 className="vehicle-laptimes-title">Photos &amp; Documents</h2>
+        </div>
+        <PhotoGallery
+          entityType="vehicle"
+          entityId={vehicle.id}
+          uploads={uploads}
+          onUploaded={(upload) => setUploads(prev => [upload, ...prev])}
+          onDeleted={(uploadId) => setUploads(prev => prev.filter(u => u.id !== uploadId))}
+        />
+      </section>
 
       {/* ── Lap Time History ──────────────────────────────────────────── */}
       <section className="vehicle-laptimes-section">

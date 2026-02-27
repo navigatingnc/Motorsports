@@ -12,6 +12,7 @@ import analyticsRoutes from './routes/analytics.routes';
 import adminRoutes from './routes/admin.routes';
 import weatherRoutes from './routes/weather.routes';
 import partRoutes from './routes/part.routes';
+import uploadRoutes from './routes/upload.routes';
 
 const app: Express = express();
 const port = process.env['PORT'] || 3000;
@@ -45,6 +46,7 @@ app.get('/api', (req: Request, res: Response) => {
       admin: '/api/admin',
       weather: '/api/events/:id/weather',
       parts: '/api/parts',
+      uploads: '/api/uploads',
     }
   });
 });
@@ -75,6 +77,8 @@ app.use('/api/events/:id/weather', weatherRoutes);
 
 // Parts / Inventory routes (protected)
 app.use('/api/parts', partRoutes);
+// File upload routes (protected)
+app.use('/api/uploads', uploadRoutes);
 
 // Start server
 app.listen(port, () => {
