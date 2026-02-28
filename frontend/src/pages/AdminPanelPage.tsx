@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { adminService } from '../services/adminService';
 import type { AdminUser } from '../types/admin';
 import { VALID_ROLES } from '../types/admin';
+import { SkeletonTable } from '../components/Skeleton';
 
 const AdminPanelPage = () => {
   const { user: currentUser } = useAuth();
@@ -79,7 +80,10 @@ const AdminPanelPage = () => {
   if (loading) {
     return (
       <div className="container">
-        <div className="loading">Loading users...</div>
+        <div className="header">
+          <h1>Admin Panel</h1>
+        </div>
+        <SkeletonTable rows={6} cols={7} />
       </div>
     );
   }

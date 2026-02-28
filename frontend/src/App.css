@@ -1,3 +1,8 @@
+/*
+  NOTE: CSS custom properties (design tokens) are now managed in dark-mode.css.
+  This :root block is kept as a fallback for any legacy references.
+  The authoritative token definitions live in dark-mode.css :root and [data-theme="dark"].
+*/
 :root {
   --primary-color: #e10600;
   --secondary-color: #1a1a1a;

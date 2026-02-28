@@ -1,0 +1,878 @@
+/* ============================================================
+   dark-mode.css — Phase 16: Responsive UI Polish & Dark Mode
+   ============================================================
+
+   Strategy:
+   - Light theme variables are defined on :root (matches existing App.css)
+   - Dark theme variables are defined on [data-theme="dark"]
+   - All components consume var(--*) tokens — no hard-coded colours
+   - Skeleton shimmer animation is defined here and used by Skeleton.tsx
+   - Micro-animations (fade-in, slide-up, pulse) are defined here
+   ============================================================ */
+
+/* ── Light theme (default) ─────────────────────────────────── */
+:root {
+  /* Core palette */
+  --primary-color:        #e10600;
+  --primary-hover:        #c00500;
+  --secondary-color:      #1a1a1a;
+
+  /* Surfaces */
+  --background-color:     #f5f5f5;
+  --card-background:      #ffffff;
+  --card-background-alt:  #f9f9f9;
+  --navbar-bg:            #1a1a1a;
+  --modal-bg:             #ffffff;
+  --input-bg:             #ffffff;
+  --input-bg-disabled:    #f9f9f9;
+  --table-header-bg:      #f5f5f5;
+  --table-row-hover:      rgba(0, 0, 0, 0.02);
+  --overlay-bg:           rgba(0, 0, 0, 0.5);
+
+  /* Text */
+  --text-primary:         #333333;
+  --text-secondary:       #666666;
+  --text-inverse:         #ffffff;
+  --text-muted:           rgba(255, 255, 255, 0.6);
+
+  /* Borders */
+  --border-color:         #dddddd;
+  --border-focus:         var(--primary-color);
+
+  /* Status colours */
+  --success-color:        #28a745;
+  --danger-color:         #dc3545;
+  --warning-color:        #ffc107;
+  --info-color:           #1a73e8;
+
+  /* Status badge backgrounds (light) */
+  --status-upcoming-bg:   #e3f2fd;
+  --status-upcoming-text: #1565c0;
+  --status-progress-bg:   #fff3e0;
+  --status-progress-text: #e65100;
+  --status-done-bg:       #e8f5e9;
+  --status-done-text:     #2e7d32;
+  --status-cancel-bg:     #fce4ec;
+  --status-cancel-text:   #c62828;
+
+  /* Alert / banner backgrounds */
+  --auth-error-bg:        #fce4ec;
+  --auth-error-border:    #ef9a9a;
+  --auth-error-text:      #c62828;
+  --admin-success-bg:     #e8f5e9;
+  --admin-success-border: #a5d6a7;
+  --admin-success-text:   #2e7d32;
+  --low-stock-bg:         #fff3cd;
+  --low-stock-border:     #ffc107;
+  --parts-row-low-bg:     #fff8f8;
+  --parts-row-low-hover:  #ffeeee;
+  --analytics-first-bg:   #fff8e1;
+  --analytics-first-hover:#fff3cd;
+
+  /* Skeleton shimmer */
+  --skeleton-base:        #e0e0e0;
+  --skeleton-shimmer:     #f5f5f5;
+
+  /* Shadows */
+  --shadow-sm:            0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md:            0 2px 8px rgba(0, 0, 0, 0.12);
+  --shadow-lg:            0 8px 32px rgba(0, 0, 0, 0.16);
+
+  /* Transitions */
+  --transition-fast:      0.15s ease;
+  --transition-base:      0.2s ease;
+  --transition-slow:      0.3s ease;
+
+  /* Navbar link colours */
+  --nav-link-color:       rgba(255, 255, 255, 0.75);
+  --nav-link-hover:       #ffffff;
+  --nav-user-name-color:  #ffffff;
+  --nav-user-role-color:  rgba(255, 255, 255, 0.6);
+  --btn-logout-border:    rgba(255, 255, 255, 0.4);
+  --btn-logout-color:     rgba(255, 255, 255, 0.85);
+  --btn-logout-hover-bg:  rgba(255, 255, 255, 0.1);
+  --btn-logout-hover-border: rgba(255, 255, 255, 0.7);
+}
+
+/* ── Dark theme ────────────────────────────────────────────── */
+[data-theme="dark"] {
+  /* Core palette — keep brand red */
+  --primary-color:        #ff2d2d;
+  --primary-hover:        #e10600;
+
+  /* Surfaces */
+  --background-color:     #0f0f0f;
+  --card-background:      #1e1e1e;
+  --card-background-alt:  #252525;
+  --navbar-bg:            #111111;
+  --modal-bg:             #1e1e1e;
+  --input-bg:             #2a2a2a;
+  --input-bg-disabled:    #1a1a1a;
+  --table-header-bg:      #252525;
+  --table-row-hover:      rgba(255, 255, 255, 0.04);
+  --overlay-bg:           rgba(0, 0, 0, 0.75);
+
+  /* Text */
+  --text-primary:         #e8e8e8;
+  --text-secondary:       #9a9a9a;
+  --text-inverse:         #111111;
+  --text-muted:           rgba(255, 255, 255, 0.45);
+
+  /* Borders */
+  --border-color:         #333333;
+
+  /* Status badge backgrounds (dark) */
+  --status-upcoming-bg:   rgba(21, 101, 192, 0.25);
+  --status-upcoming-text: #90caf9;
+  --status-progress-bg:   rgba(230, 81, 0, 0.25);
+  --status-progress-text: #ffcc80;
+  --status-done-bg:       rgba(46, 125, 50, 0.25);
+  --status-done-text:     #a5d6a7;
+  --status-cancel-bg:     rgba(198, 40, 40, 0.25);
+  --status-cancel-text:   #ef9a9a;
+
+  /* Alert / banner backgrounds (dark) */
+  --auth-error-bg:        rgba(198, 40, 40, 0.15);
+  --auth-error-border:    rgba(239, 154, 154, 0.4);
+  --auth-error-text:      #ef9a9a;
+  --admin-success-bg:     rgba(46, 125, 50, 0.15);
+  --admin-success-border: rgba(165, 214, 167, 0.4);
+  --admin-success-text:   #a5d6a7;
+  --low-stock-bg:         rgba(255, 193, 7, 0.12);
+  --low-stock-border:     rgba(255, 193, 7, 0.5);
+  --parts-row-low-bg:     rgba(220, 53, 69, 0.08);
+  --parts-row-low-hover:  rgba(220, 53, 69, 0.14);
+  --analytics-first-bg:   rgba(255, 248, 225, 0.06);
+  --analytics-first-hover:rgba(255, 243, 205, 0.1);
+
+  /* Skeleton shimmer (dark) */
+  --skeleton-base:        #2a2a2a;
+  --skeleton-shimmer:     #3a3a3a;
+
+  /* Shadows (dark — more subtle) */
+  --shadow-sm:            0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md:            0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-lg:            0 8px 32px rgba(0, 0, 0, 0.6);
+
+  /* Navbar link colours (same as light — navbar stays dark) */
+  --nav-link-color:       rgba(255, 255, 255, 0.7);
+  --nav-link-hover:       #ffffff;
+  --nav-user-name-color:  #ffffff;
+  --nav-user-role-color:  rgba(255, 255, 255, 0.5);
+  --btn-logout-border:    rgba(255, 255, 255, 0.35);
+  --btn-logout-color:     rgba(255, 255, 255, 0.8);
+  --btn-logout-hover-bg:  rgba(255, 255, 255, 0.08);
+  --btn-logout-hover-border: rgba(255, 255, 255, 0.6);
+}
+
+/* ── Apply theme tokens to existing classes ────────────────── */
+
+/* Body & App */
+body {
+  background-color: var(--background-color);
+  color: var(--text-primary);
+  transition: background-color var(--transition-slow), color var(--transition-slow);
+}
+
+/* Navbar */
+.navbar {
+  background-color: var(--navbar-bg);
+}
+
+/* Cards */
+.vehicle-card,
+.event-card,
+.detail-card,
+.auth-card,
+.vehicle-form-card,
+.driver-card,
+.analytics-stat-card,
+.analytics-chart-section,
+.parts-summary-card,
+.parts-table-wrapper,
+.parts-modal,
+.admin-table-wrapper,
+.weather-widget {
+  background-color: var(--card-background);
+  border-color: var(--border-color);
+}
+
+/* Form inputs */
+.form-input,
+.parts-search-input,
+.parts-filter-select,
+.analytics-select,
+.admin-role-select {
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+.form-input:disabled,
+.admin-role-select:disabled {
+  background-color: var(--input-bg-disabled);
+}
+
+/* Table headers */
+.vehicle-laptimes-table thead,
+.admin-table thead,
+.parts-table thead tr {
+  background-color: var(--table-header-bg);
+}
+
+/* Table row hover */
+.vehicle-laptimes-table tbody tr:hover,
+.admin-table tbody tr:hover,
+.parts-table tbody tr:hover,
+.analytics-table tr:hover td {
+  background-color: var(--table-row-hover);
+}
+
+/* Status badges — use CSS vars */
+.status-upcoming  { background-color: var(--status-upcoming-bg);  color: var(--status-upcoming-text); }
+.status-in-progress { background-color: var(--status-progress-bg); color: var(--status-progress-text); }
+.status-completed { background-color: var(--status-done-bg);      color: var(--status-done-text); }
+.status-cancelled { background-color: var(--status-cancel-bg);    color: var(--status-cancel-text); }
+
+/* Auth error */
+.auth-error,
+.form-error-banner {
+  background-color: var(--auth-error-bg);
+  border-color: var(--auth-error-border);
+  color: var(--auth-error-text);
+}
+
+/* Admin success / error */
+.admin-success {
+  background-color: var(--admin-success-bg);
+  border-color: var(--admin-success-border);
+  color: var(--admin-success-text);
+}
+
+.admin-error {
+  background-color: var(--auth-error-bg);
+  border-color: var(--auth-error-border);
+  color: var(--auth-error-text);
+}
+
+/* Parts low-stock banner */
+.parts-low-stock-banner {
+  background-color: var(--low-stock-bg);
+  border-color: var(--low-stock-border);
+}
+
+/* Parts low-stock row */
+.parts-row--low-stock {
+  background-color: var(--parts-row-low-bg) !important;
+}
+
+.parts-row--low-stock:hover {
+  background-color: var(--parts-row-low-hover) !important;
+}
+
+/* Analytics first-place row */
+.analytics-table-row--first td {
+  background-color: var(--analytics-first-bg);
+}
+
+.analytics-table-row--first:hover td {
+  background-color: var(--analytics-first-hover);
+}
+
+/* Analytics empty code block */
+.analytics-empty code {
+  background-color: var(--card-background-alt);
+  color: var(--text-primary);
+}
+
+/* Modal overlay */
+.parts-modal-overlay {
+  background-color: var(--overlay-bg);
+}
+
+/* Navbar link colours via vars */
+.nav-link         { color: var(--nav-link-color); }
+.nav-link:hover   { color: var(--nav-link-hover); }
+.nav-user-name    { color: var(--nav-user-name-color); }
+.nav-user-role    { color: var(--nav-user-role-color); }
+
+.btn-logout {
+  border-color: var(--btn-logout-border);
+  color: var(--btn-logout-color);
+}
+
+.btn-logout:hover {
+  background-color: var(--btn-logout-hover-bg);
+  border-color: var(--btn-logout-hover-border);
+  color: var(--nav-link-hover);
+}
+
+/* Dark-mode: invert table header in analytics */
+[data-theme="dark"] .analytics-table th {
+  background-color: var(--table-header-bg);
+  color: var(--text-primary);
+}
+
+/* Dark-mode: gallery tab colours */
+[data-theme="dark"] .gallery-tab {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .gallery-tab:hover {
+  color: var(--text-primary);
+}
+
+/* Dark-mode: weather location bar */
+[data-theme="dark"] .weather-location-bar {
+  background-color: rgba(255, 255, 255, 0.04);
+  border-color: var(--border-color);
+}
+
+/* Dark-mode: empty state */
+[data-theme="dark"] .empty-state,
+[data-theme="dark"] .analytics-empty {
+  background-color: var(--card-background);
+  border-color: var(--border-color);
+}
+
+/* Dark-mode: vehicle laptime best row */
+[data-theme="dark"] .laptime-row--best td {
+  background-color: rgba(255, 45, 45, 0.06);
+}
+
+/* Dark-mode: admin inactive row */
+[data-theme="dark"] .admin-row--inactive {
+  opacity: 0.45;
+}
+
+/* Dark-mode: parts summary alert card */
+[data-theme="dark"] .parts-summary-card--alert {
+  background-color: rgba(220, 53, 69, 0.1);
+  border-color: rgba(220, 53, 69, 0.4);
+}
+
+/* Dark-mode: valid/invalid badges */
+[data-theme="dark"] .laptime-valid-badge--valid  { background-color: rgba(16, 185, 129, 0.15); color: #6ee7b7; }
+[data-theme="dark"] .laptime-valid-badge--invalid { background-color: rgba(220, 53, 69, 0.15);  color: #fca5a5; }
+
+/* Dark-mode: admin status badges */
+[data-theme="dark"] .admin-status--active   { background-color: rgba(16, 185, 129, 0.15); color: #6ee7b7; }
+[data-theme="dark"] .admin-status--inactive { background-color: rgba(220, 53, 69, 0.15);  color: #fca5a5; }
+
+/* Dark-mode: parts status badges */
+[data-theme="dark"] .parts-status-badge--ok  { background-color: rgba(16, 185, 129, 0.15); color: #6ee7b7; }
+[data-theme="dark"] .parts-status-badge--low { background-color: rgba(220, 53, 69, 0.15);  color: #fca5a5; }
+
+/* Dark-mode: driver role badges */
+[data-theme="dark"] .driver-card-role--admin  { background-color: rgba(255, 45, 45, 0.15);  color: #ff8080; }
+[data-theme="dark"] .driver-card-role--user   { background-color: rgba(26, 115, 232, 0.15); color: #90caf9; }
+[data-theme="dark"] .driver-card-role--viewer { background-color: rgba(255,255,255,0.08);   color: var(--text-secondary); }
+
+/* Dark-mode: admin driver badge */
+[data-theme="dark"] .admin-driver-badge { background-color: rgba(26, 115, 232, 0.15); color: #90caf9; }
+
+/* Dark-mode: vehicle category tag */
+[data-theme="dark"] .vehicle-category-tag {
+  background-color: rgba(255, 45, 45, 0.12);
+  color: var(--primary-color);
+}
+
+/* Dark-mode: form focus ring */
+[data-theme="dark"] .form-input:focus,
+[data-theme="dark"] .parts-search-input:focus,
+[data-theme="dark"] .analytics-select:focus,
+[data-theme="dark"] .admin-role-select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(255, 45, 45, 0.2);
+}
+
+/* ── Theme Toggle Button ────────────────────────────────────── */
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.8);
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color var(--transition-base),
+              border-color var(--transition-base),
+              color var(--transition-base);
+  white-space: nowrap;
+}
+
+.theme-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.65);
+  color: #ffffff;
+}
+
+.theme-toggle-icon {
+  display: flex;
+  align-items: center;
+  transition: transform var(--transition-base);
+}
+
+.theme-toggle:hover .theme-toggle-icon {
+  transform: rotate(15deg);
+}
+
+.theme-toggle-label {
+  /* Hide text on very small screens */
+}
+
+/* ── Skeleton Shimmer Animation ────────────────────────────── */
+
+@keyframes skeleton-shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.skeleton {
+  display: block;
+  background: linear-gradient(
+    90deg,
+    var(--skeleton-base) 25%,
+    var(--skeleton-shimmer) 50%,
+    var(--skeleton-base) 75%
+  );
+  background-size: 800px 100%;
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+  border-radius: 4px;
+}
+
+.skeleton-mb { margin-bottom: 0.5rem; }
+
+/* Skeleton card */
+.skeleton-card {
+  background-color: var(--card-background);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.skeleton-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.skeleton-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.skeleton-card-footer {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Skeleton card grid */
+.skeleton-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Skeleton row */
+.skeleton-row {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Skeleton table wrapper */
+.skeleton-table-wrapper {
+  background-color: var(--card-background);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+}
+
+.skeleton-table-row {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.skeleton-table-row:last-child {
+  border-bottom: none;
+}
+
+/* Skeleton detail header */
+.skeleton-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* Skeleton stat card */
+.skeleton-stat-card {
+  background-color: var(--card-background);
+  border-radius: 8px;
+  padding: 1.5rem 1.25rem;
+  box-shadow: var(--shadow-sm);
+  border-left: 4px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Skeleton stats grid */
+.skeleton-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+/* ── Micro-animations ───────────────────────────────────────── */
+
+/* Fade-in for page content */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Slide-up for cards and list items */
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Pulse for loading spinners */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+/* Scale-in for modals */
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* Apply fade-in to main page containers */
+.container {
+  animation: fade-in 0.25s ease-out;
+}
+
+/* Apply slide-up to cards */
+.vehicle-card,
+.event-card,
+.driver-card {
+  animation: slide-up 0.3s ease-out;
+  animation-fill-mode: both;
+}
+
+/* Stagger card animations */
+.vehicle-card:nth-child(1),  .event-card:nth-child(1),  .driver-card:nth-child(1)  { animation-delay: 0.00s; }
+.vehicle-card:nth-child(2),  .event-card:nth-child(2),  .driver-card:nth-child(2)  { animation-delay: 0.04s; }
+.vehicle-card:nth-child(3),  .event-card:nth-child(3),  .driver-card:nth-child(3)  { animation-delay: 0.08s; }
+.vehicle-card:nth-child(4),  .event-card:nth-child(4),  .driver-card:nth-child(4)  { animation-delay: 0.12s; }
+.vehicle-card:nth-child(5),  .event-card:nth-child(5),  .driver-card:nth-child(5)  { animation-delay: 0.16s; }
+.vehicle-card:nth-child(6),  .event-card:nth-child(6),  .driver-card:nth-child(6)  { animation-delay: 0.20s; }
+.vehicle-card:nth-child(n+7),.event-card:nth-child(n+7),.driver-card:nth-child(n+7){ animation-delay: 0.24s; }
+
+/* Apply scale-in to modals */
+.parts-modal {
+  animation: scale-in 0.2s ease-out;
+}
+
+/* Smooth transitions on interactive elements */
+.btn-primary,
+.btn-secondary,
+.btn-danger,
+.btn-retry,
+.btn-sm,
+.auth-submit-btn {
+  transition: background-color var(--transition-base),
+              transform var(--transition-fast),
+              box-shadow var(--transition-fast);
+}
+
+.btn-primary:hover:not(:disabled),
+.btn-secondary:hover:not(:disabled),
+.btn-danger:hover:not(:disabled),
+.btn-retry:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:active:not(:disabled),
+.btn-secondary:active:not(:disabled),
+.btn-danger:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* Smooth card hover transitions */
+.vehicle-card,
+.event-card,
+.driver-card,
+.detail-card,
+.parts-summary-card,
+.analytics-stat-card {
+  transition: transform var(--transition-base),
+              box-shadow var(--transition-base),
+              background-color var(--transition-slow),
+              border-color var(--transition-slow);
+}
+
+/* ── Responsive Breakpoint Improvements ────────────────────── */
+
+/* ── Extra-large (≥ 1400px) ─────────────────────────────────── */
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1360px;
+  }
+}
+
+/* ── Large desktop (≥ 1200px) ───────────────────────────────── */
+@media (min-width: 1200px) {
+  .parts-summary-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ── Tablet landscape (≤ 1024px) ───────────────────────────── */
+@media (max-width: 1024px) {
+  .parts-summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .analytics-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Tablet portrait (≤ 768px) ─────────────────────────────── */
+@media (max-width: 768px) {
+  /* Main content padding */
+  .main-content {
+    padding: 1.25rem 1rem;
+  }
+
+  /* Navbar: stack brand + nav vertically */
+  .navbar-container--flex {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+
+  /* Navbar nav: allow wrapping */
+  .navbar-nav {
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+  }
+
+  /* Theme toggle label hidden on tablet */
+  .theme-toggle-label {
+    display: none;
+  }
+
+  /* Grids → single column */
+  .vehicle-grid,
+  .driver-grid,
+  .skeleton-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Parts summary → 2 columns */
+  .parts-summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Analytics stats → 2 columns */
+  .analytics-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Header: stack title + action */
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .header h1 {
+    font-size: 1.6rem;
+  }
+
+  /* Detail page header */
+  .detail-page-header {
+    flex-direction: column;
+  }
+
+  .detail-page-header-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  /* Auth card */
+  .auth-card {
+    padding: 1.75rem 1.25rem;
+  }
+
+  /* Form row → single column */
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  /* Parts form rows → single column */
+  .parts-form-row--2,
+  .parts-form-row--3 {
+    grid-template-columns: 1fr;
+  }
+
+  /* Admin table */
+  .admin-table th,
+  .admin-table td {
+    padding: 0.5rem 0.6rem;
+    font-size: 0.8rem;
+  }
+
+  .admin-user-avatar {
+    display: none;
+  }
+
+  .admin-stats {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+
+  /* Laptime table */
+  .vehicle-laptimes-table th,
+  .vehicle-laptimes-table td {
+    padding: 0.5rem 0.6rem;
+    font-size: 0.8rem;
+  }
+
+  /* Vehicle form card */
+  .vehicle-form-card {
+    padding: 1.25rem;
+  }
+
+  /* Analytics header */
+  .analytics-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .analytics-filter {
+    min-width: unset;
+    width: 100%;
+  }
+
+  /* Event meta */
+  .event-meta {
+    gap: 1rem;
+  }
+
+  /* Skeleton detail header */
+  .skeleton-detail-header {
+    flex-direction: column;
+  }
+}
+
+/* ── Mobile (≤ 480px) ───────────────────────────────────────── */
+@media (max-width: 480px) {
+  /* Navbar brand font */
+  .navbar-brand {
+    font-size: 1.05rem;
+  }
+
+  /* Nav links: smaller font */
+  .nav-link {
+    font-size: 0.88rem;
+  }
+
+  /* Parts summary → 1 column */
+  .parts-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Analytics stats → 1 column */
+  .analytics-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Parts modal: full-width on mobile */
+  .parts-modal-overlay {
+    padding: 1rem 0.5rem;
+  }
+
+  .parts-modal {
+    padding: 1.25rem;
+  }
+
+  /* Detail page title */
+  .detail-page-title h1 {
+    font-size: 1.4rem;
+  }
+
+  /* Auth card */
+  .auth-card {
+    padding: 1.25rem 1rem;
+  }
+
+  /* Vehicle form actions: stack */
+  .vehicle-form-actions {
+    flex-direction: column;
+  }
+
+  /* Skeleton card grid → 1 column */
+  .skeleton-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Skeleton stats grid → 1 column */
+  .skeleton-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Theme toggle: icon only */
+  .theme-toggle {
+    padding: 0.35rem 0.5rem;
+  }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

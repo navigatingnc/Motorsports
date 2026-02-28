@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { eventService } from '../services/eventService';
 import type { Event } from '../types/event';
+import { SkeletonTable } from '../components/Skeleton';
 
 const STATUS_CLASS_MAP: Record<string, string> = {
   Upcoming: 'status-upcoming',
@@ -57,7 +58,10 @@ const EventListPage = () => {
   if (loading) {
     return (
       <div className="container">
-        <div className="loading">Loading events...</div>
+        <div className="header">
+          <h1>Events</h1>
+        </div>
+        <SkeletonTable rows={5} cols={4} />
       </div>
     );
   }

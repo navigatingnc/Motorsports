@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { driverService } from '../services/driverService';
 import type { Driver } from '../types/driver';
+import { SkeletonCardGrid } from '../components/Skeleton';
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -57,7 +58,10 @@ const DriversPage = () => {
   if (loading) {
     return (
       <div className="container">
-        <div className="loading">Loading drivers…</div>
+        <div className="header">
+          <h1>Drivers</h1>
+        </div>
+        <SkeletonCardGrid count={4} />
       </div>
     );
   }

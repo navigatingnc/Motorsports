@@ -16,6 +16,7 @@ import { eventService } from '../services/eventService';
 import type { AnalyticsSummary } from '../types/laptime';
 import type { Event } from '../types/event';
 import '../analytics.css';
+import { SkeletonStatsGrid } from '../components/Skeleton';
 
 // Colour palette for multi-driver line chart
 const CHART_COLORS = [
@@ -200,7 +201,7 @@ const AnalyticsDashboardPage = () => {
       </div>
 
       {/* Loading / Error States */}
-      {loading && <div className="loading">Loading analytics data...</div>}
+      {loading && <SkeletonStatsGrid count={4} />}
       {error && <div className="error">{error}</div>}
 
       {!loading && !error && (

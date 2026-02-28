@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { vehicleService } from '../services/vehicleService';
 import type { CreateVehicleDto } from '../types/vehicle';
+import { Skeleton } from '../components/Skeleton';
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
@@ -148,7 +149,15 @@ const VehicleFormPage = () => {
   if (loading) {
     return (
       <div className="container">
-        <div className="loading">Loading vehicle data…</div>
+        <div style={{ marginBottom: '1.5rem' }}>
+          <Skeleton width="8rem" height="0.85rem" className="skeleton-mb" />
+          <Skeleton width="16rem" height="2rem" />
+        </div>
+        <div className="vehicle-form-card">
+          <Skeleton width="100%" height="3rem" className="skeleton-mb" />
+          <Skeleton width="100%" height="3rem" className="skeleton-mb" />
+          <Skeleton width="60%" height="3rem" />
+        </div>
       </div>
     );
   }

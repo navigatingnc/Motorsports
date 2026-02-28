@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import '../setup.css';
 import '../gallery.css';
+import { SkeletonDetailHeader, SkeletonCardGrid } from '../components/Skeleton';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { eventService } from '../services/eventService';
 import { vehicleService } from '../services/vehicleService';
@@ -140,7 +141,8 @@ const EventDetailPage = () => {
   if (loading) {
     return (
       <div className="container">
-        <div className="loading">Loading event details...</div>
+        <SkeletonDetailHeader />
+        <SkeletonCardGrid count={4} />
       </div>
     );
   }
