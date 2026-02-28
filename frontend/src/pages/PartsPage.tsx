@@ -5,6 +5,7 @@ import type { Part, CreatePartDto, UpdatePartDto, InventorySummary } from '../ty
 import { PART_CATEGORIES, PART_UNITS } from '../types/part';
 import type { Vehicle } from '../types/vehicle';
 import '../parts.css';
+import { SkeletonTable } from '../components/Skeleton';
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -560,7 +561,7 @@ const PartsPage = () => {
 
       {/* Table */}
       {loading ? (
-        <div className="loading">Loading inventory…</div>
+        <SkeletonTable rows={8} cols={7} />
       ) : parts.length === 0 ? (
         <div className="empty-state">
           <p>No parts found{search || filterCategory || filterVehicle || filterLowStock ? ' matching your filters' : ''}.</p>

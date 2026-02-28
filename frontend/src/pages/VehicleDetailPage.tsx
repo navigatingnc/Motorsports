@@ -8,6 +8,7 @@ import type { Vehicle } from '../types/vehicle';
 import type { LapTime } from '../types/laptime';
 import type { Upload } from '../types/upload';
 import '../gallery.css';
+import { SkeletonDetailHeader, SkeletonCardGrid } from '../components/Skeleton';
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -122,7 +123,8 @@ const VehicleDetailPage = () => {
   if (loading) {
     return (
       <div className="container">
-        <div className="loading">Loading vehicle…</div>
+        <SkeletonDetailHeader />
+        <SkeletonCardGrid count={3} />
       </div>
     );
   }

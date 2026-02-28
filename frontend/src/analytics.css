@@ -245,3 +245,13 @@
   font-weight: 600;
   color: var(--primary-color);
 }
+
+/* ── Dark Mode Overrides (Phase 16) ────────────────────────── */
+[data-theme="dark"] .chart-tooltip {
+  background-color: rgba(30, 30, 30, 0.95);
+  border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .analytics-chart-section {
+  box-shadow: var(--shadow-sm);
+}

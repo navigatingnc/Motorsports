@@ -380,3 +380,29 @@
     padding: 1rem 0.5rem;
   }
 }
+
+/* ── Dark Mode Overrides (Phase 16) ────────────────────────── */
+[data-theme="dark"] .setup-sheets-empty {
+  background-color: var(--card-background);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .setup-form-modal {
+  background-color: var(--card-background);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .setup-card-header {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+[data-theme="dark"] .setup-summary-chip {
+  background-color: rgba(225, 6, 0, 0.12);
+  border-color: rgba(225, 6, 0, 0.3);
+}
+
+[data-theme="dark"] .setup-form-error {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: #fca5a5;
+  border-color: rgba(220, 53, 69, 0.3);
+}

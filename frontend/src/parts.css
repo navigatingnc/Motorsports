@@ -535,3 +535,37 @@
     padding: 1.5rem 1rem;
   }
 }
+
+/* ── Dark Mode Overrides (Phase 16) ────────────────────────── */
+[data-theme="dark"] .parts-adjust-btn {
+  background: var(--card-background);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .parts-adjust-btn--plus:hover:not(:disabled) {
+  background-color: rgba(40, 167, 69, 0.15);
+}
+
+[data-theme="dark"] .parts-adjust-btn--minus:hover:not(:disabled) {
+  background-color: rgba(220, 53, 69, 0.15);
+}
+
+[data-theme="dark"] .parts-adjust-input {
+  background: var(--input-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .parts-table-footer {
+  background-color: rgba(255, 255, 255, 0.02);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .parts-modal-header {
+  border-color: var(--primary-color);
+}
+
+[data-theme="dark"] .parts-modal-close:hover {
+  background-color: var(--card-background-alt);
+  color: var(--text-primary);
+}

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { vehicleService } from '../services/vehicleService';
 import type { Vehicle } from '../types/vehicle';
+import { SkeletonCardGrid } from '../components/Skeleton';
 
 const VehicleListPage = () => {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
@@ -43,7 +44,10 @@ const VehicleListPage = () => {
   if (loading) {
     return (
       <div className="container">
-        <div className="loading">Loading vehicles...</div>
+        <div className="header">
+          <h1>Vehicles</h1>
+        </div>
+        <SkeletonCardGrid count={6} />
       </div>
     );
   }

@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, NavLink, useNavigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext';
+import ThemeToggle from './components/ThemeToggle';
 import ProtectedRoute from './components/ProtectedRoute';
 import RoleGuard from './components/RoleGuard';
 import VehicleListPage from './pages/VehicleListPage';
@@ -14,6 +16,7 @@ import DriversPage from './pages/DriversPage';
 import AdminPanelPage from './pages/AdminPanelPage';
 import PartsPage from './pages/PartsPage';
 import './App.css';
+import './dark-mode.css';
 
 // Inner component that has access to the Router context
 const AppLayout = () => {
@@ -91,6 +94,9 @@ const AppLayout = () => {
                   <span className={`nav-user-role nav-user-role--${user?.role}`}>{user?.role}</span>
                 </li>
                 <li>
+                  <ThemeToggle />
+                </li>
+                <li>
                   <button onClick={handleLogout} className="btn-logout">
                     Sign Out
                   </button>
@@ -98,6 +104,9 @@ const AppLayout = () => {
               </>
             ) : (
               <>
+                <li>
+                  <ThemeToggle />
+                </li>
                 <li>
                   <NavLink
                     to="/login"
@@ -264,9 +273,11 @@ const AppLayout = () => {
 function App() {
   return (
     <Router>
-      <AuthProvider>
-        <AppLayout />
-      </AuthProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <AppLayout />
+        </AuthProvider>
+      </ThemeProvider>
     </Router>
   );
 }
