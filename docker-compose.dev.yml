@@ -1,0 +1,46 @@
+version: '3.9'
+
+# =============================================================================
+# Motorsports Management — Development Docker Compose Override
+#
+# Extends docker-compose.yml with development-friendly settings:
+#   - Exposes postgres port for local DB tools
+#   - Mounts source code for hot-reload
+#   - Sets NODE_ENV=development
+#
+# Usage:
+#   docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build
+# =============================================================================
+
+services:
+
+  postgres:
+    ports:
+      - "5432:5432"
+
+  backend:
+    build:
+      target: builder          # Use the builder stage (includes devDependencies)
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgresql://${POSTGRES_USER:-motorsports}:${POSTGRES_PASSWORD:-motorsports_dev_password}@postgres:5432/${POSTGRES_DB:-motorsports_db}?schema=public
+      CORS_ORIGIN: http://localhost:5173
+      JWT_SECRET: ${JWT_SECRET:-dev_jwt_secret_not_for_production}
+    volumes:
+      - ./backend/src:/app/src:ro   # Mount source for ts-node hot-reload
+    command: ["sh", "-c", "npx prisma migrate deploy && pnpm dev"]
+    ports:
+      - "3000:3000"
+
+  frontend:
+    build:
+      target: builder
+      args:
+        VITE_API_BASE_URL: http://localhost:3000
+    environment:
+      NODE_ENV: development
+    volumes:
+      - ./frontend/src:/app/src:ro
+    command: ["pnpm", "dev", "--host"]
+    ports:
+      - "5173:5173"

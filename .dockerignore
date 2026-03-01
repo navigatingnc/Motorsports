@@ -1,0 +1,23 @@
+# Prevent secrets and unnecessary files from being sent to the Docker build context
+.env
+.env.*
+!.env.example
+
+# Node modules (each service installs its own)
+**/node_modules
+
+# Build artifacts
+**/dist
+**/dist-ssr
+
+# Prisma generated client
+**/src/generated
+
+# Logs
+**/*.log
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
