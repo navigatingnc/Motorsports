@@ -57,7 +57,16 @@ Traditional projects require a developer to sit down, plan, and execute changes.
 
 ```
 Motorsports/
-├── backend/              # TypeScript backend — core business logic
+├── backend/              # Node.js / Express API (TypeScript)
+│   ├── Dockerfile        # Multi-stage backend image
+│   ├── prisma/           # Prisma schema & migrations
+│   └── src/              # Application source
+├── frontend/             # React / Vite SPA (TypeScript)
+│   ├── Dockerfile        # Multi-stage frontend image (nginx)
+│   └── src/              # Application source
+├── docker-compose.yml    # Production orchestration
+├── docker-compose.dev.yml# Development override
+├── .env.example          # Environment variable template
 ├── DAILY_PROMPT.md       # Manus's daily instructions
 ├── WORKFLOW.md           # Autonomous workflow documentation
 ├── project_plan.md       # Roadmap and task backlog
@@ -84,6 +93,44 @@ Motorsports/
 - [ ] Live race-day dashboards
 
 > *This list evolves as Manus ships new features each day. Check [`changelog.md`](./changelog.md) for the latest.*
+
+---
+
+## 🐳 Docker Deployment (Production)
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/navigatingnc/Motorsports.git
+cd Motorsports
+
+# 2. Create your environment file
+cp .env.example .env
+# Edit .env — at minimum set POSTGRES_PASSWORD and JWT_SECRET
+
+# 3. Build and start all services
+docker compose up --build -d
+
+# 4. Open the app
+open http://localhost
+```
+
+The stack starts three containers:
+
+| Container | Role | Port |
+|---|---|---|
+| `motorsports_db` | PostgreSQL 16 | internal only |
+| `motorsports_backend` | Express API | internal only |
+| `motorsports_frontend` | nginx + React SPA | `80` (host) |
+
+The backend runs `prisma migrate deploy` automatically on startup, so the database schema is always up to date.
+
+### Development with Docker
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build
+```
+
+This override mounts source directories and enables hot-reload for both the backend (ts-node) and frontend (Vite dev server on port 5173).
 
 ---
 
