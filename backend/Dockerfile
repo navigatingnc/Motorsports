@@ -53,6 +53,9 @@ COPY package.json pnpm-lock.yaml ./
 # Install production-only dependencies
 RUN pnpm install --frozen-lockfile --prod
 
+# Prisma CLI is required at runtime for `prisma migrate deploy`
+RUN pnpm add --global prisma@7.4.0
+
 # Copy compiled output from builder
 COPY --from=builder /app/dist ./dist
 
@@ -73,4 +76,4 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
   CMD wget -qO- http://localhost:3000/health || exit 1
 
 # Run pending migrations then start the server
-CMD ["sh", "-c", "npx prisma migrate deploy && node dist/index.js"]
+CMD ["sh", "-c", "prisma migrate deploy && node dist/index.js"]

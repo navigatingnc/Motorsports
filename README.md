@@ -124,6 +124,8 @@ The stack starts three containers:
 
 The backend runs `prisma migrate deploy` automatically on startup, so the database schema is always up to date.
 
+The frontend now proxies `/api/*` requests to the backend container internally, so the default `.env` works without changing API hostnames for single-host Docker deployments.
+
 ### Development with Docker
 
 ```bash
