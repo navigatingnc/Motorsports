@@ -1,0 +1,165 @@
+# =============================================================================
+# Release Workflow — Semantic Versioning & GitHub Release Creation
+#
+# Triggers manually via workflow_dispatch, or automatically when a tag
+# matching v*.*.* is pushed to the repository.
+#
+# Steps:
+#   1. Determine the next semantic version from conventional commit history.
+#   2. Create and push the version tag.
+#   3. Generate a changelog from commits since the last release.
+#   4. Create a GitHub Release with the generated changelog as release notes.
+#
+# Required repository secrets (for tag-push trigger):
+#   RELEASE_TOKEN — a PAT with contents:write scope (or use GITHUB_TOKEN
+#                   if branch protection rules allow it).
+# =============================================================================
+name: Release
+
+on:
+  # Trigger automatically when a semver tag is pushed
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+"
+
+  # Allow manual triggering with an explicit version bump type
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: "Version bump type"
+        required: true
+        default: "patch"
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+jobs:
+  release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: read
+
+    steps:
+      - name: Checkout repository (full history for changelog)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
+
+      # -----------------------------------------------------------------------
+      # Manual dispatch path: bump version and create tag
+      # -----------------------------------------------------------------------
+      - name: Set up Node.js (for semver calculations)
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Compute next version and create tag (manual dispatch)
+        if: github.event_name == 'workflow_dispatch'
+        id: bump
+        run: |
+          # Fetch latest tag; default to v0.0.0 if none exists
+          LATEST=$(git tag --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | head -1 || echo "v0.0.0")
+          echo "Latest tag: $LATEST"
+
+          # Strip the leading 'v'
+          VERSION=${LATEST#v}
+          MAJOR=$(echo $VERSION | cut -d. -f1)
+          MINOR=$(echo $VERSION | cut -d. -f2)
+          PATCH=$(echo $VERSION | cut -d. -f3)
+
+          BUMP="${{ github.event.inputs.bump }}"
+          if [ "$BUMP" = "major" ]; then
+            MAJOR=$((MAJOR + 1)); MINOR=0; PATCH=0
+          elif [ "$BUMP" = "minor" ]; then
+            MINOR=$((MINOR + 1)); PATCH=0
+          else
+            PATCH=$((PATCH + 1))
+          fi
+
+          NEW_TAG="v${MAJOR}.${MINOR}.${PATCH}"
+          echo "New tag: $NEW_TAG"
+          echo "new_tag=$NEW_TAG" >> "$GITHUB_OUTPUT"
+
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag "$NEW_TAG"
+          git push origin "$NEW_TAG"
+
+      - name: Resolve release tag
+        id: tag
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "tag=${{ steps.bump.outputs.new_tag }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=${{ github.ref_name }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      # -----------------------------------------------------------------------
+      # Generate changelog from conventional commits
+      # -----------------------------------------------------------------------
+      - name: Generate release notes
+        id: notes
+        run: |
+          TAG="${{ steps.tag.outputs.tag }}"
+
+          # Find the previous tag for the range
+          PREV=$(git tag --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | sed -n '2p' || echo "")
+
+          if [ -n "$PREV" ]; then
+            RANGE="${PREV}..${TAG}"
+          else
+            RANGE="${TAG}"
+          fi
+
+          echo "## What's Changed" > release_notes.md
+          echo "" >> release_notes.md
+
+          # Features
+          FEATURES=$(git log $RANGE --pretty=format:"- %s (%h)" --no-merges | grep -iE "^- feat" || true)
+          if [ -n "$FEATURES" ]; then
+            echo "### Features" >> release_notes.md
+            echo "$FEATURES" >> release_notes.md
+            echo "" >> release_notes.md
+          fi
+
+          # Bug fixes
+          FIXES=$(git log $RANGE --pretty=format:"- %s (%h)" --no-merges | grep -iE "^- fix" || true)
+          if [ -n "$FIXES" ]; then
+            echo "### Bug Fixes" >> release_notes.md
+            echo "$FIXES" >> release_notes.md
+            echo "" >> release_notes.md
+          fi
+
+          # Other changes
+          OTHERS=$(git log $RANGE --pretty=format:"- %s (%h)" --no-merges | grep -ivE "^- (feat|fix)" || true)
+          if [ -n "$OTHERS" ]; then
+            echo "### Other Changes" >> release_notes.md
+            echo "$OTHERS" >> release_notes.md
+            echo "" >> release_notes.md
+          fi
+
+          echo "" >> release_notes.md
+          echo "**Full Changelog**: https://github.com/${{ github.repository }}/compare/${PREV}...${TAG}" >> release_notes.md
+
+          cat release_notes.md
+
+      # -----------------------------------------------------------------------
+      # Create the GitHub Release
+      # -----------------------------------------------------------------------
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tag.outputs.tag }}
+          name: "Release ${{ steps.tag.outputs.tag }}"
+          body_path: release_notes.md
+          draft: false
+          prerelease: false
+          generate_release_notes: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
