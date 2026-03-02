@@ -86,7 +86,7 @@ services:
       target: production
       args:
         # The browser calls this URL directly, so it must be publicly reachable.
-        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-http://localhost:3000}
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-/}
     container_name: motorsports_frontend
     restart: unless-stopped
     depends_on:
