@@ -1,3 +1,4 @@
+import logger from '../config/logger';
 import { Request, Response } from 'express';
 import prisma from '../prisma';
 import { VALID_ROLES } from '../types/auth.types';
@@ -35,7 +36,7 @@ export const getAllUsers = async (req: Request, res: Response): Promise<void> =>
       count: users.length,
     });
   } catch (error) {
-    console.error('Error fetching users:', error);
+    logger.error({ err: error }, 'Error fetching users:');
     res.status(500).json({
       success: false,
       error: 'Failed to fetch users.',
@@ -84,7 +85,7 @@ export const getUserById = async (req: Request, res: Response): Promise<void> =>
       data: user,
     });
   } catch (error) {
-    console.error('Error fetching user:', error);
+    logger.error({ err: error }, 'Error fetching user:');
     res.status(500).json({
       success: false,
       error: 'Failed to fetch user.',
@@ -156,7 +157,7 @@ export const updateUserRole = async (req: Request, res: Response): Promise<void>
       data: updatedUser,
     });
   } catch (error) {
-    console.error('Error updating user role:', error);
+    logger.error({ err: error }, 'Error updating user role:');
     res.status(500).json({
       success: false,
       error: 'Failed to update user role.',
@@ -220,7 +221,7 @@ export const toggleUserStatus = async (req: Request, res: Response): Promise<voi
       data: updatedUser,
     });
   } catch (error) {
-    console.error('Error toggling user status:', error);
+    logger.error({ err: error }, 'Error toggling user status:');
     res.status(500).json({
       success: false,
       error: 'Failed to update user status.',

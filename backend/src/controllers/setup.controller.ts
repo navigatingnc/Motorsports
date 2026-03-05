@@ -1,3 +1,4 @@
+import logger from '../config/logger';
 import { Request, Response } from 'express';
 import prisma from '../prisma';
 import {
@@ -43,7 +44,7 @@ export const getAllSetupSheets = async (req: Request, res: Response): Promise<vo
       count: setups.length,
     });
   } catch (error) {
-    console.error('Error fetching setup sheets:', error);
+    logger.error({ err: error }, 'Error fetching setup sheets:');
     res.status(500).json({
       success: false,
       error: 'Failed to fetch setup sheets',
@@ -76,7 +77,7 @@ export const getSetupSheetById = async (req: Request, res: Response): Promise<vo
       data: setup,
     });
   } catch (error) {
-    console.error('Error fetching setup sheet:', error);
+    logger.error({ err: error }, 'Error fetching setup sheet:');
     res.status(500).json({
       success: false,
       error: 'Failed to fetch setup sheet',
@@ -195,7 +196,7 @@ export const createSetupSheet = async (req: Request, res: Response): Promise<voi
       message: 'Setup sheet created successfully',
     });
   } catch (error) {
-    console.error('Error creating setup sheet:', error);
+    logger.error({ err: error }, 'Error creating setup sheet:');
     res.status(500).json({
       success: false,
       error: 'Failed to create setup sheet',
@@ -325,7 +326,7 @@ export const updateSetupSheet = async (req: Request, res: Response): Promise<voi
       message: 'Setup sheet updated successfully',
     });
   } catch (error) {
-    console.error('Error updating setup sheet:', error);
+    logger.error({ err: error }, 'Error updating setup sheet:');
     res.status(500).json({
       success: false,
       error: 'Failed to update setup sheet',
@@ -364,7 +365,7 @@ export const deleteSetupSheet = async (req: Request, res: Response): Promise<voi
       message: 'Setup sheet deleted successfully',
     });
   } catch (error) {
-    console.error('Error deleting setup sheet:', error);
+    logger.error({ err: error }, 'Error deleting setup sheet:');
     res.status(500).json({
       success: false,
       error: 'Failed to delete setup sheet',

@@ -1,3 +1,4 @@
+import logger from '../config/logger';
 import { Request, Response } from 'express';
 import prisma from '../prisma';
 import { CreateDriverDto, UpdateDriverDto } from '../types/driver.types';
@@ -32,7 +33,7 @@ export const getAllDrivers = async (req: Request, res: Response): Promise<void> 
       count: drivers.length,
     });
   } catch (error) {
-    console.error('Error fetching drivers:', error);
+    logger.error({ err: error }, 'Error fetching drivers:');
     res.status(500).json({
       success: false,
       error: 'Failed to fetch drivers.',
@@ -77,7 +78,7 @@ export const getDriverById = async (req: Request, res: Response): Promise<void> 
       data: driver,
     });
   } catch (error) {
-    console.error('Error fetching driver:', error);
+    logger.error({ err: error }, 'Error fetching driver:');
     res.status(500).json({
       success: false,
       error: 'Failed to fetch driver.',
@@ -156,7 +157,7 @@ export const createDriver = async (req: Request, res: Response): Promise<void> =
       message: 'Driver profile created successfully.',
     });
   } catch (error) {
-    console.error('Error creating driver:', error);
+    logger.error({ err: error }, 'Error creating driver:');
     res.status(500).json({
       success: false,
       error: 'Failed to create driver profile.',
@@ -216,7 +217,7 @@ export const updateDriver = async (req: Request, res: Response): Promise<void> =
       message: 'Driver profile updated successfully.',
     });
   } catch (error) {
-    console.error('Error updating driver:', error);
+    logger.error({ err: error }, 'Error updating driver:');
     res.status(500).json({
       success: false,
       error: 'Failed to update driver profile.',
@@ -253,7 +254,7 @@ export const deleteDriver = async (req: Request, res: Response): Promise<void> =
       message: 'Driver profile deleted successfully.',
     });
   } catch (error) {
-    console.error('Error deleting driver:', error);
+    logger.error({ err: error }, 'Error deleting driver:');
     res.status(500).json({
       success: false,
       error: 'Failed to delete driver profile.',

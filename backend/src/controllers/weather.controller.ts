@@ -1,3 +1,4 @@
+import logger from '../config/logger';
 import { Request, Response } from 'express';
 import prisma from '../prisma';
 import {
@@ -312,7 +313,7 @@ export const getEventWeather = async (req: Request, res: Response): Promise<void
       data: payload,
     });
   } catch (error) {
-    console.error('Error fetching weather data:', error);
+    logger.error({ err: error }, 'Error fetching weather data:');
     res.status(500).json({
       success: false,
       error: 'Failed to fetch weather data. Please try again later.',

@@ -1,3 +1,4 @@
+import logger from '../config/logger';
 import { Request, Response } from 'express';
 import prisma from '../prisma';
 import {
@@ -74,7 +75,7 @@ export const getAllParts = async (req: Request, res: Response): Promise<void> =>
       lowStockCount: enriched.filter((p: any) => p.isLowStock).length,
     });
   } catch (error) {
-    console.error('Error fetching parts:', error);
+    logger.error({ err: error }, 'Error fetching parts:');
     res.status(500).json({ success: false, error: 'Failed to fetch parts' });
   }
 };
@@ -99,7 +100,7 @@ export const getPartById = async (req: Request, res: Response): Promise<void> =>
       data: { ...part, isLowStock: part.quantity <= part.lowStockThreshold },
     });
   } catch (error) {
-    console.error('Error fetching part:', error);
+    logger.error({ err: error }, 'Error fetching part:');
     res.status(500).json({ success: false, error: 'Failed to fetch part' });
   }
 };
@@ -175,7 +176,7 @@ export const createPart = async (req: Request, res: Response): Promise<void> => 
       message: 'Part created successfully',
     });
   } catch (error) {
-    console.error('Error creating part:', error);
+    logger.error({ err: error }, 'Error creating part:');
     res.status(500).json({ success: false, error: 'Failed to create part' });
   }
 };
@@ -249,7 +250,7 @@ export const updatePart = async (req: Request, res: Response): Promise<void> => 
       message: 'Part updated successfully',
     });
   } catch (error) {
-    console.error('Error updating part:', error);
+    logger.error({ err: error }, 'Error updating part:');
     res.status(500).json({ success: false, error: 'Failed to update part' });
   }
 };
@@ -302,7 +303,7 @@ export const adjustPartQuantity = async (req: Request, res: Response): Promise<v
       message: `Quantity adjusted by ${adjustment > 0 ? '+' : ''}${adjustment}. New quantity: ${newQuantity}`,
     });
   } catch (error) {
-    console.error('Error adjusting part quantity:', error);
+    logger.error({ err: error }, 'Error adjusting part quantity:');
     res.status(500).json({ success: false, error: 'Failed to adjust part quantity' });
   }
 };
@@ -325,7 +326,7 @@ export const deletePart = async (req: Request, res: Response): Promise<void> => 
 
     res.json({ success: true, message: 'Part deleted successfully' });
   } catch (error) {
-    console.error('Error deleting part:', error);
+    logger.error({ err: error }, 'Error deleting part:');
     res.status(500).json({ success: false, error: 'Failed to delete part' });
   }
 };
@@ -378,7 +379,7 @@ export const getInventorySummary = async (req: Request, res: Response): Promise<
       },
     });
   } catch (error) {
-    console.error('Error fetching inventory summary:', error);
+    logger.error({ err: error }, 'Error fetching inventory summary:');
     res.status(500).json({ success: false, error: 'Failed to fetch inventory summary' });
   }
 };
