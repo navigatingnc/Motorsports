@@ -1,3 +1,4 @@
+import logger from '../config/logger';
 import { Request, Response } from 'express';
 import prisma from '../prisma';
 import { CreateEventDto, UpdateEventDto, VALID_EVENT_STATUSES } from '../types/event.types';
@@ -19,7 +20,7 @@ export const getAllEvents = async (req: Request, res: Response): Promise<void> =
       count: events.length,
     });
   } catch (error) {
-    console.error('Error fetching events:', error);
+    logger.error({ err: error }, 'Error fetching events:');
     res.status(500).json({
       success: false,
       error: 'Failed to fetch events',
@@ -51,7 +52,7 @@ export const getEventById = async (req: Request, res: Response): Promise<void> =
       data: event,
     });
   } catch (error) {
-    console.error('Error fetching event:', error);
+    logger.error({ err: error }, 'Error fetching event:');
     res.status(500).json({
       success: false,
       error: 'Failed to fetch event',
@@ -139,7 +140,7 @@ export const createEvent = async (req: Request, res: Response): Promise<void> =>
       message: 'Event created successfully',
     });
   } catch (error) {
-    console.error('Error creating event:', error);
+    logger.error({ err: error }, 'Error creating event:');
     res.status(500).json({
       success: false,
       error: 'Failed to create event',
@@ -236,7 +237,7 @@ export const updateEvent = async (req: Request, res: Response): Promise<void> =>
       message: 'Event updated successfully',
     });
   } catch (error) {
-    console.error('Error updating event:', error);
+    logger.error({ err: error }, 'Error updating event:');
     res.status(500).json({
       success: false,
       error: 'Failed to update event',
@@ -273,7 +274,7 @@ export const deleteEvent = async (req: Request, res: Response): Promise<void> =>
       message: 'Event deleted successfully',
     });
   } catch (error) {
-    console.error('Error deleting event:', error);
+    logger.error({ err: error }, 'Error deleting event:');
     res.status(500).json({
       success: false,
       error: 'Failed to delete event',

@@ -1,3 +1,4 @@
+import logger from '../config/logger';
 import { Request, Response } from 'express';
 import { PutObjectCommand, DeleteObjectCommand, GetObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
@@ -124,7 +125,7 @@ export const getPresignedUploadUrl = async (req: Request, res: Response): Promis
       }
     }
   } catch (err) {
-    console.error('[upload] Entity lookup error:', err);
+    logger.error({ err: err }, '[upload] Entity lookup error:');
     res.status(500).json({ success: false, error: 'Failed to verify entity.' });
     return;
   }
@@ -155,7 +156,7 @@ export const getPresignedUploadUrl = async (req: Request, res: Response): Promis
       },
     });
   } catch (err) {
-    console.error('[upload] Presign error:', err);
+    logger.error({ err: err }, '[upload] Presign error:');
     res.status(500).json({ success: false, error: 'Failed to generate presigned URL.' });
   }
 };
@@ -204,7 +205,7 @@ export const confirmUpload = async (req: Request, res: Response): Promise<void> 
 
     res.status(201).json({ success: true, data: record });
   } catch (err) {
-    console.error('[upload] Confirm error:', err);
+    logger.error({ err: err }, '[upload] Confirm error:');
     res.status(500).json({ success: false, error: 'Failed to save upload record.' });
   }
 };
@@ -233,7 +234,7 @@ export const listUploads = async (req: Request, res: Response): Promise<void> =>
 
     res.status(200).json({ success: true, data: uploads, count: uploads.length });
   } catch (err) {
-    console.error('[upload] List error:', err);
+    logger.error({ err: err }, '[upload] List error:');
     res.status(500).json({ success: false, error: 'Failed to retrieve uploads.' });
   }
 };
@@ -257,7 +258,7 @@ export const getDownloadUrl = async (req: Request, res: Response): Promise<void>
 
     res.status(200).json({ success: true, data: { downloadUrl, expiresIn: 900 } });
   } catch (err) {
-    console.error('[upload] Download URL error:', err);
+    logger.error({ err: err }, '[upload] Download URL error:');
     res.status(500).json({ success: false, error: 'Failed to generate download URL.' });
   }
 };
@@ -296,7 +297,7 @@ export const deleteUpload = async (req: Request, res: Response): Promise<void> =
     try {
       await s3Client.send(new DeleteObjectCommand({ Bucket: S3_BUCKET, Key: record.fileKey }));
     } catch (s3Err) {
-      console.warn('[upload] S3 delete warning (continuing with DB delete):', s3Err);
+      logger.warn({ err: s3Err }, '[upload] S3 delete warning (continuing with DB delete)');
     }
 
     // Delete DB record
@@ -304,7 +305,7 @@ export const deleteUpload = async (req: Request, res: Response): Promise<void> =
 
     res.status(200).json({ success: true, message: 'File deleted successfully.' });
   } catch (err) {
-    console.error('[upload] Delete error:', err);
+    logger.error({ err: err }, '[upload] Delete error:');
     res.status(500).json({ success: false, error: 'Failed to delete upload.' });
   }
 };

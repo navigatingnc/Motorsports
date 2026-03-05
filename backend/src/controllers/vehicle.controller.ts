@@ -1,3 +1,4 @@
+import logger from '../config/logger';
 import { Request, Response } from 'express';
 import prisma from '../prisma';
 import { CreateVehicleDto, UpdateVehicleDto } from '../types/vehicle.types';
@@ -19,7 +20,7 @@ export const getAllVehicles = async (req: Request, res: Response): Promise<void>
       count: vehicles.length,
     });
   } catch (error) {
-    console.error('Error fetching vehicles:', error);
+    logger.error({ err: error }, 'Error fetching vehicles:');
     res.status(500).json({
       success: false,
       error: 'Failed to fetch vehicles',
@@ -51,7 +52,7 @@ export const getVehicleById = async (req: Request, res: Response): Promise<void>
       data: vehicle,
     });
   } catch (error) {
-    console.error('Error fetching vehicle:', error);
+    logger.error({ err: error }, 'Error fetching vehicle:');
     res.status(500).json({
       success: false,
       error: 'Failed to fetch vehicle',
@@ -94,7 +95,7 @@ export const createVehicle = async (req: Request, res: Response): Promise<void> 
       message: 'Vehicle created successfully',
     });
   } catch (error: any) {
-    console.error('Error creating vehicle:', error);
+    logger.error({ err: error }, 'Error creating vehicle:');
     
     // Handle unique constraint violation for VIN
     if (error.code === 'P2002' && error.meta?.target?.includes('vin')) {
@@ -153,7 +154,7 @@ export const updateVehicle = async (req: Request, res: Response): Promise<void> 
       message: 'Vehicle updated successfully',
     });
   } catch (error: any) {
-    console.error('Error updating vehicle:', error);
+    logger.error({ err: error }, 'Error updating vehicle:');
     
     // Handle unique constraint violation for VIN
     if (error.code === 'P2002' && error.meta?.target?.includes('vin')) {
@@ -200,7 +201,7 @@ export const deleteVehicle = async (req: Request, res: Response): Promise<void> 
       message: 'Vehicle deleted successfully',
     });
   } catch (error) {
-    console.error('Error deleting vehicle:', error);
+    logger.error({ err: error }, 'Error deleting vehicle:');
     res.status(500).json({
       success: false,
       error: 'Failed to delete vehicle',

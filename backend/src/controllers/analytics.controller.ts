@@ -1,3 +1,4 @@
+import logger from '../config/logger';
 import { Request, Response } from 'express';
 import prisma from '../prisma';
 import { CreateLapTimeDto, UpdateLapTimeDto, VALID_LAP_SESSION_TYPES } from '../types/laptime.types';
@@ -122,7 +123,7 @@ export const recordLapTime = async (req: Request, res: Response): Promise<void> 
       message: 'Lap time recorded successfully',
     });
   } catch (error) {
-    console.error('Error recording lap time:', error);
+    logger.error({ err: error }, 'Error recording lap time:');
     res.status(500).json({
       success: false,
       error: 'Failed to record lap time',
@@ -169,7 +170,7 @@ export const getLapTimes = async (req: Request, res: Response): Promise<void> =>
       count: enriched.length,
     });
   } catch (error) {
-    console.error('Error fetching lap times:', error);
+    logger.error({ err: error }, 'Error fetching lap times:');
     res.status(500).json({
       success: false,
       error: 'Failed to fetch lap times',
@@ -206,7 +207,7 @@ export const getLapTimeById = async (req: Request, res: Response): Promise<void>
       },
     });
   } catch (error) {
-    console.error('Error fetching lap time:', error);
+    logger.error({ err: error }, 'Error fetching lap time:');
     res.status(500).json({
       success: false,
       error: 'Failed to fetch lap time',
@@ -264,7 +265,7 @@ export const updateLapTime = async (req: Request, res: Response): Promise<void> 
       message: 'Lap time updated successfully',
     });
   } catch (error) {
-    console.error('Error updating lap time:', error);
+    logger.error({ err: error }, 'Error updating lap time:');
     res.status(500).json({
       success: false,
       error: 'Failed to update lap time',
@@ -293,7 +294,7 @@ export const deleteLapTime = async (req: Request, res: Response): Promise<void> 
       message: 'Lap time deleted successfully',
     });
   } catch (error) {
-    console.error('Error deleting lap time:', error);
+    logger.error({ err: error }, 'Error deleting lap time:');
     res.status(500).json({
       success: false,
       error: 'Failed to delete lap time',
@@ -378,7 +379,7 @@ export const getAnalyticsSummary = async (req: Request, res: Response): Promise<
       },
     });
   } catch (error) {
-    console.error('Error fetching analytics summary:', error);
+    logger.error({ err: error }, 'Error fetching analytics summary:');
     res.status(500).json({
       success: false,
       error: 'Failed to fetch analytics summary',

@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import logger from './config/logger';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { Pool } from 'pg';
 
@@ -9,7 +10,7 @@ const { PrismaClient } = require('@prisma/client') as {
 const connectionString = process.env['DATABASE_URL'];
 
 if (!connectionString) {
-  console.warn('⚠️ [database]: DATABASE_URL is not set in environment variables');
+  logger.warn('⚠️ [database]: DATABASE_URL is not set in environment variables');
 }
 
 const pool = new Pool({

@@ -1,3 +1,4 @@
+import logger from '../config/logger';
 import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -113,7 +114,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
       },
     });
   } catch (error) {
-    console.error('Error during registration:', error);
+    logger.error({ err: error }, 'Error during registration:');
     res.status(500).json({
       success: false,
       error: 'Registration failed. Please try again.',
@@ -204,7 +205,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       },
     });
   } catch (error) {
-    console.error('Error during login:', error);
+    logger.error({ err: error }, 'Error during login:');
     res.status(500).json({
       success: false,
       error: 'Login failed. Please try again.',
@@ -256,7 +257,7 @@ export const getMe = async (req: Request, res: Response): Promise<void> => {
       },
     });
   } catch (error) {
-    console.error('Error fetching user profile:', error);
+    logger.error({ err: error }, 'Error fetching user profile:');
     res.status(500).json({
       success: false,
       error: 'Failed to fetch user profile.',

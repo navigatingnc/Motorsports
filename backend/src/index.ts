@@ -1,8 +1,17 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
+// ── Sentry must be initialised before any other imports that use it ──────────
+import { initSentry } from './config/sentry';
+initSentry();
+
 import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
+import pinoHttp from 'pino-http';
+
+import logger from './config/logger';
+import { metricsMiddleware } from './config/metrics';
+
 import vehicleRoutes from './routes/vehicle.routes';
 import eventRoutes from './routes/event.routes';
 import authRoutes from './routes/auth.routes';
@@ -13,34 +22,65 @@ import adminRoutes from './routes/admin.routes';
 import weatherRoutes from './routes/weather.routes';
 import partRoutes from './routes/part.routes';
 import uploadRoutes from './routes/upload.routes';
+import metricsRoutes from './routes/metrics.routes';
 
 const app: Express = express();
-const port = process.env['PORT'] || 3000;
+const port = process.env['PORT'] ?? 3000;
 
-// Middleware
-// Restrict CORS to the configured origin; fall back to localhost:5173 (Vite dev server) in development.
-const allowedOrigin = process.env['CORS_ORIGIN'] || 'http://localhost:5173';
-app.use(cors({
-  origin: allowedOrigin,
-  credentials: true,
-}));
+// ── CORS ─────────────────────────────────────────────────────────────────────
+const allowedOrigin = process.env['CORS_ORIGIN'] ?? 'http://localhost:5173';
+app.use(cors({ origin: allowedOrigin, credentials: true }));
+
+// ── Structured HTTP request logging (Pino) ───────────────────────────────────
+app.use(
+  pinoHttp({
+    logger,
+    // Skip health-check and metrics scrape noise in logs
+    autoLogging: {
+      ignore: (req) =>
+        req.url === '/health' || req.url === '/api/status',
+    },
+    customLogLevel(_req, res, err) {
+      if (err || res.statusCode >= 500) return 'error';
+      if (res.statusCode >= 400) return 'warn';
+      return 'info';
+    },
+    serializers: {
+      req(req) {
+        return {
+          method: req.method,
+          url: req.url,
+          remoteAddress: req.remoteAddress,
+        };
+      },
+      res(res) {
+        return { statusCode: res.statusCode };
+      },
+    },
+  }),
+);
+
+// ── In-process Prometheus metrics collection ─────────────────────────────────
+app.use(metricsMiddleware);
+
+// ── Body parsers ─────────────────────────────────────────────────────────────
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Health check endpoint
-app.get('/health', (req: Request, res: Response) => {
-  res.json({ 
-    status: 'ok', 
+// ── Health check (legacy — kept for backwards compatibility) ─────────────────
+app.get('/health', (_req: Request, res: Response) => {
+  res.json({
+    status: 'ok',
     message: 'Motorsports Management API is running',
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
 });
 
-// API info endpoint
-app.get('/api', (req: Request, res: Response) => {
-  res.json({ 
+// ── API info ─────────────────────────────────────────────────────────────────
+app.get('/api', (_req: Request, res: Response) => {
+  res.json({
     message: 'Motorsports Management API',
-    version: '1.0.0',
+    version: process.env['APP_VERSION'] ?? '1.0.0',
     endpoints: {
       auth: '/api/auth',
       vehicles: '/api/vehicles',
@@ -52,45 +92,35 @@ app.get('/api', (req: Request, res: Response) => {
       weather: '/api/events/:id/weather',
       parts: '/api/parts',
       uploads: '/api/uploads',
-    }
+      status: '/api/status',
+      metrics: '/api/metrics',
+    },
   });
 });
 
-// Auth routes (public)
+// ── Routes ────────────────────────────────────────────────────────────────────
 app.use('/api/auth', authRoutes);
-
-// Vehicle routes (protected)
 app.use('/api/vehicles', vehicleRoutes);
-
-// Event routes (protected)
 app.use('/api/events', eventRoutes);
-
-// Driver routes (protected)
 app.use('/api/drivers', driverRoutes);
-
-// Setup sheet routes (protected)
 app.use('/api/setups', setupRoutes);
-
-// Analytics routes (protected)
 app.use('/api/analytics', analyticsRoutes);
-
-// Admin routes (admin only)
 app.use('/api/admin', adminRoutes);
-
-// Weather routes — nested under events (protected)
 app.use('/api/events/:id/weather', weatherRoutes);
-
-// Parts / Inventory routes (protected)
 app.use('/api/parts', partRoutes);
-// File upload routes (protected)
 app.use('/api/uploads', uploadRoutes);
 
-// Start server
+// Monitoring & observability routes (/api/status, /api/metrics, /api/metrics/json)
+app.use('/api', metricsRoutes);
+
+// ── Start server ──────────────────────────────────────────────────────────────
 app.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
-  console.log(`🏁[motorsports]: Motorsports Management API initialized`);
-  console.log(`🔐[auth]: Authentication endpoints available at /api/auth`);
-  console.log(`👑[admin]: Admin endpoints available at /api/admin`);
+  logger.info({ port }, '⚡️ Motorsports Management API is running');
+  logger.info('🏁 Motorsports Management API initialised');
+  logger.info('🔐 Authentication endpoints available at /api/auth');
+  logger.info('👑 Admin endpoints available at /api/admin');
+  logger.info('📊 Metrics endpoint available at /api/metrics (admin only)');
+  logger.info('🩺 Status endpoint available at /api/status (public)');
 });
 
 export default app;
