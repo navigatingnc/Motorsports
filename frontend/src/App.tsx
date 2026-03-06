@@ -1,7 +1,9 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, NavLink, useNavigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
+import { NotificationProvider } from './context/NotificationContext';
 import ThemeToggle from './components/ThemeToggle';
+import NotificationBell from './components/NotificationBell';
 import ProtectedRoute from './components/ProtectedRoute';
 import RoleGuard from './components/RoleGuard';
 import VehicleListPage from './pages/VehicleListPage';
@@ -19,6 +21,7 @@ import StatusPage from './pages/StatusPage';
 import './App.css';
 import './status.css';
 import './dark-mode.css';
+import './notifications.css';
 
 // Inner component that has access to the Router context
 const AppLayout = () => {
@@ -102,6 +105,9 @@ const AppLayout = () => {
                     {user?.firstName} {user?.lastName}
                   </span>
                   <span className={`nav-user-role nav-user-role--${user?.role}`}>{user?.role}</span>
+                </li>
+                <li>
+                  <NotificationBell />
                 </li>
                 <li>
                   <ThemeToggle />
@@ -295,7 +301,9 @@ function App() {
     <Router>
       <ThemeProvider>
         <AuthProvider>
-          <AppLayout />
+          <NotificationProvider>
+            <AppLayout />
+          </NotificationProvider>
         </AuthProvider>
       </ThemeProvider>
     </Router>

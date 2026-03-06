@@ -1,6 +1,7 @@
 import logger from '../config/logger';
 import { Request, Response } from 'express';
 import prisma from '../prisma';
+import { notifyNewSetupSheet } from '../services/notification.service';
 import {
   CreateSetupSheetDto,
   UpdateSetupSheetDto,
@@ -189,6 +190,13 @@ export const createSetupSheet = async (req: Request, res: Response): Promise<voi
       },
       include: setupInclude,
     });
+
+    // Fire-and-forget: notify all users about the new setup sheet
+    notifyNewSetupSheet(
+      (setup as typeof setup & { event: { name: string } }).event.name,
+      `${(setup as typeof setup & { vehicle: { make: string; model: string } }).vehicle.make} ${(setup as typeof setup & { vehicle: { model: string } }).vehicle.model}`,
+      setup.sessionType,
+    ).catch((err: unknown) => logger.error({ err }, 'Failed to send setup sheet notification'));
 
     res.status(201).json({
       success: true,
