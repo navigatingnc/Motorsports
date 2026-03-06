@@ -1,6 +1,7 @@
 import logger from '../config/logger';
 import { Request, Response } from 'express';
 import prisma from '../prisma';
+import { notifyLowStock } from '../services/notification.service';
 import {
   CreatePartDto,
   UpdatePartDto,
@@ -296,6 +297,13 @@ export const adjustPartQuantity = async (req: Request, res: Response): Promise<v
       },
       include: partInclude,
     });
+
+    // Fire-and-forget low-stock alert
+    if (part.quantity <= part.lowStockThreshold) {
+      notifyLowStock(part.name, part.quantity).catch((err: unknown) =>
+        logger.error({ err }, 'Failed to send low-stock notification'),
+      );
+    }
 
     res.json({
       success: true,

@@ -5,12 +5,14 @@ dotenv.config();
 import { initSentry } from './config/sentry';
 initSentry();
 
+import http from 'http';
 import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 import pinoHttp from 'pino-http';
 
 import logger from './config/logger';
 import { metricsMiddleware } from './config/metrics';
+import { initSocketIO } from './services/notification.service';
 
 import vehicleRoutes from './routes/vehicle.routes';
 import eventRoutes from './routes/event.routes';
@@ -23,6 +25,7 @@ import weatherRoutes from './routes/weather.routes';
 import partRoutes from './routes/part.routes';
 import uploadRoutes from './routes/upload.routes';
 import metricsRoutes from './routes/metrics.routes';
+import notificationRoutes from './routes/notification.routes';
 
 const app: Express = express();
 const port = process.env['PORT'] ?? 3000;
@@ -92,6 +95,7 @@ app.get('/api', (_req: Request, res: Response) => {
       weather: '/api/events/:id/weather',
       parts: '/api/parts',
       uploads: '/api/uploads',
+      notifications: '/api/notifications',
       status: '/api/status',
       metrics: '/api/metrics',
     },
@@ -109,18 +113,25 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/events/:id/weather', weatherRoutes);
 app.use('/api/parts', partRoutes);
 app.use('/api/uploads', uploadRoutes);
+app.use('/api/notifications', notificationRoutes);
 
 // Monitoring & observability routes (/api/status, /api/metrics, /api/metrics/json)
 app.use('/api', metricsRoutes);
 
+// ── HTTP server + Socket.IO ───────────────────────────────────────────────────
+const httpServer = http.createServer(app);
+initSocketIO(httpServer);
+
 // ── Start server ──────────────────────────────────────────────────────────────
-app.listen(port, () => {
+httpServer.listen(port, () => {
   logger.info({ port }, '⚡️ Motorsports Management API is running');
   logger.info('🏁 Motorsports Management API initialised');
   logger.info('🔐 Authentication endpoints available at /api/auth');
   logger.info('👑 Admin endpoints available at /api/admin');
   logger.info('📊 Metrics endpoint available at /api/metrics (admin only)');
   logger.info('🩺 Status endpoint available at /api/status (public)');
+  logger.info('🔔 Notifications endpoint available at /api/notifications');
+  logger.info('🔌 Socket.IO real-time server active');
 });
 
 export default app;

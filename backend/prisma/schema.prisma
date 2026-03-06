@@ -86,9 +86,10 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  driver       Driver?
-  setupSheets  SetupSheet[]
-  uploads      Upload[]
+  driver        Driver?
+  setupSheets   SetupSheet[]
+  uploads       Upload[]
+  notifications Notification[]
 
   @@map("users")
 }
@@ -242,4 +243,22 @@ model Upload {
   @@index([entityType, entityId])
   @@index([uploadedById])
   @@map("uploads")
+}
+
+/// Real-time notification record — persisted for history and unread tracking.
+model Notification {
+  id          String   @id @default(uuid())
+  /// The user who should receive this notification
+  recipientId String
+  recipient   User     @relation(fields: [recipientId], references: [id], onDelete: Cascade)
+  /// Human-readable notification message
+  message     String
+  /// Notification category: "setup_sheet" | "event_reminder" | "low_stock" | "system"
+  type        String   @default("system")
+  /// Whether the recipient has dismissed/read this notification
+  isRead      Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  @@index([recipientId, isRead])
+  @@map("notifications")
 }
