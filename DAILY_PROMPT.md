@@ -38,7 +38,8 @@ You must never:
 Before writing code, analyze:
 
 - project_plan.md
-- changelog.md
+- changelog.md (index)
+- changelog/phases/ (full per-phase history)
 - Backend structure
 - Frontend structure
 - Prisma schema
@@ -124,12 +125,33 @@ The implementation must be complete and usable.
 
 After implementation:
 
-1. Mark the phase as Done in `project_plan.md`
-2. Append to `changelog.md`:
-   - Phase number and title
-   - What changed
-   - Why it matters
-   - Key technical additions
+1. Mark the phase as Done in `project_plan.md`.
+
+2. **Create** `changelog/phases/phase-{NN}.md` (zero-padded number, e.g. `phase-23.md`) with the full phase entry:
+   ```
+   # Phase {N}: {Title}
+
+   **Date:** {YYYY-MM-DD}  
+   **Status:** ✅ Completed
+
+   ---
+
+   ### Summary
+   {one-paragraph summary}
+
+   ### Work Performed
+   {detailed bullet list}
+
+   ### Generated Code
+   {table of files added/modified}
+
+   ---
+   ```
+
+3. **Update** `changelog.md` (the index — keep it lean):
+   - Append a new row to the **Summary Table**.
+   - Replace the oldest entry in **Recent Entries** so only the 5 most recent phases appear.
+   - Do NOT paste full code or long diffs into `changelog.md`.
 
 Commit with message:
 
