@@ -31,21 +31,13 @@
 | 20 | [Phase 20: Frontend: Component & End-to-End Testing](changelog/phases/phase-20.md) | March 4, 2026 | ✅ Completed |
 | 21 | [Phase 21: DevOps: Monitoring & Observability](changelog/phases/phase-21.md) | March 5, 2026 | ✅ Completed |
 | 22 | [Phase 22: Backend + Frontend: Real-Time Notifications (WebSockets)](changelog/phases/phase-22.md) | March 6, 2026 | ✅ Completed |
+| 23 | [Phase 23: Mobile App: React Native Scaffolding & Auth](changelog/phases/phase-23.md) | March 7, 2026 | ✅ Completed |
 
 ---
 
 ## Recent Entries
 
 > The 5 most recent phases are summarised below. For full history, browse [`changelog/phases/`](changelog/phases/).
-
-### Phase 18: DevOps: CI/CD with GitHub Actions
-**Date:** March 2, 2026 &nbsp;|&nbsp; **Status:** ✅ Completed
-
-Implemented a complete CI/CD pipeline using GitHub Actions with three purpose-built workflows. The pipeline provides ...
-
-[Full details →](changelog/phases/phase-18.md)
-
----
 
 ### Phase 19: Backend Unit & Integration Testing
 **Date:** March 3, 2026 &nbsp;|&nbsp; **Status:** ✅ Completed
@@ -80,6 +72,15 @@ Integrated comprehensive monitoring and observability into the Motorsports Manag
 Integrated Socket.IO into the Express backend with JWT-authenticated WebSocket connections. Defined a `Notification` ...
 
 [Full details →](changelog/phases/phase-22.md)
+
+---
+
+### Phase 23: Mobile App: React Native Scaffolding & Auth
+**Date:** March 7, 2026 &nbsp;|&nbsp; **Status:** ✅ Completed
+
+Initialized the `mobile/` directory as a standalone Expo SDK 55 + React Native 0.83 project with TypeScript. Configured environment variables for the backend API URL, implemented Login and Register screens using the existing `/api/auth` endpoints, and secured JWT persistence with **Expo SecureStore** alongside a global Axios request interceptor.
+
+[Full details →](changelog/phases/phase-23.md)
 
 ---
 
