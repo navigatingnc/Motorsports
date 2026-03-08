@@ -32,21 +32,13 @@
 | 21 | [Phase 21: DevOps: Monitoring & Observability](changelog/phases/phase-21.md) | March 5, 2026 | ✅ Completed |
 | 22 | [Phase 22: Backend + Frontend: Real-Time Notifications (WebSockets)](changelog/phases/phase-22.md) | March 6, 2026 | ✅ Completed |
 | 23 | [Phase 23: Mobile App: React Native Scaffolding & Auth](changelog/phases/phase-23.md) | March 7, 2026 | ✅ Completed |
+| 24 | [Phase 24: Mobile App: Core Screens (Vehicles, Events, Lap Times)](changelog/phases/phase-24.md) | March 8, 2026 | ✅ Completed |
 
 ---
 
 ## Recent Entries
 
 > The 5 most recent phases are summarised below. For full history, browse [`changelog/phases/`](changelog/phases/).
-
-### Phase 19: Backend Unit & Integration Testing
-**Date:** March 3, 2026 &nbsp;|&nbsp; **Status:** ✅ Completed
-
-Established a comprehensive backend testing suite using **Jest**, **ts-jest**, **Supertest**, and **jest-mock-extende...
-
-[Full details →](changelog/phases/phase-19.md)
-
----
 
 ### Phase 20: Frontend: Component & End-to-End Testing
 **Date:** March 4, 2026 &nbsp;|&nbsp; **Status:** ✅ Completed
@@ -81,6 +73,15 @@ Integrated Socket.IO into the Express backend with JWT-authenticated WebSocket c
 Initialized the `mobile/` directory as a standalone Expo SDK 55 + React Native 0.83 project with TypeScript. Configured environment variables for the backend API URL, implemented Login and Register screens using the existing `/api/auth` endpoints, and secured JWT persistence with **Expo SecureStore** alongside a global Axios request interceptor.
 
 [Full details →](changelog/phases/phase-23.md)
+
+---
+
+### Phase 24: Mobile App: Core Screens (Vehicles, Events, Lap Times)
+**Date:** March 8, 2026 &nbsp;|&nbsp; **Status:** ✅ Completed
+
+Replaced the Phase 23 placeholder `HomeScreen` with a fully functional three-tab mobile application. Implemented `VehiclesScreen` with pull-to-refresh, `VehicleDetailScreen` with specs and lap history, `EventsScreen` with upcoming/past tabs, `EventDetailScreen` with weather widget and setup sheets, and `RecordLapTimeScreen` with a live stopwatch that submits lap times to the backend in real time. All screens are wired via a `TabNavigator` with per-tab stack navigators.
+
+[Full details →](changelog/phases/phase-24.md)
 
 ---
 
