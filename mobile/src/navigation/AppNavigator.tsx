@@ -1,19 +1,11 @@
 import React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { AppStackParamList } from './types';
-import HomeScreen from '../screens/HomeScreen';
-
-const Stack = createNativeStackNavigator<AppStackParamList>();
+import TabNavigator from './TabNavigator';
 
 /**
- * Stack navigator for authenticated users.
- * Phase 24 will replace HomeScreen with a bottom tab navigator
- * containing Vehicles, Events, and Lap Time screens.
+ * AppNavigator for authenticated users.
+ * Phase 24: Replaced the placeholder HomeScreen with the full
+ * bottom tab navigator containing Vehicles, Events, and Lap Timer.
  */
-const AppNavigator: React.FC = () => (
-  <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="Home" component={HomeScreen} />
-  </Stack.Navigator>
-);
+const AppNavigator: React.FC = () => <TabNavigator />;
 
 export default AppNavigator;
