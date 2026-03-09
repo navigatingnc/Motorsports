@@ -1,0 +1,258 @@
+/* ── Telemetry Detail Page ─────────────────────────────────────────────────── */
+
+.telemetry-page {
+  padding-bottom: 3rem;
+}
+
+/* Header */
+.telemetry-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.telemetry-back {
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+}
+
+.telemetry-title-block {
+  flex: 1;
+}
+
+.telemetry-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem;
+  color: var(--color-text-primary);
+}
+
+.telemetry-subtitle {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* Meta cards */
+.telemetry-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.telemetry-meta-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.telemetry-meta-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-secondary);
+}
+
+.telemetry-meta-value {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Channel toggles */
+.telemetry-channel-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.telemetry-toggle-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-right: 0.25rem;
+}
+
+.telemetry-channel-btn {
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--color-border);
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.telemetry-channel-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.telemetry-channel-btn.active {
+  font-weight: 600;
+}
+
+/* Chart card */
+.telemetry-chart-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.telemetry-section-title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 1rem;
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.telemetry-no-data {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+/* GPS map */
+.telemetry-gps-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.telemetry-gps-hint {
+  font-size: 0.82rem;
+  color: var(--color-text-secondary);
+  margin: -0.5rem 0 1rem;
+}
+
+.telemetry-gps-container {
+  display: flex;
+  justify-content: center;
+  background: var(--color-background);
+  border-radius: 8px;
+  padding: 0.5rem;
+  overflow: hidden;
+}
+
+.telemetry-gps-svg {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+}
+
+.telemetry-gps-empty {
+  text-align: center;
+  color: var(--color-text-secondary);
+  padding: 2rem 0;
+  font-size: 0.9rem;
+}
+
+.telemetry-gps-legend {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  margin-top: 0.75rem;
+}
+
+.telemetry-gps-legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* Raw data table */
+.telemetry-table-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 1.25rem;
+}
+
+.telemetry-table-count {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+}
+
+.telemetry-table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.telemetry-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.telemetry-table th {
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 2px solid var(--color-border);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.telemetry-table td {
+  padding: 0.4rem 0.75rem;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+.telemetry-table tbody tr:hover {
+  background: var(--color-background);
+}
+
+/* Error state */
+.telemetry-error {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--color-text-secondary);
+}
+
+.telemetry-error h2 {
+  color: var(--color-text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.telemetry-error p {
+  margin-bottom: 1.5rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .telemetry-title {
+    font-size: 1.25rem;
+  }
+
+  .telemetry-meta-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

@@ -18,10 +18,12 @@ import DriversPage from './pages/DriversPage';
 import AdminPanelPage from './pages/AdminPanelPage';
 import PartsPage from './pages/PartsPage';
 import StatusPage from './pages/StatusPage';
+import TelemetryDetailPage from './pages/TelemetryDetailPage';
 import './App.css';
 import './status.css';
 import './dark-mode.css';
 import './notifications.css';
+import './telemetry.css';
 
 // Inner component that has access to the Router context
 const AppLayout = () => {
@@ -252,6 +254,16 @@ const AppLayout = () => {
             element={
               <ProtectedRoute>
                 <AnalyticsDashboardPage />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Telemetry Detail — accessed via /telemetry/:lapTimeId */}
+          <Route
+            path="/telemetry/:lapTimeId"
+            element={
+              <ProtectedRoute>
+                <TelemetryDetailPage />
               </ProtectedRoute>
             }
           />

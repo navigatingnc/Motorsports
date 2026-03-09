@@ -203,7 +203,39 @@ model LapTime {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
+  // Telemetry traces recorded for this lap
+  telemetry   Telemetry[]
+
   @@map("lap_times")
+}
+
+/// High-frequency telemetry data point captured by an on-board data logger.
+/// Each row represents a single sample associated with a specific lap.
+model Telemetry {
+  id         String   @id @default(uuid())
+
+  // Relation to the lap this sample belongs to
+  lapTimeId  String
+  lapTime    LapTime  @relation(fields: [lapTimeId], references: [id], onDelete: Cascade)
+
+  // Timestamp offset from lap start in milliseconds (enables synchronised multi-channel charts)
+  offsetMs   Int
+
+  // Powertrain channels
+  speed      Float?   // km/h
+  rpm        Float?   // engine revolutions per minute
+  throttle   Float?   // 0–100 %
+  brake      Float?   // 0–100 %
+  gear       Int?     // current gear (0 = neutral)
+
+  // GPS position
+  gpsLat     Float?   // decimal degrees
+  gpsLng     Float?   // decimal degrees
+
+  createdAt  DateTime @default(now())
+
+  @@index([lapTimeId, offsetMs])
+  @@map("telemetry")
 }
 
 /// File attachment record — photos and documents linked to vehicles or events.
