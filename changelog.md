@@ -34,6 +34,11 @@
 | 23 | [Phase 23: Mobile App: React Native Scaffolding & Auth](changelog/phases/phase-23.md) | March 7, 2026 | ✅ Completed |
 | 24 | [Phase 24: Mobile App: Core Screens (Vehicles, Events, Lap Times)](changelog/phases/phase-24.md) | March 8, 2026 | ✅ Completed |
 | 25 | [Phase 25: Advanced Analytics: Telemetry Data Ingestion & Visualization](changelog/phases/phase-25.md) | March 9, 2026 | ✅ Completed |
+| 26 | [Phase 26: AI-Powered Lap Time Coaching & Debrief](changelog/phases/phase-26.md) | March 10, 2026 | 🚧 Not Started |
+| 27 | [Phase 27: Predictive Performance Modeling](changelog/phases/phase-27.md) | March 10, 2026 | 🚧 Not Started |
+| 28 | [Phase 28: Multi-Tenant Team Management & Invitations](changelog/phases/phase-28.md) | March 10, 2026 | 🚧 Not Started |
+| 29 | [Phase 29: Event Race-Day Live Dashboard (Real-Time)](changelog/phases/phase-29.md) | March 10, 2026 | 🚧 Not Started |
+| 30 | [Phase 30: Offline-First Mobile App with Background Sync](changelog/phases/phase-30.md) | March 10, 2026 | 🚧 Not Started |
 
 ---
 
@@ -41,48 +46,48 @@
 
 > The 5 most recent phases are summarised below. For full history, browse [`changelog/phases/`](changelog/phases/).
 
-### Phase 21: DevOps: Monitoring & Observability
-**Date:** March 5, 2026 &nbsp;|&nbsp; **Status:** ✅ Completed
+### Phase 26: AI-Powered Lap Time Coaching & Debrief
+**Date:** March 10, 2026 &nbsp;|&nbsp; **Status:** 🚧 Not Started
 
-Integrated comprehensive monitoring and observability into the Motorsports Management application. The backend now us...
+This phase will introduce an AI-powered coaching layer to the platform. By integrating a Large Language Model (LLM), the system will be able to analyze raw telemetry data from Phase 25 and translate it into actionable, natural-language insights for drivers. This marks a significant step from data presentation to genuine performance intelligence. A new chat-based interface will allow drivers to interact with their data, asking specific questions and receiving contextual feedback.
 
-[Full details →](changelog/phases/phase-21.md)
-
----
-
-### Phase 22: Backend + Frontend: Real-Time Notifications (WebSockets)
-**Date:** March 6, 2026 &nbsp;|&nbsp; **Status:** ✅ Completed
-
-Integrated Socket.IO into the Express backend with JWT-authenticated WebSocket connections. Defined a `Notification` ...
-
-[Full details →](changelog/phases/phase-22.md)
+[Full details →](changelog/phases/phase-26.md)
 
 ---
 
-### Phase 23: Mobile App: React Native Scaffolding & Auth
-**Date:** March 7, 2026 &nbsp;|&nbsp; **Status:** ✅ Completed
+### Phase 27: Predictive Performance Modeling
+**Date:** March 10, 2026 &nbsp;|&nbsp; **Status:** 🚧 Not Started
 
-Initialized the `mobile/` directory as a standalone Expo SDK 55 + React Native 0.83 project with TypeScript. Configured environment variables for the backend API URL, implemented Login and Register screens using the existing `/api/auth` endpoints, and secured JWT persistence with **Expo SecureStore** alongside a global Axios request interceptor.
+This phase will introduce a predictive modeling capability to the platform, allowing teams to forecast lap times and understand the potential impact of setup changes. By building a backend service that leverages a regression model, the system will be able to move beyond historical analysis and provide forward-looking insights. This will empower teams to make more informed, data-driven decisions on vehicle setup and race strategy.
 
-[Full details →](changelog/phases/phase-23.md)
-
----
-
-### Phase 24: Mobile App: Core Screens (Vehicles, Events, Lap Times)
-**Date:** March 8, 2026 &nbsp;|&nbsp; **Status:** ✅ Completed
-
-Replaced the Phase 23 placeholder `HomeScreen` with a fully functional three-tab mobile application. Implemented `VehiclesScreen` with pull-to-refresh, `VehicleDetailScreen` with specs and lap history, `EventsScreen` with upcoming/past tabs, `EventDetailScreen` with weather widget and setup sheets, and `RecordLapTimeScreen` with a live stopwatch that submits lap times to the backend in real time. All screens are wired via a `TabNavigator` with per-tab stack navigators.
-
-[Full details →](changelog/phases/phase-24.md)
+[Full details →](changelog/phases/phase-27.md)
 
 ---
 
-### Phase 25: Advanced Analytics: Telemetry Data Ingestion & Visualization
-**Date:** March 9, 2026 &nbsp;|&nbsp; **Status:** ✅ Completed
+### Phase 28: Multi-Tenant Team Management & Invitations
+**Date:** March 10, 2026 &nbsp;|&nbsp; **Status:** 🚧 Not Started
 
-Added a `Telemetry` Prisma model (speed, RPM, throttle, brake, gear, GPS lat/lng, offsetMs) with a cascade relation to `LapTime`. Built a high-throughput `POST /api/telemetry/batch` endpoint using `createMany` for single-round-trip bulk ingestion, plus `GET /api/telemetry/:lapTimeId` for ordered trace retrieval and `DELETE` for re-upload support. Created `TelemetryDetailPage.tsx` with interactive channel toggles, a synchronized multi-channel Recharts line chart (downsampled to ≤ 500 points), a speed-coloured GPS track map rendered as an inline SVG with chart-cursor synchronization, and a raw samples table. Full responsive dark-mode CSS included.
+This phase will re-architect the platform to support multi-tenancy, a critical step for enabling commercial use and managing multiple teams within a single instance. By introducing a `Team` model and scoping all data to a `teamId`, the system will ensure complete data isolation between different organizations. A new invitation system will allow team owners to securely add new members, laying the groundwork for a scalable, SaaS-ready architecture.
 
-[Full details →](changelog/phases/phase-25.md)
+[Full details →](changelog/phases/phase-28.md)
+
+---
+
+### Phase 29: Event Race-Day Live Dashboard (Real-Time)
+**Date:** March 10, 2026 &nbsp;|&nbsp; **Status:** 🚧 Not Started
+
+This phase will build upon the existing WebSocket infrastructure to create a real-time, live dashboard for race day. This will provide teams with immediate, synchronized information, such as lap times, leaderboard positions, and session status. The goal is to create a central information hub that can be used by the entire team, both in the pits and remotely, to make critical in-session decisions.
+
+[Full details →](changelog/phases/phase-29.md)
+
+---
+
+### Phase 30: Offline-First Mobile App with Background Sync
+**Date:** March 10, 2026 &nbsp;|&nbsp; **Status:** 🚧 Not Started
+
+This phase will enhance the React Native mobile app with offline-first capabilities, ensuring that it remains functional even in disconnected track environments. By integrating a local database and a background synchronization mechanism, users will be able to continue recording data, such as lap times and setup changes, without an active internet connection. This data will be stored locally and automatically synced with the server once connectivity is restored, preventing data loss and improving the app's reliability.
+
+[Full details →](changelog/phases/phase-30.md)
 
 ---
 
