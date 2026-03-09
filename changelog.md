@@ -33,21 +33,13 @@
 | 22 | [Phase 22: Backend + Frontend: Real-Time Notifications (WebSockets)](changelog/phases/phase-22.md) | March 6, 2026 | ✅ Completed |
 | 23 | [Phase 23: Mobile App: React Native Scaffolding & Auth](changelog/phases/phase-23.md) | March 7, 2026 | ✅ Completed |
 | 24 | [Phase 24: Mobile App: Core Screens (Vehicles, Events, Lap Times)](changelog/phases/phase-24.md) | March 8, 2026 | ✅ Completed |
+| 25 | [Phase 25: Advanced Analytics: Telemetry Data Ingestion & Visualization](changelog/phases/phase-25.md) | March 9, 2026 | ✅ Completed |
 
 ---
 
 ## Recent Entries
 
 > The 5 most recent phases are summarised below. For full history, browse [`changelog/phases/`](changelog/phases/).
-
-### Phase 20: Frontend: Component & End-to-End Testing
-**Date:** March 4, 2026 &nbsp;|&nbsp; **Status:** ✅ Completed
-
-Installed and configured **Vitest 4** with **React Testing Library** for component-level tests and **Playwright 1.58*...
-
-[Full details →](changelog/phases/phase-20.md)
-
----
 
 ### Phase 21: DevOps: Monitoring & Observability
 **Date:** March 5, 2026 &nbsp;|&nbsp; **Status:** ✅ Completed
@@ -82,6 +74,15 @@ Initialized the `mobile/` directory as a standalone Expo SDK 55 + React Native 0
 Replaced the Phase 23 placeholder `HomeScreen` with a fully functional three-tab mobile application. Implemented `VehiclesScreen` with pull-to-refresh, `VehicleDetailScreen` with specs and lap history, `EventsScreen` with upcoming/past tabs, `EventDetailScreen` with weather widget and setup sheets, and `RecordLapTimeScreen` with a live stopwatch that submits lap times to the backend in real time. All screens are wired via a `TabNavigator` with per-tab stack navigators.
 
 [Full details →](changelog/phases/phase-24.md)
+
+---
+
+### Phase 25: Advanced Analytics: Telemetry Data Ingestion & Visualization
+**Date:** March 9, 2026 &nbsp;|&nbsp; **Status:** ✅ Completed
+
+Added a `Telemetry` Prisma model (speed, RPM, throttle, brake, gear, GPS lat/lng, offsetMs) with a cascade relation to `LapTime`. Built a high-throughput `POST /api/telemetry/batch` endpoint using `createMany` for single-round-trip bulk ingestion, plus `GET /api/telemetry/:lapTimeId` for ordered trace retrieval and `DELETE` for re-upload support. Created `TelemetryDetailPage.tsx` with interactive channel toggles, a synchronized multi-channel Recharts line chart (downsampled to ≤ 500 points), a speed-coloured GPS track map rendered as an inline SVG with chart-cursor synchronization, and a raw samples table. Full responsive dark-mode CSS included.
+
+[Full details →](changelog/phases/phase-25.md)
 
 ---
 
