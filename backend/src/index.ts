@@ -26,6 +26,7 @@ import partRoutes from './routes/part.routes';
 import uploadRoutes from './routes/upload.routes';
 import metricsRoutes from './routes/metrics.routes';
 import notificationRoutes from './routes/notification.routes';
+import telemetryRoutes from './routes/telemetry.routes';
 
 const app: Express = express();
 const port = process.env['PORT'] ?? 3000;
@@ -96,6 +97,7 @@ app.get('/api', (_req: Request, res: Response) => {
       parts: '/api/parts',
       uploads: '/api/uploads',
       notifications: '/api/notifications',
+      telemetry: '/api/telemetry',
       status: '/api/status',
       metrics: '/api/metrics',
     },
@@ -114,6 +116,7 @@ app.use('/api/events/:id/weather', weatherRoutes);
 app.use('/api/parts', partRoutes);
 app.use('/api/uploads', uploadRoutes);
 app.use('/api/notifications', notificationRoutes);
+app.use('/api/telemetry', telemetryRoutes);
 
 // Monitoring & observability routes (/api/status, /api/metrics, /api/metrics/json)
 app.use('/api', metricsRoutes);
@@ -131,6 +134,7 @@ httpServer.listen(port, () => {
   logger.info('📊 Metrics endpoint available at /api/metrics (admin only)');
   logger.info('🩺 Status endpoint available at /api/status (public)');
   logger.info('🔔 Notifications endpoint available at /api/notifications');
+  logger.info('📡 Telemetry endpoint available at /api/telemetry');
   logger.info('🔌 Socket.IO real-time server active');
 });
 
