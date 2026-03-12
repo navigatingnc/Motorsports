@@ -27,6 +27,7 @@ import uploadRoutes from './routes/upload.routes';
 import metricsRoutes from './routes/metrics.routes';
 import notificationRoutes from './routes/notification.routes';
 import telemetryRoutes from './routes/telemetry.routes';
+import debriefRoutes from './routes/debrief.routes';
 
 const app: Express = express();
 const port = process.env['PORT'] ?? 3000;
@@ -98,6 +99,7 @@ app.get('/api', (_req: Request, res: Response) => {
       uploads: '/api/uploads',
       notifications: '/api/notifications',
       telemetry: '/api/telemetry',
+      debriefs: '/api/debriefs',
       status: '/api/status',
       metrics: '/api/metrics',
     },
@@ -117,6 +119,7 @@ app.use('/api/parts', partRoutes);
 app.use('/api/uploads', uploadRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/telemetry', telemetryRoutes);
+app.use('/api/debriefs', debriefRoutes);
 
 // Monitoring & observability routes (/api/status, /api/metrics, /api/metrics/json)
 app.use('/api', metricsRoutes);
@@ -135,6 +138,7 @@ httpServer.listen(port, () => {
   logger.info('🩺 Status endpoint available at /api/status (public)');
   logger.info('🔔 Notifications endpoint available at /api/notifications');
   logger.info('📡 Telemetry endpoint available at /api/telemetry');
+  logger.info('🤖 Debrief endpoint available at /api/debriefs');
   logger.info('🔌 Socket.IO real-time server active');
 });
 
