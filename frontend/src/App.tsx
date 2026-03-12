@@ -19,11 +19,13 @@ import AdminPanelPage from './pages/AdminPanelPage';
 import PartsPage from './pages/PartsPage';
 import StatusPage from './pages/StatusPage';
 import TelemetryDetailPage from './pages/TelemetryDetailPage';
+import DebriefPage from './pages/DebriefPage';
 import './App.css';
 import './status.css';
 import './dark-mode.css';
 import './notifications.css';
 import './telemetry.css';
+import './debrief.css';
 
 // Inner component that has access to the Router context
 const AppLayout = () => {
@@ -74,6 +76,14 @@ const AppLayout = () => {
                     className={({ isActive }) => isActive ? 'nav-link nav-link--active' : 'nav-link'}
                   >
                     Analytics
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/debrief"
+                    className={({ isActive }) => isActive ? 'nav-link nav-link--active' : 'nav-link'}
+                  >
+                    AI Debrief
                   </NavLink>
                 </li>
                 <li>
@@ -264,6 +274,16 @@ const AppLayout = () => {
             element={
               <ProtectedRoute>
                 <TelemetryDetailPage />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* AI Debrief — Phase 26 */}
+          <Route
+            path="/debrief"
+            element={
+              <ProtectedRoute>
+                <DebriefPage />
               </ProtectedRoute>
             }
           />

@@ -90,6 +90,7 @@ model User {
   setupSheets   SetupSheet[]
   uploads       Upload[]
   notifications Notification[]
+  debriefs      Debrief[]
 
   @@map("users")
 }
@@ -205,6 +206,8 @@ model LapTime {
 
   // Telemetry traces recorded for this lap
   telemetry   Telemetry[]
+  // AI coaching debriefs generated for this lap
+  debriefs    Debrief[]
 
   @@map("lap_times")
 }
@@ -275,6 +278,28 @@ model Upload {
   @@index([entityType, entityId])
   @@index([uploadedById])
   @@map("uploads")
+}
+
+/// AI-generated coaching debrief produced by the LLM for a specific lap.
+/// Stores the full conversation history so the driver can continue chatting.
+model Debrief {
+  id          String   @id @default(uuid())
+  /// The lap this debrief analyses
+  lapTimeId   String
+  lapTime     LapTime  @relation(fields: [lapTimeId], references: [id], onDelete: Cascade)
+  /// The user who requested the debrief
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  /// JSON-serialised array of { role: 'system'|'user'|'assistant', content: string }
+  messages    Json
+  /// Short auto-generated title for the debrief session
+  title       String   @default("Lap Debrief")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([lapTimeId])
+  @@index([userId])
+  @@map("debriefs")
 }
 
 /// Real-time notification record — persisted for history and unread tracking.

@@ -34,7 +34,7 @@
 | 23 | [Phase 23: Mobile App: React Native Scaffolding & Auth](changelog/phases/phase-23.md) | March 7, 2026 | ✅ Completed |
 | 24 | [Phase 24: Mobile App: Core Screens (Vehicles, Events, Lap Times)](changelog/phases/phase-24.md) | March 8, 2026 | ✅ Completed |
 | 25 | [Phase 25: Advanced Analytics: Telemetry Data Ingestion & Visualization](changelog/phases/phase-25.md) | March 9, 2026 | ✅ Completed |
-| 26 | [Phase 26: AI-Powered Lap Time Coaching & Debrief](changelog/phases/phase-26.md) | March 10, 2026 | 🚧 Not Started |
+| 26 | [Phase 26: AI-Powered Lap Time Coaching & Debrief](changelog/phases/phase-26.md) | March 10, 2026 | ✅ Completed |
 | 27 | [Phase 27: Predictive Performance Modeling](changelog/phases/phase-27.md) | March 10, 2026 | 🚧 Not Started |
 | 28 | [Phase 28: Multi-Tenant Team Management & Invitations](changelog/phases/phase-28.md) | March 10, 2026 | 🚧 Not Started |
 | 29 | [Phase 29: Event Race-Day Live Dashboard (Real-Time)](changelog/phases/phase-29.md) | March 10, 2026 | 🚧 Not Started |
@@ -47,9 +47,9 @@
 > The 5 most recent phases are summarised below. For full history, browse [`changelog/phases/`](changelog/phases/).
 
 ### Phase 26: AI-Powered Lap Time Coaching & Debrief
-**Date:** March 10, 2026 &nbsp;|&nbsp; **Status:** 🚧 Not Started
+**Date:** March 10, 2026 &nbsp;|&nbsp; **Status:** ✅ Completed
 
-This phase will introduce an AI-powered coaching layer to the platform. By integrating a Large Language Model (LLM), the system will be able to analyze raw telemetry data from Phase 25 and translate it into actionable, natural-language insights for drivers. This marks a significant step from data presentation to genuine performance intelligence. A new chat-based interface will allow drivers to interact with their data, asking specific questions and receiving contextual feedback.
+Integrated an OpenAI-compatible LLM to analyse lap telemetry statistics and produce natural-language coaching reports. Added a persistent `Debrief` model (Prisma + migration), a stateless LLM service, four REST endpoints under `/api/debriefs`, and a full chat-based `DebriefPage` on the frontend with history sidebar, message bubbles, typing indicator, and dark-mode CSS.
 
 [Full details →](changelog/phases/phase-26.md)
 
