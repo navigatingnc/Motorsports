@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate, Link, useLocation } from 'react-router-dom';
 import { vehicleService } from '../services/vehicleService';
 import { analyticsService } from '../services/analyticsService';
 import { uploadService } from '../services/uploadService';
@@ -33,6 +33,7 @@ const msToLapTime = (ms: number): string => {
 const VehicleDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [vehicle, setVehicle] = useState<Vehicle | null>(null);
   const [lapTimes, setLapTimes] = useState<LapTime[]>([]);
@@ -40,8 +41,28 @@ const VehicleDetailPage = () => {
   const [lapTimesLoading, setLapTimesLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [uploads, setUploads] = useState<Upload[]>([]);
+  // Delete operation state
+  const [deleting, setDeleting] = useState(false);
+  // Success toast from form navigation
+  const [successMsg, setSuccessMsg] = useState<string | null>(null);
 
-  // ── Data fetching ──────────────────────────────────────────────────────────
+  // Show success toast when navigated from form
+  useEffect(() => {
+    const state = location.state as { savedVehicle?: boolean; createdVehicle?: boolean } | null;
+    if (state?.createdVehicle) {
+      setSuccessMsg('Vehicle created successfully.');
+      window.history.replaceState({}, '');
+    } else if (state?.savedVehicle) {
+      setSuccessMsg('Vehicle updated successfully.');
+      window.history.replaceState({}, '');
+    }
+    if (state?.createdVehicle || state?.savedVehicle) {
+      const timer = setTimeout(() => setSuccessMsg(null), 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [location.state]);
+
+  // ── Data fetching ───────────────────────────────────────────────────────────
 
   const fetchVehicle = useCallback(async () => {
     if (!id) return;
@@ -96,19 +117,24 @@ const VehicleDetailPage = () => {
   // ── Delete ─────────────────────────────────────────────────────────────────
 
   const handleDelete = async () => {
-    if (!vehicle) return;
+    if (!vehicle || deleting) return;
+    const label = `${vehicle.year} ${vehicle.make} ${vehicle.model}`;
     if (
       !window.confirm(
-        `Are you sure you want to delete "${vehicle.year} ${vehicle.make} ${vehicle.model}"? This action cannot be undone.`
+        `Delete "${label}"? All associated lap times and uploads will also be removed. This action cannot be undone.`
       )
     ) {
       return;
     }
+    setDeleting(true);
+    setError(null);
     try {
       await vehicleService.deleteVehicle(vehicle.id);
-      navigate('/vehicles');
+      // Pass deleted vehicle name to list page for toast notification
+      navigate('/vehicles', { state: { deletedVehicle: label } });
     } catch {
       setError('Failed to delete vehicle. Please try again.');
+      setDeleting(false);
     }
   };
 
@@ -142,7 +168,16 @@ const VehicleDetailPage = () => {
 
   return (
     <div className="container">
-      {/* ── Page Header ──────────────────────────────────────────────── */}
+      {/* ── Success toast ───────────────────────────────────────────────────────────── */}
+      {successMsg && (
+        <div className="vehicle-toast-container" aria-live="polite">
+          <div className="vehicle-toast vehicle-toast--success" role="status">
+            {successMsg}
+          </div>
+        </div>
+      )}
+
+      {/* ── Page Header ──────────────────────────────────────────────────────────────── */}
       <div className="detail-page-header">
         <div className="detail-page-header-left">
           <Link to="/vehicles" className="detail-back-link">
@@ -160,8 +195,13 @@ const VehicleDetailPage = () => {
           <Link to={`/vehicles/${vehicle.id}/edit`} className="btn-secondary">
             Edit Vehicle
           </Link>
-          <button onClick={handleDelete} className="btn-danger">
-            Delete
+          <button
+            onClick={() => void handleDelete()}
+            className="btn-danger"
+            disabled={deleting}
+            aria-label="Delete this vehicle"
+          >
+            {deleting ? 'Deleting…' : 'Delete Vehicle'}
           </button>
         </div>
       </div>

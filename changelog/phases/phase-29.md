@@ -1,4 +1,4 @@
-# Phase 29: Event Race-Day Live Dashboard (Real-Time)
+# Phase 29: Multi-Tenant Team Management & Invitations
 
 **Date:** 2026-03-10
 **Status:** 🚧 Not Started
@@ -7,24 +7,27 @@
 
 ### Summary
 
-This phase will build upon the existing WebSocket infrastructure to create a real-time, live dashboard for race day. This will provide teams with immediate, synchronized information, such as lap times, leaderboard positions, and session status. The goal is to create a central information hub that can be used by the entire team, both in the pits and remotely, to make critical in-session decisions.
+This phase will re-architect the platform to support multi-tenancy, a critical step for enabling commercial use and managing multiple teams within a single instance. By introducing a `Team` model and scoping all data to a `teamId`, the system will ensure complete data isolation between different organizations. A new invitation system will allow team owners to securely add new members, laying the groundwork for a scalable, SaaS-ready architecture.
 
 ### Work Performed
 
 *   **Backend:**
-    *   Extend the existing Socket.IO implementation to include dedicated rooms for race events.
-    *   Create new real-time events for broadcasting lap times, leaderboard changes, and other race-day data.
+    *   Add `Team` and `TeamMembership` models to the `schema.prisma` file.
+    *   Run a database migration to create the new tables.
+    *   Refactor all relevant services and controllers to be team-aware, scoping data access to the user's team.
+    *   Implement a secure, token-based team invitation system.
 *   **Frontend:**
-    *   Create a new `RaceDayPage.tsx` to serve as the live dashboard.
-    *   Implement various real-time components, including a live leaderboard, gap tickers, and a session clock.
-    *   Add a full-screen "pit wall" mode for displaying the dashboard on large screens.
+    *   Update the UI to include team management panels for team owners.
+    *   Add a team switcher for users who belong to multiple teams.
+    *   Modify all data-fetching hooks and services to include the current team context.
 
 ### Generated Code
 
 | File Path | Description |
 | :--- | :--- |
-| `backend/src/services/RaceDayService.ts` | Service for managing real-time race day events. |
-| `frontend/src/pages/RaceDayPage.tsx` | The main page for the live race day dashboard. |
-| `frontend/src/components/LiveLeaderboard.tsx` | A component for displaying the real-time leaderboard. |
+| `backend/prisma/schema.prisma` | Updated with `Team` and `TeamMembership` models. |
+| `backend/src/services/TeamService.ts` | Service for managing teams and invitations. |
+| `frontend/src/pages/TeamManagementPage.tsx` | A new page for team owners to manage their team. |
+| `frontend/src/components/TeamSwitcher.tsx` | A UI component for switching between teams. |
 
 ---

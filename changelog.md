@@ -1,5 +1,3 @@
-# Changelog: Motorsports Management Web App
-
 > This file is the **index** of all development phases. Full details for each phase are stored in [`changelog/phases/`](changelog/phases/).
 > The agent appends new entries to this index and creates a dedicated file per phase — keeping this file lean and navigable.
 
@@ -35,10 +33,11 @@
 | 24 | [Phase 24: Mobile App: Core Screens (Vehicles, Events, Lap Times)](changelog/phases/phase-24.md) | March 8, 2026 | ✅ Completed |
 | 25 | [Phase 25: Advanced Analytics: Telemetry Data Ingestion & Visualization](changelog/phases/phase-25.md) | March 9, 2026 | ✅ Completed |
 | 26 | [Phase 26: AI-Powered Lap Time Coaching & Debrief](changelog/phases/phase-26.md) | March 10, 2026 | ✅ Completed |
-| 27 | [Phase 27: Predictive Performance Modeling](changelog/phases/phase-27.md) | March 10, 2026 | 🚧 Not Started |
-| 28 | [Phase 28: Multi-Tenant Team Management & Invitations](changelog/phases/phase-28.md) | March 10, 2026 | 🚧 Not Started |
-| 29 | [Phase 29: Event Race-Day Live Dashboard (Real-Time)](changelog/phases/phase-29.md) | March 10, 2026 | 🚧 Not Started |
-| 30 | [Phase 30: Offline-First Mobile App with Background Sync](changelog/phases/phase-30.md) | March 10, 2026 | 🚧 Not Started |
+| 27 | [Phase 27: Vehicle Management CRUD Enhancements](changelog/phases/phase-27.md) | March 14, 2026 | ✅ Completed |
+| 28 | [Phase 28: Predictive Performance Modeling](changelog/phases/phase-28.md) | March 14, 2026 | 🚧 Not Started |
+| 29 | [Phase 29: Multi-Tenant Team Management & Invitations](changelog/phases/phase-29.md) | March 14, 2026 | 🚧 Not Started |
+| 30 | [Phase 30: Event Race-Day Live Dashboard (Real-Time)](changelog/phases/phase-30.md) | March 14, 2026 | 🚧 Not Started |
+| 31 | [Phase 31: Offline-First Mobile App with Background Sync](changelog/phases/phase-31.md) | March 14, 2026 | 🚧 Not Started |
 
 ---
 
@@ -46,48 +45,48 @@
 
 > The 5 most recent phases are summarised below. For full history, browse [`changelog/phases/`](changelog/phases/).
 
-### Phase 26: AI-Powered Lap Time Coaching & Debrief
-**Date:** March 10, 2026 &nbsp;|&nbsp; **Status:** ✅ Completed
+### Phase 27: Vehicle Management CRUD Enhancements
+**Date:** March 14, 2026 &nbsp;|&nbsp; **Status:** ✅ Completed
 
-Integrated an OpenAI-compatible LLM to analyse lap telemetry statistics and produce natural-language coaching reports. Added a persistent `Debrief` model (Prisma + migration), a stateless LLM service, four REST endpoints under `/api/debriefs`, and a full chat-based `DebriefPage` on the frontend with history sidebar, message bubbles, typing indicator, and dark-mode CSS.
-
-[Full details →](changelog/phases/phase-26.md)
-
----
-
-### Phase 27: Predictive Performance Modeling
-**Date:** March 10, 2026 &nbsp;|&nbsp; **Status:** 🚧 Not Started
-
-This phase will introduce a predictive modeling capability to the platform, allowing teams to forecast lap times and understand the potential impact of setup changes. By building a backend service that leverages a regression model, the system will be able to move beyond historical analysis and provide forward-looking insights. This will empower teams to make more informed, data-driven decisions on vehicle setup and race strategy.
+This phase addressed a critical bug in the vehicle management feature and significantly enhanced the user experience (UX) for all Create, Read, Update, and Delete (CRUD) operations. The backend already supported these actions, but the frontend implementation was incomplete and contained a data-handling bug that prevented it from working correctly. This phase completes the vehicle management loop, providing a robust and user-friendly interface for managing the vehicle fleet.
 
 [Full details →](changelog/phases/phase-27.md)
 
 ---
 
-### Phase 28: Multi-Tenant Team Management & Invitations
-**Date:** March 10, 2026 &nbsp;|&nbsp; **Status:** 🚧 Not Started
+### Phase 28: Predictive Performance Modeling
+**Date:** March 14, 2026 &nbsp;|&nbsp; **Status:** 🚧 Not Started
 
-This phase will re-architect the platform to support multi-tenancy, a critical step for enabling commercial use and managing multiple teams within a single instance. By introducing a `Team` model and scoping all data to a `teamId`, the system will ensure complete data isolation between different organizations. A new invitation system will allow team owners to securely add new members, laying the groundwork for a scalable, SaaS-ready architecture.
+This phase will introduce a predictive modeling capability to the platform, allowing teams to forecast lap times and understand the potential impact of setup changes. By building a backend service that leverages a regression model, the system will be able to move beyond historical analysis and provide forward-looking insights. This will empower teams to make more informed, data-driven decisions on vehicle setup and race strategy.
 
 [Full details →](changelog/phases/phase-28.md)
 
 ---
 
-### Phase 29: Event Race-Day Live Dashboard (Real-Time)
-**Date:** March 10, 2026 &nbsp;|&nbsp; **Status:** 🚧 Not Started
+### Phase 29: Multi-Tenant Team Management & Invitations
+**Date:** March 14, 2026 &nbsp;|&nbsp; **Status:** 🚧 Not Started
 
-This phase will build upon the existing WebSocket infrastructure to create a real-time, live dashboard for race day. This will provide teams with immediate, synchronized information, such as lap times, leaderboard positions, and session status. The goal is to create a central information hub that can be used by the entire team, both in the pits and remotely, to make critical in-session decisions.
+This phase will re-architect the platform to support multi-tenancy, a critical step for enabling commercial use and managing multiple teams within a single instance. By introducing a `Team` model and scoping all data to a `teamId`, the system will ensure complete data isolation between different organizations. A new invitation system will allow team owners to securely add new members, laying the groundwork for a scalable, SaaS-ready architecture.
 
 [Full details →](changelog/phases/phase-29.md)
 
 ---
 
-### Phase 30: Offline-First Mobile App with Background Sync
-**Date:** March 10, 2026 &nbsp;|&nbsp; **Status:** 🚧 Not Started
+### Phase 30: Event Race-Day Live Dashboard (Real-Time)
+**Date:** March 14, 2026 &nbsp;|&nbsp; **Status:** 🚧 Not Started
+
+This phase will build upon the existing WebSocket infrastructure to create a real-time, live dashboard for race day. This will provide teams with immediate, synchronized information, such as lap times, leaderboard positions, and session status. The goal is to create a central information hub that can be used by the entire team, both in the pits and remotely, to make critical in-session decisions.
+
+[Full details →](changelog/phases/phase-30.md)
+
+---
+
+### Phase 31: Offline-First Mobile App with Background Sync
+**Date:** March 14, 2026 &nbsp;|&nbsp; **Status:** 🚧 Not Started
 
 This phase will enhance the React Native mobile app with offline-first capabilities, ensuring that it remains functional even in disconnected track environments. By integrating a local database and a background synchronization mechanism, users will be able to continue recording data, such as lap times and setup changes, without an active internet connection. This data will be stored locally and automatically synced with the server once connectivity is restored, preventing data loss and improving the app's reliability.
 
-[Full details →](changelog/phases/phase-30.md)
+[Full details →](changelog/phases/phase-31.md)
 
 ---
 

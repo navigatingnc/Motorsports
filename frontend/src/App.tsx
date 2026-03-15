@@ -224,7 +224,16 @@ const AppLayout = () => {
             element={
               <ProtectedRoute>
                 <RoleGuard allowedRoles={['admin', 'user']}>
-                  <div className="container"><p>New Event (Coming Soon)</p></div>
+                  <div className="container coming-soon-page">
+                    <div className="coming-soon-card">
+                      <h2 className="coming-soon-title">Create New Event</h2>
+                      <p className="coming-soon-body">
+                        Event creation is planned for a future release. In the meantime, events can
+                        be managed directly via the API or by an administrator.
+                      </p>
+                      <p className="coming-soon-phase">Scheduled: Phase 28</p>
+                    </div>
+                  </div>
                 </RoleGuard>
               </ProtectedRoute>
             }
@@ -242,7 +251,16 @@ const AppLayout = () => {
             element={
               <ProtectedRoute>
                 <RoleGuard allowedRoles={['admin', 'user']}>
-                  <div className="container"><p>Edit Event (Coming Soon)</p></div>
+                  <div className="container coming-soon-page">
+                    <div className="coming-soon-card">
+                      <h2 className="coming-soon-title">Edit Event</h2>
+                      <p className="coming-soon-body">
+                        Event editing is planned for a future release. Event details can currently
+                        be updated via the API or by an administrator.
+                      </p>
+                      <p className="coming-soon-phase">Scheduled: Phase 28</p>
+                    </div>
+                  </div>
                 </RoleGuard>
               </ProtectedRoute>
             }

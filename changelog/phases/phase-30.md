@@ -1,4 +1,4 @@
-# Phase 30: Offline-First Mobile App with Background Sync
+# Phase 30: Event Race-Day Live Dashboard (Real-Time)
 
 **Date:** 2026-03-10
 **Status:** 🚧 Not Started
@@ -7,22 +7,24 @@
 
 ### Summary
 
-This phase will enhance the React Native mobile app with offline-first capabilities, ensuring that it remains functional even in disconnected track environments. By integrating a local database and a background synchronization mechanism, users will be able to continue recording data, such as lap times and setup changes, without an active internet connection. This data will be stored locally and automatically synced with the server once connectivity is restored, preventing data loss and improving the app's reliability.
+This phase will build upon the existing WebSocket infrastructure to create a real-time, live dashboard for race day. This will provide teams with immediate, synchronized information, such as lap times, leaderboard positions, and session status. The goal is to create a central information hub that can be used by the entire team, both in the pits and remotely, to make critical in-session decisions.
 
 ### Work Performed
 
-*   **Mobile App:**
-    *   Integrate an offline-first database solution (e.g., WatermelonDB or MMKV).
-    *   Implement a background sync queue to manage and reliably push local changes to the server.
-    *   Refactor the app's data-handling logic to be offline-aware.
-    *   Add a UI indicator to show the current sync status and handle any potential data conflicts.
+*   **Backend:**
+    *   Extend the existing Socket.IO implementation to include dedicated rooms for race events.
+    *   Create new real-time events for broadcasting lap times, leaderboard changes, and other race-day data.
+*   **Frontend:**
+    *   Create a new `RaceDayPage.tsx` to serve as the live dashboard.
+    *   Implement various real-time components, including a live leaderboard, gap tickers, and a session clock.
+    *   Add a full-screen "pit wall" mode for displaying the dashboard on large screens.
 
 ### Generated Code
 
 | File Path | Description |
 | :--- | :--- |
-| `mobile/src/services/SyncService.ts` | Service for managing background data synchronization. |
-| `mobile/src/db/index.ts` | Configuration and setup for the local database. |
-| `mobile/src/components/SyncStatusIndicator.tsx` | A UI component to display the current sync status. |
+| `backend/src/services/RaceDayService.ts` | Service for managing real-time race day events. |
+| `frontend/src/pages/RaceDayPage.tsx` | The main page for the live race day dashboard. |
+| `frontend/src/components/LiveLeaderboard.tsx` | A component for displaying the real-time leaderboard. |
 
 ---

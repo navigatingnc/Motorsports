@@ -1,4 +1,4 @@
-# Phase 28: Multi-Tenant Team Management & Invitations
+# Phase 28: Predictive Performance Modeling
 
 **Date:** 2026-03-10
 **Status:** 🚧 Not Started
@@ -7,27 +7,25 @@
 
 ### Summary
 
-This phase will re-architect the platform to support multi-tenancy, a critical step for enabling commercial use and managing multiple teams within a single instance. By introducing a `Team` model and scoping all data to a `teamId`, the system will ensure complete data isolation between different organizations. A new invitation system will allow team owners to securely add new members, laying the groundwork for a scalable, SaaS-ready architecture.
+This phase will introduce a predictive modeling capability to the platform, allowing teams to forecast lap times and understand the potential impact of setup changes. By building a backend service that leverages a regression model, the system will be able to move beyond historical analysis and provide forward-looking insights. This will empower teams to make more informed, data-driven decisions on vehicle setup and race strategy.
 
 ### Work Performed
 
 *   **Backend:**
-    *   Add `Team` and `TeamMembership` models to the `schema.prisma` file.
-    *   Run a database migration to create the new tables.
-    *   Refactor all relevant services and controllers to be team-aware, scoping data access to the user's team.
-    *   Implement a secure, token-based team invitation system.
+    *   Develop a new `PredictionService.ts` to house the lap time prediction logic.
+    *   Implement a regression model (e.g., using a library like `tensorflow.js` or a Python-based microservice) to predict lap times based on various inputs.
+    *   Create a new API endpoint (`/api/predictions`) to handle prediction requests.
 *   **Frontend:**
-    *   Update the UI to include team management panels for team owners.
-    *   Add a team switcher for users who belong to multiple teams.
-    *   Modify all data-fetching hooks and services to include the current team context.
+    *   Create a new `PredictionEngine.tsx` component to allow users to input different parameters and see the predicted outcomes.
+    *   Integrate the prediction component into relevant pages, such as the `VehicleDetailPage` or a new dedicated `StrategyPage`.
 
 ### Generated Code
 
 | File Path | Description |
 | :--- | :--- |
-| `backend/prisma/schema.prisma` | Updated with `Team` and `TeamMembership` models. |
-| `backend/src/services/TeamService.ts` | Service for managing teams and invitations. |
-| `frontend/src/pages/TeamManagementPage.tsx` | A new page for team owners to manage their team. |
-| `frontend/src/components/TeamSwitcher.tsx` | A UI component for switching between teams. |
+| `backend/src/services/PredictionService.ts` | Service to manage the predictive modeling logic. |
+| `backend/src/controllers/PredictionController.ts` | API controller for handling prediction-related requests. |
+| `backend/src/routes/predictionRoutes.ts` | API routes for the prediction feature. |
+| `frontend/src/components/PredictionEngine.tsx` | A component for simulating the impact of setup changes. |
 
 ---

@@ -128,10 +128,12 @@ const VehicleFormPage = () => {
     try {
       if (isEdit && id) {
         await vehicleService.updateVehicle(id, payload);
-        navigate(`/vehicles/${id}`);
+        // Pass success message to detail page via router state
+        navigate(`/vehicles/${id}`, { state: { savedVehicle: true } });
       } else {
         const created = await vehicleService.createVehicle(payload);
-        navigate(`/vehicles/${created.id}`);
+        // Pass success message to detail page via router state
+        navigate(`/vehicles/${created.id}`, { state: { createdVehicle: true } });
       }
     } catch (err: unknown) {
       const axiosErr = err as { response?: { data?: { error?: string } } };
