@@ -20,12 +20,14 @@ import PartsPage from './pages/PartsPage';
 import StatusPage from './pages/StatusPage';
 import TelemetryDetailPage from './pages/TelemetryDetailPage';
 import DebriefPage from './pages/DebriefPage';
+import PredictionEngine from './pages/PredictionEngine';
 import './App.css';
 import './status.css';
 import './dark-mode.css';
 import './notifications.css';
 import './telemetry.css';
 import './debrief.css';
+import './prediction.css';
 
 // Inner component that has access to the Router context
 const AppLayout = () => {
@@ -84,6 +86,14 @@ const AppLayout = () => {
                     className={({ isActive }) => isActive ? 'nav-link nav-link--active' : 'nav-link'}
                   >
                     AI Debrief
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/predict"
+                    className={({ isActive }) => isActive ? 'nav-link nav-link--active' : 'nav-link'}
+                  >
+                    Predict
                   </NavLink>
                 </li>
                 <li>
@@ -302,6 +312,18 @@ const AppLayout = () => {
             element={
               <ProtectedRoute>
                 <DebriefPage />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Predictive Performance Modeling — Phase 27 */}
+          <Route
+            path="/predict"
+            element={
+              <ProtectedRoute>
+                <RoleGuard allowedRoles={['admin', 'user']}>
+                  <PredictionEngine />
+                </RoleGuard>
               </ProtectedRoute>
             }
           />

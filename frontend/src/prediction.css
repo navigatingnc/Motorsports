@@ -1,0 +1,341 @@
+/* ============================================================
+   prediction.css — Phase 27: Predictive Performance Modeling
+   ============================================================ */
+
+/* ── Page wrapper ─────────────────────────────────────────── */
+.prediction-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+/* ── Page header ──────────────────────────────────────────── */
+.prediction-header {
+  margin-bottom: 2rem;
+}
+
+.prediction-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary, #333);
+  margin: 0 0 0.5rem;
+}
+
+.prediction-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-secondary, #666);
+  margin: 0;
+  max-width: 680px;
+  line-height: 1.6;
+}
+
+/* ── Two-column layout ────────────────────────────────────── */
+.prediction-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .prediction-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Form card ────────────────────────────────────────────── */
+.prediction-form-card {
+  background: var(--card-background, #fff);
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.prediction-form-card__heading {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary, #333);
+  margin: 0 0 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color, #ddd);
+}
+
+/* ── Form fields ──────────────────────────────────────────── */
+.prediction-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.prediction-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.prediction-form__label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary, #333);
+}
+
+.prediction-form__input {
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 6px;
+  background: var(--input-bg, #fff);
+  color: var(--text-primary, #333);
+  font-size: 0.875rem;
+  transition: border-color 0.15s ease;
+}
+
+.prediction-form__input:focus {
+  outline: none;
+  border-color: var(--primary-color, #e10600);
+  box-shadow: 0 0 0 3px rgba(225, 6, 0, 0.1);
+}
+
+.prediction-form__input:disabled {
+  background: var(--input-bg-disabled, #f9f9f9);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.prediction-form__hint {
+  font-size: 0.78rem;
+  color: var(--text-secondary, #666);
+}
+
+/* ── Form actions ─────────────────────────────────────────── */
+.prediction-form__actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.prediction-form__submit {
+  flex: 1;
+  padding: 0.65rem 1.25rem;
+  background: var(--primary-color, #e10600);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, opacity 0.15s ease;
+}
+
+.prediction-form__submit:hover:not(:disabled) {
+  background: var(--primary-hover, #c00500);
+}
+
+.prediction-form__submit:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.prediction-form__reset {
+  padding: 0.65rem 1rem;
+  background: transparent;
+  color: var(--text-secondary, #666);
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.prediction-form__reset:hover:not(:disabled) {
+  background: var(--card-background-alt, #f9f9f9);
+}
+
+/* ── Result area ──────────────────────────────────────────── */
+.prediction-result-area {
+  min-height: 260px;
+}
+
+/* ── Result card shared ───────────────────────────────────── */
+.prediction-result-card {
+  background: var(--card-background, #fff);
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+}
+
+/* ── Loading state ────────────────────────────────────────── */
+.prediction-result-card--loading {
+  border-style: dashed;
+}
+
+.prediction-result-card__spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--border-color, #ddd);
+  border-top-color: var(--primary-color, #e10600);
+  border-radius: 50%;
+  animation: prediction-spin 0.8s linear infinite;
+}
+
+@keyframes prediction-spin {
+  to { transform: rotate(360deg); }
+}
+
+.prediction-result-card__loading-text {
+  font-size: 0.9rem;
+  color: var(--text-secondary, #666);
+  margin: 0;
+}
+
+/* ── Error state ──────────────────────────────────────────── */
+.prediction-result-card--error {
+  border-color: var(--danger-color, #dc3545);
+  background: rgba(220, 53, 69, 0.04);
+}
+
+.prediction-result-card__error-icon {
+  font-size: 2rem;
+}
+
+.prediction-result-card__error-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--danger-color, #dc3545);
+  margin: 0;
+}
+
+.prediction-result-card__error-body {
+  font-size: 0.875rem;
+  color: var(--text-secondary, #666);
+  margin: 0;
+}
+
+/* ── Success state ────────────────────────────────────────── */
+.prediction-result-card--success {
+  border-color: var(--success-color, #28a745);
+  background: rgba(40, 167, 69, 0.04);
+  align-items: stretch;
+  text-align: left;
+}
+
+.prediction-result-card__header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.prediction-result-card__icon {
+  font-size: 1.4rem;
+}
+
+.prediction-result-card__title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary, #333);
+  margin: 0;
+}
+
+.prediction-result-card__time {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-color, #e10600);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  margin: 0.25rem 0;
+}
+
+.prediction-result-card__meta {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--border-color, #ddd);
+  border-bottom: 1px solid var(--border-color, #ddd);
+}
+
+.prediction-result-card__meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.prediction-result-card__meta-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary, #666);
+  font-weight: 600;
+}
+
+.prediction-result-card__meta-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary, #333);
+}
+
+.prediction-result-card__message {
+  font-size: 0.85rem;
+  color: var(--text-secondary, #666);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ── Confidence badges ────────────────────────────────────── */
+.prediction-badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.prediction-badge--high {
+  background: rgba(40, 167, 69, 0.15);
+  color: var(--success-color, #28a745);
+}
+
+.prediction-badge--medium {
+  background: rgba(255, 193, 7, 0.2);
+  color: #856404;
+}
+
+.prediction-badge--low {
+  background: rgba(220, 53, 69, 0.12);
+  color: var(--danger-color, #dc3545);
+}
+
+/* ── Empty state ──────────────────────────────────────────── */
+.prediction-result-card--empty {
+  border-style: dashed;
+  min-height: 260px;
+  justify-content: center;
+}
+
+.prediction-result-card__empty-icon {
+  font-size: 2.5rem;
+}
+
+.prediction-result-card__empty-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary, #333);
+  margin: 0;
+}
+
+.prediction-result-card__empty-body {
+  font-size: 0.875rem;
+  color: var(--text-secondary, #666);
+  margin: 0;
+  max-width: 280px;
+  line-height: 1.5;
+}
+
+/* ── Dark mode overrides ──────────────────────────────────── */
+[data-theme="dark"] .prediction-badge--medium {
+  color: #ffc107;
+}
