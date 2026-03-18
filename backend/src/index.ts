@@ -29,6 +29,7 @@ import notificationRoutes from './routes/notification.routes';
 import telemetryRoutes from './routes/telemetry.routes';
 import debriefRoutes from './routes/debrief.routes';
 import predictRoutes from './routes/predict';
+import teamRoutes from './routes/team.routes';
 
 const app: Express = express();
 const port = process.env['PORT'] ?? 3000;
@@ -122,6 +123,7 @@ app.use('/api/notifications', notificationRoutes);
 app.use('/api/telemetry', telemetryRoutes);
 app.use('/api/debriefs', debriefRoutes);
 app.use('/api/predict', predictRoutes);
+app.use('/api/teams', teamRoutes);
 
 // Monitoring & observability routes (/api/status, /api/metrics, /api/metrics/json)
 app.use('/api', metricsRoutes);
