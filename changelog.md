@@ -35,7 +35,7 @@
 | 26 | [Phase 26: AI-Powered Lap Time Coaching & Debrief](changelog/phases/phase-26.md) | March 10, 2026 | ✅ Completed |
 | 27 | [Phase 27: Vehicle Management CRUD Enhancements](changelog/phases/phase-27.md) | March 14, 2026 | ✅ Completed |
 | 28 | [Phase 28: Predictive Performance Modeling](changelog/phases/phase-28.md) | March 14, 2026 | 🚧 Not Started |
-| 29 | [Phase 29: Multi-Tenant Team Management & Invitations](changelog/phases/phase-29.md) | March 14, 2026 | 🚧 Not Started |
+| 29 | [Phase 29: Multi-Tenant Team Management & Invitations](changelog/phases/phase-29.md) | March 18, 2026 | ✅ Completed |
 | 30 | [Phase 30: Event Race-Day Live Dashboard (Real-Time)](changelog/phases/phase-30.md) | March 14, 2026 | 🚧 Not Started |
 | 31 | [Phase 31: Offline-First Mobile App with Background Sync](changelog/phases/phase-31.md) | March 14, 2026 | 🚧 Not Started |
 
@@ -44,15 +44,6 @@
 ## Recent Entries
 
 > The 5 most recent phases are summarised below. For full history, browse [`changelog/phases/`](changelog/phases/).
-
-### Phase 27: Vehicle Management CRUD Enhancements
-**Date:** March 14, 2026 &nbsp;|&nbsp; **Status:** ✅ Completed
-
-This phase addressed a critical bug in the vehicle management feature and significantly enhanced the user experience (UX) for all Create, Read, Update, and Delete (CRUD) operations. The backend already supported these actions, but the frontend implementation was incomplete and contained a data-handling bug that prevented it from working correctly. This phase completes the vehicle management loop, providing a robust and user-friendly interface for managing the vehicle fleet.
-
-[Full details →](changelog/phases/phase-27.md)
-
----
 
 ### Phase 28: Predictive Performance Modeling
 **Date:** March 14, 2026 &nbsp;|&nbsp; **Status:** 🚧 Not Started
@@ -64,9 +55,9 @@ This phase will introduce a predictive modeling capability to the platform, allo
 ---
 
 ### Phase 29: Multi-Tenant Team Management & Invitations
-**Date:** March 14, 2026 &nbsp;|&nbsp; **Status:** 🚧 Not Started
+**Date:** March 18, 2026 &nbsp;|&nbsp; **Status:** ✅ Completed
 
-This phase will re-architect the platform to support multi-tenancy, a critical step for enabling commercial use and managing multiple teams within a single instance. By introducing a `Team` model and scoping all data to a `teamId`, the system will ensure complete data isolation between different organizations. A new invitation system will allow team owners to securely add new members, laying the groundwork for a scalable, SaaS-ready architecture.
+This phase re-architected the platform to support multi-tenancy by introducing a `Team` model in Prisma and extending `User`, `Vehicle`, `Event`, and `Part` with an optional `teamId`. A new `team.controller.ts` and `team.routes.ts` provide `POST /api/teams`, `GET /api/teams/:id`, and `POST /api/teams/:id/invite` endpoints. On the frontend, `TeamPage.tsx` and `teamService.ts` provide a member roster and invite-by-email UI, wired into `App.tsx` routing.
 
 [Full details →](changelog/phases/phase-29.md)
 
