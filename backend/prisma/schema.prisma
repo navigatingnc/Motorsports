@@ -12,8 +12,26 @@ datasource db {
   provider = "postgresql"
 }
 
+
+model Team {
+  id          String   @id @default(uuid())
+  name        String
+  description String?  @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  users       User[]
+  vehicles    Vehicle[]
+  events      Event[]
+  parts       Part[]
+
+  @@map("teams")
+}
+
 model Vehicle {
   id          String   @id @default(uuid())
+  teamId      String?
+  team        Team?    @relation(fields: [teamId], references: [id])
   make        String
   model       String
   year        Int
@@ -34,6 +52,8 @@ model Vehicle {
 
 model Part {
   id          String   @id @default(uuid())
+  teamId      String?
+  team        Team?    @relation(fields: [teamId], references: [id])
   name        String
   partNumber  String?  // Manufacturer or internal part number
   category    String   // e.g., "Engine", "Suspension", "Brakes", "Tyres", "Bodywork", "Electronics", "Other"
@@ -56,6 +76,8 @@ model Part {
 
 model Event {
   id          String    @id @default(uuid())
+  teamId      String?
+  team        Team?     @relation(fields: [teamId], references: [id])
   name        String
   type        String    // e.g., "Race", "Qualifying", "Practice", "Test Day"
   venue       String
@@ -77,6 +99,8 @@ model Event {
 
 model User {
   id           String   @id @default(uuid())
+  teamId       String?
+  team         Team?    @relation(fields: [teamId], references: [id])
   email        String   @unique
   passwordHash String
   role         String   @default("user") // "admin", "user", "viewer"
