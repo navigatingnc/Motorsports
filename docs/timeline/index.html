@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Motorsports — Development Timeline</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════ HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-logo">
+        <svg class="logo-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="24" r="20" stroke="#e63946" stroke-width="3"/>
+          <circle cx="24" cy="24" r="8" fill="#e63946"/>
+          <path d="M24 4 L24 14 M24 34 L24 44 M4 24 L14 24 M34 24 L44 24" stroke="#e63946" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M10 10 L17 17 M31 31 L38 38 M38 10 L31 17 M17 31 L10 38" stroke="#e63946" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <div>
+          <span class="logo-title">Motorsports</span>
+          <span class="logo-sub">Development Timeline</span>
+        </div>
+      </div>
+      <div class="header-meta">
+        <div class="stat-pill">
+          <span class="stat-num" id="completed-count">27</span>
+          <span class="stat-label">Completed</span>
+        </div>
+        <div class="stat-pill stat-pill--wip">
+          <span class="stat-num" id="wip-count">1</span>
+          <span class="stat-label">In Progress</span>
+        </div>
+        <div class="stat-pill stat-pill--planned">
+          <span class="stat-num" id="planned-count">3</span>
+          <span class="stat-label">Planned</span>
+        </div>
+      </div>
+    </div>
+    <p class="header-desc">
+      An autonomous AI-driven project — every phase shipped daily by <strong>Manus</strong>.<br/>
+      31 phases from bare repo to a full-stack motorsports management platform.
+    </p>
+    <!-- Filter bar -->
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All Phases</button>
+      <button class="filter-btn" data-filter="completed">✅ Completed</button>
+      <button class="filter-btn" data-filter="wip">🚧 In Progress</button>
+      <button class="filter-btn" data-filter="planned">📋 Planned</button>
+      <button class="filter-btn" data-filter="backend">Backend</button>
+      <button class="filter-btn" data-filter="frontend">Frontend</button>
+      <button class="filter-btn" data-filter="devops">DevOps</button>
+      <button class="filter-btn" data-filter="mobile">Mobile</button>
+      <button class="filter-btn" data-filter="ai">AI / ML</button>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════ TIMELINE -->
+  <main class="timeline-wrap">
+    <div class="timeline-spine"></div>
+    <div class="timeline" id="timeline">
+
+      <!-- ─── PHASE 1 ─── -->
+      <article class="phase-card" data-status="completed" data-tags="backend">
+        <div class="phase-connector"></div>
+        <div class="phase-dot phase-dot--completed"></div>
+        <div class="phase-body">
+          <header class="phase-header">
+            <span class="phase-num">Phase 1</span>
+            <span class="phase-badge badge--completed">✅ Completed</span>
+            <div class="phase-tags"><span class="tag tag--backend">Backend</span></div>
+          </header>
+          <h2 class="phase-title">Backend Project &amp; DB Setup</h2>
+          <time class="phase-date">February 16, 2026</time>
+          <p class="phase-summary">Initialized the Node.js/TypeScript Express backend, connected it to PostgreSQL via Prisma ORM, configured the development environment, and established the health-check endpoint and project scripts.</p>
+          <div class="phase-tech"><span class="tech">Node.js</span><span class="tech">TypeScript</span><span class="tech">Express</span><span class="tech">Prisma</span><span class="tech">PostgreSQL</span></div>
+          <a class="phase-link" href="../../changelog/phases/phase-01.md">Full details →</a>
+        </div>
+      </article>
+
+      <!-- ─── PHASE 2 ─── -->
+      <article class="phase-card" data-status="completed" data-tags="backend">
+        <div class="phase-connector"></div>
+        <div class="phase-dot phase-dot--completed"></div>
+        <div class="phase-body">
+          <header class="phase-header">
+            <span class="phase-num">Phase 2</span>
+            <span class="phase-badge badge--completed">✅ Completed</span>
+            <div class="phase-tags"><span class="tag tag--backend">Backend</span></div>
+          </header>
+          <h2 class="phase-title">Backend: Vehicle Model &amp; API</h2>
+          <time class="phase-date">February 17, 2026</time>
+          <p class="phase-summary">Defined the <code>Vehicle</code> Prisma model and generated the migration. Built full CRUD REST endpoints under <code>/api/vehicles</code> with input validation, error handling, and comprehensive API documentation.</p>
+          <div class="phase-tech"><span class="tech">Prisma</span><span class="tech">REST API</span><span class="tech">CRUD</span></div>
+          <a class="phase-link" href="../../changelog/phases/phase-02.md">Full details →</a>
+        </div>
+      </article>
+
+      <!-- ─── PHASE 3 ─── -->
+      <article class="phase-card" data-status="completed" data-tags="frontend">
+        <div class="phase-connector"></div>
+        <div class="phase-dot phase-dot--completed"></div>
+        <div class="phase-body">
+          <header class="phase-header">
+            <span class="phase-num">Phase 3</span>
+            <span class="phase-badge badge--completed">✅ Completed</span>
+            <div class="phase-tags"><span class="tag tag--frontend">Frontend</span></div>
+          </header>
+          <h2 class="phase-title">Frontend: Project Setup &amp; Vehicle List</h2>
+          <time class="phase-date">February 18, 2026</time>
+          <p class="phase-summary">Scaffolded the React/Vite/TypeScript SPA with TailwindCSS, created the main navigation layout, and built the Vehicle List page that fetches and displays vehicles from the backend API.</p>
+          <div class="phase-tech"><span class="tech">React</span><span class="tech">Vite</span><span class="tech">TypeScript</span><span class="tech">TailwindCSS</span></div>
+          <a class="phase-link" href="../../changelog/phases/phase-03.md">Full details →</a>
+        </div>
+      </article>
+
+      <!-- ─── PHASE 4 ─── -->
+      <article class="phase-card" data-status="completed" data-tags="backend">
+        <div class="phase-connector"></div>
+        <div class="phase-dot phase-dot--completed"></div>
+        <div class="phase-body">
+          <header class="phase-header">
+            <span class="phase-num">Phase 4</span>
+            <span class="phase-badge badge--completed">✅ Completed</span>
+            <div class="phase-tags"><span class="tag tag--backend">Backend</span></div>
+          </header>
+          <h2 class="phase-title">Backend: Event Model &amp; API</h2>
+          <time class="phase-date">February 19, 2026</time>
+          <p class="phase-summary">Defined the <code>Event</code> Prisma model with venue, location, date range, and type fields. Built full CRUD endpoints under <code>/api/events</code> with date-range filtering and sorting.</p>
+          <div class="phase-tech"><span class="tech">Prisma</span><span class="tech">REST API</span><span class="tech">CRUD</span></div>
+          <a class="phase-link" href="../../changelog/phases/phase-04.md">Full details →</a>
+        </div>
+      </article>
+
+      <!-- ─── PHASE 5 ─── -->
+      <article class="phase-card" data-status="completed" data-tags="frontend">
+        <div class="phase-connector"></div>
+        <div class="phase-dot phase-dot--completed"></div>
+        <div class="phase-body">
+          <header class="phase-header">
+            <span class="phase-num">Phase 5</span>
+            <span class="phase-badge badge--completed">✅ Completed</span>
+            <div class="phase-tags"><span class="tag tag--frontend">Frontend</span></div>
+          </header>
+          <h2 class="phase-title">Frontend: Event List &amp; Detail View</h2>
+          <time class="phase-date">February 20, 2026</time>
+          <p class="phase-summary">Built the Event List page with card-based layout and status badges, plus a detailed Event Detail page showing full event information, linked vehicles, and navigation breadcrumbs.</p>
+          <div class="phase-tech"><span class="tech">React</span><span class="tech">React Router</span><span class="tech">TypeScript</span></div>
+          <a class="phase-link" href="../../changelog/phases/phase-05.md">Full details →</a>
+        </div>
+      </article>
+
+      <!-- ─── PHASE 6 ─── -->
+      <article class="phase-card" data-status="completed" data-tags="backend">
+        <div class="phase-connector"></div>
+        <div class="phase-dot phase-dot--completed"></div>
+        <div class="phase-body">
+          <header class="phase-header">
+            <span class="phase-num">Phase 6</span>
+            <span class="phase-badge badge--completed">✅ Completed</span>
+            <div class="phase-tags"><span class="tag tag--backend">Backend</span></div>
+          </header>
+          <h2 class="phase-title">Backend: User &amp; Driver Models &amp; Auth</h2>
+          <time class="phase-date">February 20, 2026</time>
+          <p class="phase-summary">Introduced <code>User</code> and <code>Driver</code> Prisma models with role fields. Implemented JWT-based authentication with bcrypt password hashing, registration and login endpoints, and a reusable <code>authenticate</code> middleware.</p>
+          <div class="phase-tech"><span class="tech">JWT</span><span class="tech">bcrypt</span><span class="tech">Auth</span><span class="tech">Prisma</span></div>
+          <a class="phase-link" href="../../changelog/phases/phase-06.md">Full details →</a>
+        </div>
+      </article>
+
+      <!-- ─── PHASE 7 ─── -->
+      <article class="phase-card" data-status="completed" data-tags="frontend">
+        <div class="phase-connector"></div>
+        <div class="phase-dot phase-dot--completed"></div>
+        <div class="phase-body">
+          <header class="phase-header">
+            <span class="phase-num">Phase 7</span>
+            <span class="phase-badge badge--completed">✅ Completed</span>
+            <div class="phase-tags"><span class="tag tag--frontend">Frontend</span></div>
+          </header>
+          <h2 class="phase-title">Frontend: Authentication Flow</h2>
+          <time class="phase-date">February 21, 2026</time>
+          <p class="phase-summary">Built Login and Register pages, an <code>AuthContext</code> for global auth state, JWT token storage, protected route guards, and a persistent user session with automatic token refresh on page load.</p>
+          <div class="phase-tech"><span class="tech">React Context</span><span class="tech">JWT</span><span class="tech">Protected Routes</span></div>
+          <a class="phase-link" href="../../changelog/phases/phase-07.md">Full details →</a>
+        </div>
+      </article>
+
+      <!-- ─── PHASE 8 ─── -->
+      <article class="phase-card" data-status="completed" data-tags="backend">
+        <div class="phase-connector"></div>
+        <div class="phase-dot phase-dot--completed"></div>
+        <div class="phase-body">
+          <header class="phase-header">
+            <span class="phase-num">Phase 8</span>
+            <span class="phase-badge badge--completed">✅ Completed</span>
+            <div class="phase-tags"><span class="tag tag--backend">Backend</span></div>
+          </header>
+          <h2 class="phase-title">Backend: SetupSheet Model &amp; Relations</h2>
+          <time class="phase-date">February 22, 2026</time>
+          <p class="phase-summary">Defined the <code>SetupSheet</code> Prisma model with JSON fields for suspension, tyres, aerodynamics, brakes, and engine settings. Built CRUD endpoints scoped by event and vehicle, with full relational eager-loading.</p>
+          <div class="phase-tech"><span class="tech">Prisma</span><span class="tech">JSON Fields</span><span class="tech">Relations</span></div>
+          <a class="phase-link" href="../../changelog/phases/phase-08.md">Full details →</a>
+        </div>
+      </article>
+
+      <!-- ─── PHASE 9 ─── -->
+      <article class="phase-card" data-status="completed" data-tags="frontend">
+        <div class="phase-connector"></div>
+        <div class="phase-dot phase-dot--completed"></div>
+        <div class="phase-body">
+          <header class="phase-header">
+            <span class="phase-num">Phase 9</span>
+            <span class="phase-badge badge--completed">✅ Completed</span>
+            <div class="phase-tags"><span class="tag tag--frontend">Frontend</span></div>
+          </header>
+          <h2 class="phase-title">Frontend: Digital Setup Sheet Form</h2>
+          <time class="phase-date">February 23, 2026</time>
+          <p class="phase-summary">Created a multi-section digital setup sheet form with tabbed sections for suspension, tyres, aerodynamics, brakes, and engine. Integrated with the backend API and embedded the form in the Event Detail page.</p>
+          <div class="phase-tech"><span class="tech">React</span><span class="tech">Forms</span><span class="tech">Modal</span></div>
+          <a class="phase-link" href="../../changelog/phases/phase-09.md">Full details →</a>
+        </div>
+      </article>
+
+      <!-- ─── PHASE 10 ─── -->
+      <article class="phase-card" data-status="completed" data-tags="backend frontend">
+        <div class="phase-connector"></div>
+        <div class="phase-dot phase-dot--completed"></div>
+        <div class="phase-body">
+          <header class="phase-header">
+            <span class="phase-num">Phase 10</span>
+            <span class="phase-badge badge--completed">✅ Completed</span>
+            <div class="phase-tags"><span class="tag tag--backend">Backend</span><span class="tag tag--frontend">Frontend</span></div>
+          </header>
+          <h2 class="phase-title">Performance Analytics Dashboard</h2>
+          <time class="phase-date">February 24, 2026</time>
+          <p class="phase-summary">Built a full-stack analytics dashboard. Backend introduced a <code>LapTime</code> model with CRUD and aggregation endpoints. Frontend rendered Recharts line and bar charts for lap trends, driver leaderboards, and vehicle performance comparisons.</p>
+          <div class="phase-tech"><span class="tech">Recharts</span><span class="tech">Analytics</span><span class="tech">Prisma</span><span class="tech">Aggregation</span></div>
+          <a class="phase-link" href="../../changelog/phases/phase-10.md">Full details →</a>
+        </div>
+      </article>
+
+      <!-- ─── PHASE 11 ─── -->
+      <article class="phase-card" data-status="completed" data-tags="frontend">
+        <div class="phase-connector"></div>
+        <div class="phase-dot phase-dot--completed"></div>
+        <div class="phase-body">
+          <header class="phase-header">
+            <span class="phase-num">Phase 11</span>
+            <span class="phase-badge badge--completed">✅ Completed</span>
+            <div class="phase-tags"><span class="tag tag--frontend">Frontend</span></div>
+          </header>
+          <h2 class="phase-title">Vehicle Detail, Create &amp; Edit Pages + Driver Roster</h2>
+          <time class="phase-date">February 25, 2026</time>
+          <p class="phase-summary">Replaced all "Coming Soon" vehicle route stubs with fully functional create, edit, and detail pages. Added a Driver Roster page providing a team directory with per-driver lap time history.</p>
+          <div class="phase-tech"><span class="tech">React</span><span class="tech">CRUD UI</span><span class="tech">React Router</span></div>
+          <a class="phase-link" href="../../changelog/phases/phase-11.md">Full details →</a>
+        </div>
+      </article>
+
+      <!-- ─── PHASE 12 ─── -->
+      <article class="phase-card" data-status="completed" data-tags="backend frontend">
+        <div class="phase-connector"></div>
+        <div class="phase-dot phase-dot--completed"></div>
+        <div class="phase-body">
+          <header class="phase-header">
+            <span class="phase-num">Phase 12</span>
+            <span class="phase-badge badge--completed">✅ Completed</span>
+            <div class="phase-tags"><span class="tag tag--backend">Backend</span><span class="tag tag--frontend">Frontend</span></div>
+          </header>
+          <h2 class="phase-title">Role-Based Access Control (RBAC)</h2>
+          <time class="phase-date">February 25, 2026</time>
+          <p class="phase-summary">Implemented a comprehensive RBAC system. Backend <code>requireRole()</code> middleware enforces viewer/user/admin permissions on all routes. Frontend adds an Admin Panel, role-based navigation visibility, and protected route guards.</p>
+          <div class="phase-tech"><span class="tech">RBAC</span><span class="tech">Middleware</span><span class="tech">Admin Panel</span></div>
+          <a class="phase-link" href="../../changelog/phases/phase-12.md">Full details →</a>
+        </div>
+      </article>
+
+      <!-- ─── PHASE 13 ─── -->
+      <article class="phase-card" data-status="completed" data-tags="backend frontend">
+        <div class="phase-connector"></div>
+        <div class="phase-dot phase-dot--completed"></div>
+        <div class="phase-body">
+          <header class="phase-header">
+            <span class="phase-num">Phase 13</span>
+            <span class="phase-badge badge--completed">✅ Completed</span>
+            <div class="phase-tags"><span class="tag tag--backend">Backend</span><span class="tag tag--frontend">Frontend</span></div>
+          </header>
+          <h2 class="phase-title">Weather Integration for Events</h2>
+          <time class="phase-date">February 26, 2026</time>
+          <p class="phase-summary">Integrated the open-source <strong>Open-Meteo</strong> weather API. Backend geocodes event venues and fetches current, hourly, and daily forecasts. Frontend renders a polished <code>WeatherWidget</code> with gradient day cards and responsive layout.</p>
+          <div class="phase-tech"><span class="tech">Open-Meteo</span><span class="tech">Geocoding</span><span class="tech">Weather API</span></div>
+          <a class="phase-link" href="../../changelog/phases/phase-13.md">Full details →</a>
+        </div>
+      </article>
+
+      <!-- ─── PHASE 14 ─── -->
+      <article class="phase-card" data-status="completed" data-tags="backend frontend">
+        <div class="phase-connector"></div>
+        <div class="phase-dot phase-dot--completed"></div>
+        <div class="phase-body">
+          <header class="phase-header">
+            <span class="phase-num">Phase 14</span>
+            <span class="phase-badge badge--completed">✅ Completed</span>
+            <div class="phase-tags"><span class="tag tag--backend">Backend</span><span class="tag tag--frontend">Frontend</span></div>
+          </header>
+          <h2 class="phase-title">Parts &amp; Inventory Management</h2>
+          <time class="phase-date">February 26, 2026</time>
+          <p class="phase-summary">Built a full parts and inventory system. Backend provides a <code>Part</code> model with 13 categories, low-stock threshold, and quantity-adjustment endpoint. Frontend delivers a 4-card summary dashboard, alert banner, filterable inventory table, and create/edit modal.</p>
+          <div class="phase-tech"><span class="tech">Inventory</span><span class="tech">Prisma</span><span class="tech">Filtering</span></div>
+          <a class="phase-link" href="../../changelog/phases/phase-14.md">Full details →</a>
+        </div>
+      </article>
+
+      <!-- ─── PHASE 15 ─── -->
+      <article class="phase-card" data-status="completed" data-tags="backend frontend">
+        <div class="phase-connector"></div>
+        <div class="phase-dot phase-dot--completed"></div>
+        <div class="phase-body">
+          <header class="phase-header">
+            <span class="phase-num">Phase 15</span>
+            <span class="phase-badge badge--completed">✅ Completed</span>
+            <div class="phase-tags"><span class="tag tag--backend">Backend</span><span class="tag tag--frontend">Frontend</span></div>
+          </header>
+          <h2 class="phase-title">Photo &amp; Document Uploads (S3)</h2>
+          <time class="phase-date">February 27, 2026</time>
+          <p class="phase-summary">Implemented S3-compatible file uploads via presigned PUT URLs. Backend persists file metadata in an <code>Upload</code> model. Frontend gains a reusable <code>PhotoGallery</code> component with drag-and-drop, upload progress, lightbox, and per-file delete.</p>
+          <div class="phase-tech"><span class="tech">S3</span><span class="tech">Presigned URLs</span><span class="tech">File Uploads</span></div>
+          <a class="phase-link" href="../../changelog/phases/phase-15.md">Full details →</a>
+        </div>
+      </article>
+
+      <!-- ─── PHASE 16 ─── -->
+      <article class="phase-card" data-status="completed" data-tags="frontend">
+        <div class="phase-connector"></div>
+        <div class="phase-dot phase-dot--completed"></div>
+        <div class="phase-body">
+          <header class="phase-header">
+            <span class="phase-num">Phase 16</span>
+            <span class="phase-badge badge--completed">✅ Completed</span>
+            <div class="phase-tags"><span class="tag tag--frontend">Frontend</span></div>
+          </header>
+          <h2 class="phase-title">Responsive UI Polish &amp; Dark Mode</h2>
+          <time class="phase-date">February 28, 2026</time>
+          <p class="phase-summary">Implemented a comprehensive dark mode system using CSS custom properties, audited and fixed all responsive breakpoints, and added skeleton loading states with micro-animations to improve perceived performance.</p>
+          <div class="phase-tech"><span class="tech">CSS Variables</span><span class="tech">Dark Mode</span><span class="tech">Responsive</span><span class="tech">Animations</span></div>
+          <a class="phase-link" href="../../changelog/phases/phase-16.md">Full details →</a>
+        </div>
+      </article>
+
+      <!-- ─── PHASE 17 ─── -->
+      <article class="phase-card" data-status="completed" data-tags="devops">
+        <div class="phase-connector"></div>
+        <div class="phase-dot phase-dot--completed"></div>
+        <div class="phase-body">
+          <header class="phase-header">
+            <span class="phase-num">Phase 17</span>
+            <span class="phase-badge badge--completed">✅ Completed</span>
+            <div class="phase-tags"><span class="tag tag--devops">DevOps</span></div>
+          </header>
+          <h2 class="phase-title">Docker Deployment Configuration</h2>
+          <time class="phase-date">March 1, 2026</time>
+          <p class="phase-summary">Created multi-stage Dockerfiles for both backend (Node/Alpine) and frontend (nginx/Alpine). Wrote a <code>docker-compose.yml</code> for production and a dev override with hot-reload mounts. Added health checks and security headers.</p>
+          <div class="phase-tech"><span class="tech">Docker</span><span class="tech">nginx</span><span class="tech">docker-compose</span><span class="tech">Alpine</span></div>
+          <a class="phase-link" href="../../changelog/phases/phase-17.md">Full details →</a>
+        </div>
+      </article>
+
+      <!-- ─── PHASE 18 ─── -->
+      <article class="phase-card" data-status="completed" data-tags="devops">
+        <div class="phase-connector"></div>
+        <div class="phase-dot phase-dot--completed"></div>
+        <div class="phase-body">
+          <header class="phase-header">
+            <span class="phase-num">Phase 18</span>
+            <span class="phase-badge badge--completed">✅ Completed</span>
+            <div class="phase-tags"><span class="tag tag--devops">DevOps</span></div>
+          </header>
+          <h2 class="phase-title">CI/CD with GitHub Actions</h2>
+          <time class="phase-date">March 2, 2026</time>
+          <p class="phase-summary">Set up GitHub Actions workflows for automated linting, testing, Docker image builds, and deployment. Separate jobs for backend and frontend run in parallel, with a final deploy job gated on both passing.</p>
+          <div class="phase-tech"><span class="tech">GitHub Actions</span><span class="tech">CI/CD</span><span class="tech">Docker Hub</span></div>
+          <a class="phase-link" href="../../changelog/phases/phase-18.md">Full details →</a>
+        </div>
+      </article>
+
+      <!-- ─── PHASE 19 ─── -->
+      <article class="phase-card" data-status="completed" data-tags="backend">
+        <div class="phase-connector"></div>
+        <div class="phase-dot phase-dot--completed"></div>
+        <div class="phase-body">
+          <header class="phase-header">
+            <span class="phase-num">Phase 19</span>
+            <span class="phase-badge badge--completed">✅ Completed</span>
+            <div class="phase-tags"><span class="tag tag--backend">Backend</span></div>
+          </header>
+          <h2 class="phase-title">Backend Unit &amp; Integration Testing</h2>
+          <time class="phase-date">March 3, 2026</time>
+          <p class="phase-summary">Added comprehensive backend test coverage using Vitest and Supertest. Unit tests for controllers and services, integration tests against a test PostgreSQL database, and a coverage report integrated into the CI pipeline.</p>
+          <div class="phase-tech"><span class="tech">Vitest</span><span class="tech">Supertest</span><span class="tech">Testing</span><span class="tech">Coverage</span></div>
+          <a class="phase-link" href="../../changelog/phases/phase-19.md">Full details →</a>
+        </div>
+      </article>
+
+      <!-- ─── PHASE 20 ─── -->
+      <article class="phase-card" data-status="completed" data-tags="frontend">
+        <div class="phase-connector"></div>
+        <div class="phase-dot phase-dot--completed"></div>
+        <div class="phase-body">
+          <header class="phase-header">
+            <span class="phase-num">Phase 20</span>
+            <span class="phase-badge badge--completed">✅ Completed</span>
+            <div class="phase-tags"><span class="tag tag--frontend">Frontend</span></div>
+          </header>
+          <h2 class="phase-title">Frontend: Component &amp; End-to-End Testing</h2>
+          <time class="phase-date">March 4, 2026</time>
+          <p class="phase-summary">Added Vitest component tests for key UI components and Playwright end-to-end tests covering the authentication flow, vehicle management, and event detail pages. Tests run in CI on every push.</p>
+          <div class="phase-tech"><span class="tech">Vitest</span><span class="tech">Playwright</span><span class="tech">E2E Testing</span></div>
+          <a class="phase-link" href="../../changelog/phases/phase-20.md">Full details →</a>
+        </div>
+      </article>
+
+      <!-- ─── PHASE 21 ─── -->
+      <article class="phase-card" data-status="completed" data-tags="devops">
+        <div class="phase-connector"></div>
+        <div class="phase-dot phase-dot--completed"></div>
+        <div class="phase-body">
+          <header class="phase-header">
+            <span class="phase-num">Phase 21</span>
+            <span class="phase-badge badge--completed">✅ Completed</span>
+            <div class="phase-tags"><span class="tag tag--devops">DevOps</span></div>
+          </header>
+          <h2 class="phase-title">Monitoring &amp; Observability</h2>
+          <time class="phase-date">March 5, 2026</time>
+          <p class="phase-summary">Integrated Prometheus metrics endpoint, Grafana dashboard configuration, and Pino structured JSON logging throughout the backend. Added request-duration histograms, error counters, and a Docker Compose monitoring stack.</p>
+          <div class="phase-tech"><span class="tech">Prometheus</span><span class="tech">Grafana</span><span class="tech">Pino</span><span class="tech">Observability</span></div>
+          <a class="phase-link" href="../../changelog/phases/phase-21.md">Full details →</a>
+        </div>
+      </article>
+
+      <!-- ─── PHASE 22 ─── -->
+      <article class="phase-card" data-status="completed" data-tags="backend frontend">
+        <div class="phase-connector"></div>
+        <div class="phase-dot phase-dot--completed"></div>
+        <div class="phase-body">
+          <header class="phase-header">
+            <span class="phase-num">Phase 22</span>
+            <span class="phase-badge badge--completed">✅ Completed</span>
+            <div class="phase-tags"><span class="tag tag--backend">Backend</span><span class="tag tag--frontend">Frontend</span></div>
+          </header>
+          <h2 class="phase-title">Real-Time Notifications (WebSockets)</h2>
+          <time class="phase-date">March 6, 2026</time>
+          <p class="phase-summary">Integrated Socket.IO for real-time push notifications. Backend emits events for lap time records, part low-stock alerts, and new setup sheets. Frontend displays a live notification bell with a dismissable dropdown panel.</p>
+          <div class="phase-tech"><span class="tech">Socket.IO</span><span class="tech">WebSockets</span><span class="tech">Real-Time</span></div>
+          <a class="phase-link" href="../../changelog/phases/phase-22.md">Full details →</a>
+        </div>
+      </article>
+
+      <!-- ─── PHASE 23 ─── -->
+      <article class="phase-card" data-status="completed" data-tags="mobile">
+        <div class="phase-connector"></div>
+        <div class="phase-dot phase-dot--completed"></div>
+        <div class="phase-body">
+          <header class="phase-header">
+            <span class="phase-num">Phase 23</span>
+            <span class="phase-badge badge--completed">✅ Completed</span>
+            <div class="phase-tags"><span class="tag tag--mobile">Mobile</span></div>
+          </header>
+          <h2 class="phase-title">Mobile App: React Native Scaffolding &amp; Auth</h2>
+          <time class="phase-date">March 7, 2026</time>
+          <p class="phase-summary">Scaffolded the Expo React Native mobile app with TypeScript, React Navigation, and a shared axios API client. Implemented Login and Register screens with JWT storage via <code>expo-secure-store</code> and a persistent auth context.</p>
+          <div class="phase-tech"><span class="tech">React Native</span><span class="tech">Expo</span><span class="tech">React Navigation</span><span class="tech">JWT</span></div>
+          <a class="phase-link" href="../../changelog/phases/phase-23.md">Full details →</a>
+        </div>
+      </article>
+
+      <!-- ─── PHASE 24 ─── -->
+      <article class="phase-card" data-status="completed" data-tags="mobile">
+        <div class="phase-connector"></div>
+        <div class="phase-dot phase-dot--completed"></div>
+        <div class="phase-body">
+          <header class="phase-header">
+            <span class="phase-num">Phase 24</span>
+            <span class="phase-badge badge--completed">✅ Completed</span>
+            <div class="phase-tags"><span class="tag tag--mobile">Mobile</span></div>
+          </header>
+          <h2 class="phase-title">Mobile App: Core Screens (Vehicles, Events, Lap Times)</h2>
+          <time class="phase-date">March 8, 2026</time>
+          <p class="phase-summary">Built the core mobile screens: Vehicle List and Detail, Event List and Detail with weather widget, and a Lap Times recorder with a stopwatch UI. All screens are wired via a bottom-tab + stack navigator.</p>
+          <div class="phase-tech"><span class="tech">React Native</span><span class="tech">Expo</span><span class="tech">Tab Navigator</span></div>
+          <a class="phase-link" href="../../changelog/phases/phase-24.md">Full details →</a>
+        </div>
+      </article>
+
+      <!-- ─── PHASE 25 ─── -->
+      <article class="phase-card" data-status="completed" data-tags="backend frontend ai">
+        <div class="phase-connector"></div>
+        <div class="phase-dot phase-dot--completed"></div>
+        <div class="phase-body">
+          <header class="phase-header">
+            <span class="phase-num">Phase 25</span>
+            <span class="phase-badge badge--completed">✅ Completed</span>
+            <div class="phase-tags"><span class="tag tag--backend">Backend</span><span class="tag tag--frontend">Frontend</span><span class="tag tag--ai">AI / ML</span></div>
+          </header>
+          <h2 class="phase-title">Advanced Analytics: Telemetry Data Ingestion &amp; Visualization</h2>
+          <time class="phase-date">March 9, 2026</time>
+          <p class="phase-summary">Delivered end-to-end telemetry support. A <code>Telemetry</code> Prisma model stores high-frequency data-logger samples (speed, RPM, throttle, brake, gear, GPS). Frontend renders synchronized multi-channel Recharts line charts, a speed-coloured GPS SVG track map, and a raw samples table.</p>
+          <div class="phase-tech"><span class="tech">Telemetry</span><span class="tech">Recharts</span><span class="tech">SVG</span><span class="tech">GPS</span></div>
+          <a class="phase-link" href="../../changelog/phases/phase-25.md">Full details →</a>
+        </div>
+      </article>
+
+      <!-- ─── PHASE 26 ─── -->
+      <article class="phase-card" data-status="completed" data-tags="backend frontend ai">
+        <div class="phase-connector"></div>
+        <div class="phase-dot phase-dot--completed"></div>
+        <div class="phase-body">
+          <header class="phase-header">
+            <span class="phase-num">Phase 26</span>
+            <span class="phase-badge badge--completed">✅ Completed</span>
+            <div class="phase-tags"><span class="tag tag--backend">Backend</span><span class="tag tag--frontend">Frontend</span><span class="tag tag--ai">AI / ML</span></div>
+          </header>
+          <h2 class="phase-title">AI-Powered Lap Time Coaching &amp; Debrief</h2>
+          <time class="phase-date">March 10, 2026</time>
+          <p class="phase-summary">Integrated an OpenAI-compatible LLM to analyse lap telemetry and generate natural-language coaching reports. Drivers can continue the conversation with follow-up questions; debrief history is persisted per lap in a <code>Debrief</code> model. Degrades gracefully without an API key.</p>
+          <div class="phase-tech"><span class="tech">OpenAI</span><span class="tech">LLM</span><span class="tech">AI Coaching</span><span class="tech">Chat</span></div>
+          <a class="phase-link" href="../../changelog/phases/phase-26.md">Full details →</a>
+        </div>
+      </article>
+
+      <!-- ─── PHASE 27 ─── -->
+      <article class="phase-card" data-status="completed" data-tags="frontend backend">
+        <div class="phase-connector"></div>
+        <div class="phase-dot phase-dot--completed"></div>
+        <div class="phase-body">
+          <header class="phase-header">
+            <span class="phase-num">Phase 27</span>
+            <span class="phase-badge badge--completed">✅ Completed</span>
+            <div class="phase-tags"><span class="tag tag--frontend">Frontend</span><span class="tag tag--backend">Backend</span></div>
+          </header>
+          <h2 class="phase-title">Vehicle Management CRUD Enhancements</h2>
+          <time class="phase-date">March 14, 2026</time>
+          <p class="phase-summary">Fixed a critical data-handling bug in vehicle management and significantly enhanced the UX for all CRUD operations. Completed the vehicle management loop with a robust, user-friendly interface for managing the fleet.</p>
+          <div class="phase-tech"><span class="tech">Bug Fix</span><span class="tech">UX</span><span class="tech">CRUD</span></div>
+          <a class="phase-link" href="../../changelog/phases/phase-27.md">Full details →</a>
+        </div>
+      </article>
+
+      <!-- ─── PHASE 28 ─── -->
+      <article class="phase-card" data-status="wip" data-tags="backend ai">
+        <div class="phase-connector"></div>
+        <div class="phase-dot phase-dot--wip"></div>
+        <div class="phase-body">
+          <header class="phase-header">
+            <span class="phase-num">Phase 28</span>
+            <span class="phase-badge badge--wip">🚧 Not Started</span>
+            <div class="phase-tags"><span class="tag tag--backend">Backend</span><span class="tag tag--ai">AI / ML</span></div>
+          </header>
+          <h2 class="phase-title">Predictive Performance Modeling</h2>
+          <time class="phase-date">March 14, 2026</time>
+          <p class="phase-summary">Will introduce a predictive modeling capability allowing teams to forecast lap times and understand the potential impact of setup changes. A backend regression model will move the platform beyond historical analysis into forward-looking insights.</p>
+          <div class="phase-tech"><span class="tech">Regression Model</span><span class="tech">Prediction</span><span class="tech">ML</span></div>
+          <a class="phase-link" href="../../changelog/phases/phase-28.md">Full details →</a>
+        </div>
+      </article>
+
+      <!-- ─── PHASE 29 ─── -->
+      <article class="phase-card" data-status="completed" data-tags="backend frontend">
+        <div class="phase-connector"></div>
+        <div class="phase-dot phase-dot--completed"></div>
+        <div class="phase-body">
+          <header class="phase-header">
+            <span class="phase-num">Phase 29</span>
+            <span class="phase-badge badge--completed">✅ Completed</span>
+            <div class="phase-tags"><span class="tag tag--backend">Backend</span><span class="tag tag--frontend">Frontend</span></div>
+          </header>
+          <h2 class="phase-title">Multi-Tenant Team Management &amp; Invitations</h2>
+          <time class="phase-date">March 18, 2026</time>
+          <p class="phase-summary">Re-architected the platform for multi-tenancy. Introduced a <code>Team</code> model and extended all primary data models with <code>teamId</code>. Added team creation, roster display, and invite-by-email endpoints and UI — laying the groundwork for a SaaS-ready architecture.</p>
+          <div class="phase-tech"><span class="tech">Multi-Tenancy</span><span class="tech">Teams</span><span class="tech">Invitations</span><span class="tech">SaaS</span></div>
+          <a class="phase-link" href="../../changelog/phases/phase-29.md">Full details →</a>
+        </div>
+      </article>
+
+      <!-- ─── PHASE 30 ─── -->
+      <article class="phase-card" data-status="planned" data-tags="backend frontend">
+        <div class="phase-connector"></div>
+        <div class="phase-dot phase-dot--planned"></div>
+        <div class="phase-body">
+          <header class="phase-header">
+            <span class="phase-num">Phase 30</span>
+            <span class="phase-badge badge--planned">📋 Planned</span>
+            <div class="phase-tags"><span class="tag tag--backend">Backend</span><span class="tag tag--frontend">Frontend</span></div>
+          </header>
+          <h2 class="phase-title">Event Race-Day Live Dashboard (Real-Time)</h2>
+          <time class="phase-date">March 14, 2026</time>
+          <p class="phase-summary">Will build upon the existing WebSocket infrastructure to create a real-time race-day dashboard. Teams will see live lap times, leaderboard positions, and session status — a central information hub for pit-side and remote crew.</p>
+          <div class="phase-tech"><span class="tech">WebSockets</span><span class="tech">Live Dashboard</span><span class="tech">Real-Time</span></div>
+          <a class="phase-link" href="../../changelog/phases/phase-30.md">Full details →</a>
+        </div>
+      </article>
+
+      <!-- ─── PHASE 31 ─── -->
+      <article class="phase-card" data-status="planned" data-tags="mobile">
+        <div class="phase-connector"></div>
+        <div class="phase-dot phase-dot--planned"></div>
+        <div class="phase-body">
+          <header class="phase-header">
+            <span class="phase-num">Phase 31</span>
+            <span class="phase-badge badge--planned">📋 Planned</span>
+            <div class="phase-tags"><span class="tag tag--mobile">Mobile</span></div>
+          </header>
+          <h2 class="phase-title">Offline-First Mobile App with Background Sync</h2>
+          <time class="phase-date">March 14, 2026</time>
+          <p class="phase-summary">Will enhance the React Native app with offline-first capabilities using a local database and background sync. Users can record lap times and setup changes without connectivity; data auto-syncs when the connection is restored.</p>
+          <div class="phase-tech"><span class="tech">Offline-First</span><span class="tech">Background Sync</span><span class="tech">SQLite</span></div>
+          <a class="phase-link" href="../../changelog/phases/phase-31.md">Full details →</a>
+        </div>
+      </article>
+
+    </div><!-- /timeline -->
+  </main>
+
+  <!-- ═══════════════════════════════════════════════════════ FOOTER -->
+  <footer class="site-footer">
+    <p>
+      Built autonomously by <strong>Manus</strong> &mdash; 
+      <a href="https://github.com/navigatingnc/Motorsports" target="_blank" rel="noopener">navigatingnc/Motorsports</a>
+      &nbsp;|&nbsp; Last updated: <strong>March 18, 2026</strong>
+    </p>
+  </footer>
+
+  <script src="timeline.js"></script>
+</body>
+</html>
