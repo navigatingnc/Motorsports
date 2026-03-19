@@ -37,7 +37,7 @@
 | 28 | [Phase 28: Predictive Performance Modeling](changelog/phases/phase-28.md) | March 14, 2026 | 🚧 Not Started |
 | 29 | [Phase 29: Multi-Tenant Team Management & Invitations](changelog/phases/phase-29.md) | March 18, 2026 | ✅ Completed |
 | 30 | [Phase 30: Event Race-Day Live Dashboard (Real-Time)](changelog/phases/phase-30.md) | March 19, 2026 | ✅ Completed |
-| 31 | [Phase 31: Offline-First Mobile App with Background Sync](changelog/phases/phase-31.md) | March 14, 2026 | 🚧 Not Started |
+| 31 | [Phase 31: Offline-First Mobile App with Background Sync](changelog/phases/phase-31.md) | March 19, 2026 | ✅ Completed |
 
 ---
 
@@ -82,9 +82,9 @@ This phase built a real-time race day dashboard on top of the existing Socket.IO
 ---
 
 ### Phase 31: Offline-First Mobile App with Background Sync
-**Date:** March 14, 2026 &nbsp;|&nbsp; **Status:** 🚧 Not Started
+**Date:** March 19, 2026 &nbsp;|&nbsp; **Status:** ✅ Completed
 
-This phase will enhance the React Native mobile app with offline-first capabilities, ensuring that it remains functional even in disconnected track environments. By integrating a local database and a background synchronization mechanism, users will be able to continue recording data, such as lap times and setup changes, without an active internet connection. This data will be stored locally and automatically synced with the server once connectivity is restored, preventing data loss and improving the app's reliability.
+This phase enhanced the mobile app with offline-first capabilities using `expo-secure-store` as a local queue. A new `sync.service.ts` provides `queueLapTime` and `syncQueuedData`. `RecordLapTimeScreen` now queues lap times when offline, and `App.tsx` triggers background sync on start and every 60 seconds.
 
 [Full details →](changelog/phases/phase-31.md)
 
