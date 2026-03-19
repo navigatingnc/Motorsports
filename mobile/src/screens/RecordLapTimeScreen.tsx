@@ -119,15 +119,18 @@ const RecordLapTimeScreen: React.FC<Props> = () => {
     // Submit to backend if event and vehicle are selected
     if (selectedEvent && selectedVehicle) {
       setSaving(true);
+      const dto = {
+        lapNumber: newLapNumber,
+        timeMs: currentLapMs,
+        eventId: selectedEvent.id,
+        vehicleId: selectedVehicle.id,
+      };
       try {
-        await recordLapTime({
-          lapNumber: newLapNumber,
-          timeMs: currentLapMs,
-          eventId: selectedEvent.id,
-          vehicleId: selectedVehicle.id,
-        });
+        await recordLapTime(dto);
       } catch {
-        // Non-fatal: lap is still recorded locally
+        // Non-fatal: lap is still recorded locally, queue it for offline sync
+        const { queueLapTime } = require('../services/sync.service');
+        await queueLapTime(dto);
       } finally {
         setSaving(false);
       }
@@ -149,20 +152,23 @@ const RecordLapTimeScreen: React.FC<Props> = () => {
 
     if (selectedEvent && selectedVehicle) {
       setSaving(true);
+      const dto = {
+        lapNumber: finalLapNumber,
+        timeMs: finalLapMs,
+        eventId: selectedEvent.id,
+        vehicleId: selectedVehicle.id,
+      };
       try {
-        await recordLapTime({
-          lapNumber: finalLapNumber,
-          timeMs: finalLapMs,
-          eventId: selectedEvent.id,
-          vehicleId: selectedVehicle.id,
-        });
+        await recordLapTime(dto);
         Alert.alert(
           'Session Complete',
           `${finalLapNumber} lap${finalLapNumber !== 1 ? 's' : ''} recorded for ${selectedVehicle.make} ${selectedVehicle.model}.`,
           [{ text: 'OK' }]
         );
       } catch {
-        Alert.alert('Save Failed', 'Lap times were recorded locally but could not be saved to the server.', [{ text: 'OK' }]);
+        const { queueLapTime } = require('../services/sync.service');
+        await queueLapTime(dto);
+        Alert.alert('Saved Offline', 'Lap times were queued locally and will sync when online.', [{ text: 'OK' }]);
       } finally {
         setSaving(false);
       }
