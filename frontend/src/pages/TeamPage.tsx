@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getTeam, inviteUser, Team } from '../services/teamService';
+import { getTeam, inviteUser, type Team } from '../services/teamService';
 
 const TeamPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();

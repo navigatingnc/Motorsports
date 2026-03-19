@@ -5,7 +5,7 @@
  * POST /api/predict/laptime endpoint and displays the predicted lap time in a
  * result card.
  */
-import { useState, FormEvent } from 'react';
+import { useState, type FormEvent } from 'react';
 import { predictLapTime, type PredictedLapTime } from '../services/predictService';
 import '../prediction.css';
 
