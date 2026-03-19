@@ -36,7 +36,7 @@
 | 27 | [Phase 27: Vehicle Management CRUD Enhancements](changelog/phases/phase-27.md) | March 14, 2026 | ✅ Completed |
 | 28 | [Phase 28: Predictive Performance Modeling](changelog/phases/phase-28.md) | March 14, 2026 | 🚧 Not Started |
 | 29 | [Phase 29: Multi-Tenant Team Management & Invitations](changelog/phases/phase-29.md) | March 18, 2026 | ✅ Completed |
-| 30 | [Phase 30: Event Race-Day Live Dashboard (Real-Time)](changelog/phases/phase-30.md) | March 14, 2026 | 🚧 Not Started |
+| 30 | [Phase 30: Event Race-Day Live Dashboard (Real-Time)](changelog/phases/phase-30.md) | March 19, 2026 | ✅ Completed |
 | 31 | [Phase 31: Offline-First Mobile App with Background Sync](changelog/phases/phase-31.md) | March 14, 2026 | 🚧 Not Started |
 
 ---
@@ -45,10 +45,19 @@
 
 > The 5 most recent phases are summarised below. For full history, browse [`changelog/phases/`](changelog/phases/).
 
+### Phase 27: Vehicle Management CRUD Enhancements
+**Date:** March 14, 2026 &nbsp;|&nbsp; **Status:** ✅ Completed
+
+This phase addressed a critical bug in the vehicle management feature and significantly enhanced the UX for all CRUD operations. The `vehicleService.ts` data-unwrapping bug was fixed, and toast notifications, per-card loading states, and stateful navigation were added to `VehicleListPage.tsx`, `VehicleDetailPage.tsx`, and `VehicleFormPage.tsx`.
+
+[Full details →](changelog/phases/phase-27.md)
+
+---
+
 ### Phase 28: Predictive Performance Modeling
 **Date:** March 14, 2026 &nbsp;|&nbsp; **Status:** 🚧 Not Started
 
-This phase will introduce a predictive modeling capability to the platform, allowing teams to forecast lap times and understand the potential impact of setup changes. By building a backend service that leverages a regression model, the system will be able to move beyond historical analysis and provide forward-looking insights. This will empower teams to make more informed, data-driven decisions on vehicle setup and race strategy.
+This phase will introduce a predictive modeling capability to the platform, allowing teams to forecast lap times and understand the potential impact of setup changes. A backend regression service will provide forward-looking insights to empower data-driven decisions on vehicle setup and race strategy.
 
 [Full details →](changelog/phases/phase-28.md)
 
@@ -64,9 +73,9 @@ This phase re-architected the platform to support multi-tenancy by introducing a
 ---
 
 ### Phase 30: Event Race-Day Live Dashboard (Real-Time)
-**Date:** March 14, 2026 &nbsp;|&nbsp; **Status:** 🚧 Not Started
+**Date:** March 19, 2026 &nbsp;|&nbsp; **Status:** ✅ Completed
 
-This phase will build upon the existing WebSocket infrastructure to create a real-time, live dashboard for race day. This will provide teams with immediate, synchronized information, such as lap times, leaderboard positions, and session status. The goal is to create a central information hub that can be used by the entire team, both in the pits and remotely, to make critical in-session decisions.
+This phase built a real-time race day dashboard on top of the existing Socket.IO WebSocket infrastructure. `RaceDayPage.tsx` connects to the backend via Socket.IO, subscribes to live `leaderboardUpdate` events, and renders a live driver leaderboard. A full-screen "pit wall" mode toggle is included for large display use in the pit lane.
 
 [Full details →](changelog/phases/phase-30.md)
 
