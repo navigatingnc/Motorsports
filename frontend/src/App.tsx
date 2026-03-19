@@ -21,7 +21,6 @@ import StatusPage from './pages/StatusPage';
 import TelemetryDetailPage from './pages/TelemetryDetailPage';
 import DebriefPage from './pages/DebriefPage';
 import PredictionEngine from './pages/PredictionEngine';
-import TeamPage from './pages/TeamPage';
 import './App.css';
 import './status.css';
 import './dark-mode.css';
