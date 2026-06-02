@@ -28,13 +28,13 @@
     "@vitest/ui": "^4.0.18",
     "jsdom": "^28.1.0",
     "typescript": "~5.9.3",
-    "vite": "^7.3.1",
-    "vitest": "^4.0.18"
+    "vite": "^7.3.2",
+    "vitest": "^4.1.0"
   },
   "dependencies": {
     "@sentry/browser": "^10.42.0",
     "@sentry/react": "^10.42.0",
-    "axios": "^1.13.5",
+    "axios": "^1.16.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-router-dom": "^7.13.0",
